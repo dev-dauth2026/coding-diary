@@ -1,0 +1,73 @@
+/* public/css/navbar.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+nav .navbar-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+nav .navbar-menu .nav-links{
+    display: flex;
+    flex-direction: row;
+}
+nav .navbar-menu .nav-links li{
+    margin-right: 20px;
+}
+nav .navbar-menu .nav-links li a{
+    color: white;
+}
+
+nav .navbar-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-brand {
+    margin: 0;
+}
+
+.logotitle {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+
+
+.nav-links li a:hover {
+    text-decoration: underline;
+}
+
+.navbar-buttons {
+    margin-left: auto;
+}
+
+.signup, .login {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.signup:hover, .login:hover {
+    background-color: #218838;
+}
