@@ -111,4 +111,8 @@ a{
     text-align: center;
     background-color: black;
 }
+button a{
+    text-decoration: none;
+    color: white;
+}
 

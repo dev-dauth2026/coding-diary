@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/signup.css') }}" rel="stylesheet">
     <title>Coding Diary | Home</title>
 </head>
 <body>
@@ -19,10 +20,18 @@
                 <li><a href="#">Blogs</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
+                @auth
+                 <li><a href="/dashboard">My Dashboard</a></li>
+                @endauth
             </ul>
             <div class="navbar-buttons">
-                <button class="signup">Sign Up</button>
-                <button class="login">Login</button>
+                @auth
+                
+                <button class="logout"><a href="/logout" >Logout</a></button>
+                @else
+                <button class="signup"><a href="{{route('account.register')}}" >Sign Up</a></button>
+                <button class="login"><a href="{{route('account.login')}}" >Login</a></button>
+                @endauth
             </div>
         </div>
     </nav>
