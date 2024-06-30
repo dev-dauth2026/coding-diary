@@ -68,7 +68,21 @@
                         <div class="col-12 col-md-6 col-lg-3 ">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h5 class="card-title">Total Blogs</h5>
+                                    <h5 class="card-title">Total Blogs : {{$totalPosts}} </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Users: {{$totalUsers}} </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Admin Users: {{$totalAdminUsers}} </h5>
                                 </div>
                             </div>
                         </div>
@@ -76,13 +90,6 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">Messages</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Users</h5>
                                 </div>
                             </div>
                         </div>
