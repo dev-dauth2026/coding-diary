@@ -10,4 +10,9 @@ class DashboardController extends Controller
     public function dashboard(){
         return view('admin.dashboard');
     }
+
+    public function createBlog(){
+        return view('admin.createBlog'); 
+    }
+    
 }

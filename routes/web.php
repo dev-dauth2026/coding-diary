@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 Route::get('/', function () {
     return view('home');
 });
+
+//User Routes
 
 Route::group(['prefix'=>'account'],function(){
 
@@ -28,17 +31,24 @@ Route::group(['prefix'=>'account'],function(){
     });
 });
 
+
+// Admin Routes
+
 Route::group(['prefix'=>'admin'],function(){
     Route::group(['middleware'=>'admin.guest'],function(){
         Route::get('/',[AdminLoginController::class,'login'])->name('admin.login');
         Route::get('login',[AdminLoginController::class,'login'])->name('admin.login');
         Route::post('login',[AdminLoginController::class,'authenticate'])->name('admin.authenticate');
-
+       
     });
 
     Route::group(['middleware'=>'admin.auth'],function(){
         Route::get('dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
+        Route::get('createBlog',[AdminDashboardController::class,'createBlog'])->name('admin.createBlog');
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
+        Route::get('createBlog',[PostController::class,'createBlog'])->name('admin.createBlog');
+        Route::post('createBlog',[PostController::class,'processCreateBlog'])->name('admin.processCreateBlog');
+
 
     });
 });
