@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\admin\BlogsController;
 use App\Http\Controllers\admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -48,6 +49,9 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
         Route::get('createBlog',[PostController::class,'createBlog'])->name('admin.createBlog');
         Route::post('createBlog',[PostController::class,'processCreateBlog'])->name('admin.processCreateBlog');
+        Route::get('blogs',[BlogsController::class,'blogs'])->name('admin.blogs');
+        Route::get('editPost/{id}/edit',[PostController::class,'editPost'])->name('admin.editPost');
+        Route::post('updatePost/{id}/edit',[PostController::class,'updatePost'])->name('admin.updatePost');
 
 
     });

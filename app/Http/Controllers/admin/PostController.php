@@ -58,4 +58,37 @@ class PostController extends Controller
 
        
     }
+
+    public function editPost($id){
+        $post = Post::findOrFail($id);
+        return view('admin.editPost', compact('post'));
+    }
+
+    public function updatePost(Request $request,$id){
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|min:3',
+            'content' => 'required',
+            'tags' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('admin.editPost', $id)->withInput()->withErrors($validator);
+        }
+
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->tags = $request->tags;
+
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imagePath = $image->store('image/temp','public');
+            $post->image = $imagePath;
+        }
+
+        $post->save();
+
+        return redirect()->route('admin.dashboard')->with('postUpdated','The post has been successfully updated.');
+    }
 }

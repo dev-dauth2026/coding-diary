@@ -48,7 +48,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="allblogs">
+                            <a class="nav-link" href="{{route('admin.blogs')}}">
                                 All Blogs
                             </a>
                         </li>

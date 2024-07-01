@@ -27,7 +27,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.blogs')}}">
+                                <a class="nav-link" href="allblogs">
                                     All Blogs
                                 </a>
                             </li>
@@ -59,46 +59,39 @@
                             @endif
                         </div>
                     </div>
-                    <div class="row g-4 px-3">
-                        @if (Session::has('postCreated'))
-                        <p class="text-success bg-success-subtle p-2 rounded">{{Session::get('postCreated')}} </p>
-                        @endif
-
-                        <h2 class="my-4 text-capitalize">{{ Auth::guard('admin')->user()->role }} Dashboard</h2>
-                        <div class="col-12 col-md-6 col-lg-3 ">
-                            <div class="card h-100">
-                                <div class="card-body bg-primary-subtle">
-                                    <h5 class="card-title">Total Blogs : {{$totalPosts}} </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card h-100">
-                                <div class="card-body bg-success-subtle">
-                                    <h5 class="card-title">Users: {{$totalUsers}} </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card h-100">
-                                <div class="card-body bg-danger-subtle">
-                                    <h5 class="card-title">Admin Users: {{$totalAdminUsers}} </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 ">
-                            <div class="card h-100">
-                                <div class="card-body bg-secondary-subtle">
-                                    <h5 class="card-title">Messages</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card h-100">
-                                <div class="card-body bg-primary-subtle">
-                                    <h5 class="card-title ">Add New Blog</h5>
-                                </div>
-                            </div>
+                <div class="container mt-4 vh-80">
+                    <div class="row g-4 px-3 ">
+                            <h2>Blog List</h2>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Created</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if($allBlogs)
+                                    @foreach($allBlogs as $post)
+                                    <tr>
+                                        <td>{{$post->id}} </td>
+                                        <td>
+                                            <img src=" {{asset('storage/' . $post->image)}}" alt="{{$post->title}}" style="max-width: 100px;"/>
+                                           
+                                        </td>
+                                        <td>{{$post->title}} </td>
+                                        <td>{{$post->created_at}} </td>
+                                        <td>
+                                            <a href="{{ route('admin.editPost', $post->id) }} " class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <footer class="mt-auto py-3 bg-light">
