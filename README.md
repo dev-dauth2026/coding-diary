@@ -17,7 +17,8 @@ Coding Diary Admin Panel is a web application built using Laravel framework for 
 
 ### Prerequisites
 
-- PHP >= 8.1
+- PHP 8.3.2 
+-Laravel 11
 - Composer
 - Node.js and npm
 - MySQL or another database system
@@ -96,4 +97,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 © 2024 Coding Diary. All rights reserved.
 ```
 
-You can copy and paste this content into your `README.md` file and adjust any details as per your project's specific configurations and requirements before pushing it to GitHub.
