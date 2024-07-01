@@ -89,6 +89,18 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('admin.dashboard')->with('postUpdated','The post has been successfully updated.');
+        return redirect()->route('admin.blogs')->with('postUpdated','The post has been successfully updated.');
+    }
+
+    public function deletePost($id){
+        $post = Post::findOrFail($id);
+
+        if($post->image){
+            \Storage::disk('public')->delete($post->image);
+        }
+
+        $post->delete();
+
+        return redirect()->route('admin.blogs')->with('postDeleted','The post has been successfully deleted.');
     }
 }

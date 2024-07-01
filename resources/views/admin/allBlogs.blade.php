@@ -69,6 +69,7 @@
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Created</th>
+                                        <th>Updated</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -83,9 +84,17 @@
                                         </td>
                                         <td>{{$post->title}} </td>
                                         <td>{{$post->created_at}} </td>
-                                        <td>
-                                            <a href="{{ route('admin.editPost', $post->id) }} " class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        <td>{{$post->updated_at}} </td>
+                                        <td >
+                                            <div class="d-flex gap-2 h-100">
+                                                <a href="{{ route('admin.editPost', $post->id) }} " class="btn btn-sm btn-primary">Edit</a>
+                                                <form action="{{route('admin.deletePost', $post->id)}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the post?')">Delete</button>
+                                                </form>
+                                            </div>
+                                           
                                         </td>
                                     </tr>
                                     @endforeach

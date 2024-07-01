@@ -52,6 +52,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('blogs',[BlogsController::class,'blogs'])->name('admin.blogs');
         Route::get('editPost/{id}/edit',[PostController::class,'editPost'])->name('admin.editPost');
         Route::post('updatePost/{id}/edit',[PostController::class,'updatePost'])->name('admin.updatePost');
+        Route::delete('post/{id}',[PostController::class,'deletePost'])->name('admin.deletePost');
 
 
     });
