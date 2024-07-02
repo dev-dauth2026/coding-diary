@@ -22,6 +22,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::get('register', [LoginController::class, 'register'])->name('account.register');
         Route::post('register', [LoginController::class, 'processRegister'])->name('account.processRegister');
         Route::get('about', [LoginController::class, 'about'])->name('account.about');
+        Route::get('contact', [LoginController::class, 'contact'])->name('account.contact');
 
     });
 

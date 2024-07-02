@@ -26,14 +26,14 @@
                     <a class="nav-link text-dark" href="#">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="account/about">About</a>
+                    <a class="nav-link text-dark" href="{{route('account.about')}}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Contact</a>
+                    <a class="nav-link text-dark" href="{{route('account.contact')}}">Contact</a>
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/dashboard">My Dashboard</a>
+                    <a class="nav-link text-dark" href="#">My Dashboard</a>
                 </li>
                 @endauth
             </ul>
