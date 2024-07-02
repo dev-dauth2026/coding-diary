@@ -21,6 +21,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('login', [LoginController::class, 'authenticate'])->name('account.authenticate');
         Route::get('register', [LoginController::class, 'register'])->name('account.register');
         Route::post('register', [LoginController::class, 'processRegister'])->name('account.processRegister');
+        Route::get('about', [LoginController::class, 'about'])->name('account.about');
 
     });
 
