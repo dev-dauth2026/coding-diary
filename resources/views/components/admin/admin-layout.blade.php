@@ -13,31 +13,35 @@
             <div class="d-flex col-12 mx-0 ">
                 <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block navbar-dark bg-dark   vh-100 py-4 ">
                     <div class="position-sticky ">
-                        <a class="navbar-brand" href="#"><h2 class="logotitle">CodingDiary</h2></a>
-
+                        
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{route('admin.dashboard')}}">
+                                <a class="nav-link text-warning" href="dashboard"><h2 class="logotitle">CodingDiary </h2></a>
+                               
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-white active" href="{{route('admin.dashboard')}}">
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="account">
+                                <a class="nav-link text-white"  href="account">
                                     Account
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="blogs">
+                                <a class="nav-link text-white" href="blogs">
                                     All Blogs
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="createBlog">
+                                <a class="nav-link text-white" href="createBlog">
                                     Add Blog
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="settings">
+                                <a class="nav-link text-white" href="settings">
                                     Settings
                                 </a>
                             </li>
@@ -49,7 +53,7 @@
 
                         <div class="d-flex align-items-center align-center" id="">
                             @if (Auth::guard('admin')->check())
-                                    <a class="text-decoration-none text-white me-3" href="/admin/dashboard">My Dashboard ({{ Auth::guard('admin')->user()->name }})</a>
+                                    <a class="text-decoration-none text-white me-3" href="/admin/dashboard">Admin Dashboard ({{ Auth::guard('admin')->user()->name }})</a>
                             
                                     <form action="{{ route('admin.logout') }}" method="POST">
                                         @csrf
