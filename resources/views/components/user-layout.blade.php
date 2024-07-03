@@ -23,7 +23,7 @@
                     <a class="nav-link text-dark" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Blogs</a>
+                    <a class="nav-link text-dark" href="{{route('account.blog')}}">Blogs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{route('account.about')}}">About</a>
