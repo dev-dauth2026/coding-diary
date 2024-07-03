@@ -18,6 +18,14 @@
                     @endif
                 </div>
                 <div class="list-group col-3">
+                    <form action="" class="mb-5">
+                        @csrf
+                        <div class="form-group d-flex gap-2">
+                            <input class="form-control" placeholder="Search blog topics..." name="blogSearch" id="blogSearch"/>
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                        
+                    </form>
                     <h4 class="">Recent Blogs</h4>
                     @foreach ($allBlogs as $post)
 
