@@ -14,7 +14,7 @@
                             <small class="text-secondary">Published on:{{ $latestPost->created_at->format('M d, Y') }} </small>
                         </div>
                         
-                        <p>{{$latestPost->content}} </p>
+                        <p>{!! $latestPost->content !!} </p>
                     
                     @endif
                 </div>
@@ -30,13 +30,13 @@
                     <h4 class="">Recent Blogs</h4>
                     @foreach ($allBlogs as $post)
 
-                        <a href="" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ $post->title }}</h5>
+                       
+                            <div class="d-flex w-100 flex-column">
+                               <a href="#"><h5 class="mb-1">{{ $post->title }}</h5></a> 
                                 <small>{{ $post->created_at->format('M d, Y') }}</small>
+                                <small>By John</small>
                             </div>
-                            <small>By John</small>
-                        </a>
+                 
                     @endforeach
                 </div>
             </div>
