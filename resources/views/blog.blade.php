@@ -8,9 +8,10 @@
             <div class="d-flex justify-content-between">
                 <div class="latestBlog col-8">
                     @if ($latestPost)
-                        <div class="heading mb-5">
+                        <div class="heading mb-5 d-flex flex-column">
                             <h3>{{$latestPost->title}} </h3>
-                            <small class="text-secondary">Author: John Smith Created At:{{ $latestPost->created_at->format('M d, Y') }} </small>
+                            <small class="text-secondary">Author: John Smith  </small>
+                            <small class="text-secondary">Published on:{{ $latestPost->created_at->format('M d, Y') }} </small>
                         </div>
                         
                         <p>{{$latestPost->content}} </p>
