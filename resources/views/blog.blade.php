@@ -5,21 +5,32 @@
             <p>No blogs found.</p>
         @else
         <div class="row ">
-            <div class="d-flex justify-content-between">
-                <div class="latestBlog col-8">
+            <div class="d-flex justify-content-between flex-column  flex-md-row ">
+                <form action="" class="mb-5 d-block d-md-none">
+                    @csrf
+                    <div class="form-group d-flex gap-2">
+                        <input class="form-control" placeholder="Search blog topics..." name="blogSearch" id="blogSearch"/>
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                    
+                </form>
+                <div class="latestBlog col-12 col-sm-12 col-md-8 col-lg-9">
                     @if ($latestPost)
                         <div class="heading mb-5 d-flex flex-column">
                             <h3>{{$latestPost->title}} </h3>
                             <small class="text-secondary">Author: John Smith  </small>
                             <small class="text-secondary">Published on:{{ $latestPost->created_at->format('M d, Y') }} </small>
                         </div>
-                        
+                        <div class="d-flex justify-content-center align-items-center" >
+                            <img src="{{ asset('storage/' . $latestPost->image) }}" alt="{{ $latestPost->title }}" class="img-fluid" style="max-height: 600px;">
+                        </div>
+                                                
                         <p>{!! $latestPost->content !!} </p>
                     
                     @endif
                 </div>
-                <div class="list-group col-3">
-                    <form action="" class="mb-5">
+                <div class="list-group col-12 col-sm-12 col-md-3 col-lg-3">
+                    <form action="" class="mb-5 d-sm-none">
                         @csrf
                         <div class="form-group d-flex gap-2">
                             <input class="form-control" placeholder="Search blog topics..." name="blogSearch" id="blogSearch"/>
