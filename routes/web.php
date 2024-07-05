@@ -32,6 +32,7 @@ Route::group(['prefix'=>'account'],function(){
     Route::group(['middleware'=>'auth'], function(){
         Route::post('logout', [LoginController::class, 'logout'])->name('account.logout');
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('account.dashboard');
+        Route::get('account', [DashboardController::class, 'account'])->name('account.account');
                 
     });
 });

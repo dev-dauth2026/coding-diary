@@ -2,7 +2,7 @@
     <h1 class="my-4 text-center">Welcome to Your Dashboard, {{ Auth::user()->name }}!</h1>
     <div class="row">
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card shadow-sm border-0">
+            <div class="card dashboardCard shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="icon mb-3">
                         <i class="bi bi-person-circle display-4 text-primary"></i>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card shadow-sm border-0">
+            <div class="card dashboardCard shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="icon mb-3">
                         <i class="bi bi-heart-fill display-4 text-danger"></i>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card shadow-sm border-0">
+            <div class="card dashboardCard shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="icon mb-3">
                         <i class="bi bi-bookmark-fill display-4 text-warning"></i>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card shadow-sm border-0">
+            <div class="card  dashboardCard shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="icon mb-3">
                         <i class="bi bi-eye-fill display-4 text-success"></i>

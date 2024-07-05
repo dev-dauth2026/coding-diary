@@ -42,7 +42,7 @@
                             <a href="{{route('account.dashboard')}}" class=" text-decoration-none text-black dropdown-item">Dashboard</a>
                         </li>  
                         <li class="nav-item">
-                            <a href="" class=" text-decoration-none text-black dropdown-item">My Account</a>
+                            <a href="{{route('account.account')}}" class=" text-decoration-none text-black dropdown-item">My Account</a>
                         </li> 
                         <li class="nav-item">
                             <a href="" class="dropdown-item text-decoration-none text-black">My Favorite</a>
