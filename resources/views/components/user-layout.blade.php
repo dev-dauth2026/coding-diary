@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css">
+
     <title>Coding Diary | Home</title>
 </head>
 
@@ -32,16 +35,41 @@
                     <a class="nav-link text-dark" href="{{route('account.contact')}}">Contact</a>
                 </li>
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">My Dashboard</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello, {{Auth::user()->name}} </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow bsb-zoomIn bg-white" aria-labelledby="accountDropdown"> 
+                        <li class="nav-item">
+                            <a href="{{route('account.dashboard')}}" class=" text-decoration-none text-black dropdown-item">Dashboard</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a href="" class=" text-decoration-none text-black dropdown-item">My Account</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="" class="dropdown-item text-decoration-none text-black">My Favorite</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a href="" class="dropdown-item text-decoration-none text-black">Saved</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a href="" class="dropdown-item text-decoration-none text-black">Watch List</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a href="" class="dropdown-item text-decoration-none text-black">Settings</a>
+                        </li>  
+                        <li>
+                            <form action="{{route('account.logout')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item" href="">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
+                
                 @endauth
             </ul>
             <div class="d-flex">
                 @auth
-                <button class="btn btn-danger ms-2">
-                    <a href="/logout" class="text-decoration-none text-white">Logout</a>
-                </button>
+                
                 @else
                 <button class="btn btn-primary ms-2">
                     <a href="{{route('account.register')}}" class="text-decoration-none text-white">Sign Up</a>

@@ -16,16 +16,16 @@ Route::get('/', function () {
 
 Route::group(['prefix'=>'account'],function(){
 
+    Route::get('about', [LoginController::class, 'about'])->name('account.about');
+    Route::get('contact', [LoginController::class, 'contact'])->name('account.contact');
+    Route::get('blog', [PostController::class, 'blog'])->name('account.blog');
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){
         Route::get('login', [LoginController::class, 'index'])->name('account.login');
         Route::post('login', [LoginController::class, 'authenticate'])->name('account.authenticate');
         Route::get('register', [LoginController::class, 'register'])->name('account.register');
         Route::post('register', [LoginController::class, 'processRegister'])->name('account.processRegister');
-        Route::get('about', [LoginController::class, 'about'])->name('account.about');
-        Route::get('contact', [LoginController::class, 'contact'])->name('account.contact');
-        Route::get('blog', [PostController::class, 'blog'])->name('account.blog');
-
+        
     });
 
     //Authenticated middleware

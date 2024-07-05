@@ -1,0 +1,16 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    background-color:rgb(209, 230, 243);
+    transform: scale(1.05);
+}
+
+.icon {
+    font-size: 4rem;
+}

@@ -1,57 +1,105 @@
-<!doctype html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Laravel 11 Multi Auth</title>
-      <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-   </head>
-   <body class="bg-light">
-        <nav class="navbar navbar-expand-md bg-white shadow-lg bsb-navbar bsb-navbar-hover bsb-navbar-caret">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                   <strong>Code Diary</strong>
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                </svg>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1">
-                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello, {{Auth::user()->name}} </a>
-                            <ul class="dropdown-menu border-0 shadow bsb-zoomIn" aria-labelledby="accountDropdown">                          
-                                <li>
-                                    <form action="{{route('account.logout')}}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item" href="">Logout</button>
-                                    </form>
-                                    
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+<x-user-layout>
+    <h1 class="my-4 text-center">Welcome to Your Dashboard, {{ Auth::user()->name }}!</h1>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-person-circle display-4 text-primary"></i>
+                    </div>
+                    <h5 class="card-title">My Account</h5>
+                    <p class="card-text">Manage your personal information and settings.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to My Account</a>
                 </div>
             </div>
-        </nav>
-        <div class="container">
-           <div class="card border-0 shadow my-5">
-                <div class="card-header bg-light">
-                    <h3 class="h5 pt-2">Dashboard</h3>
-                </div>
-                <div class="card-body">
-                    You are logged in !!
-                </div>
-           </div>
         </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-   </body>
-</html>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-heart-fill display-4 text-danger"></i>
+                    </div>
+                    <h5 class="card-title">My Favorite</h5>
+                    <p class="card-text">View and manage your favorite blog posts.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to My Favorite</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-bookmark-fill display-4 text-warning"></i>
+                    </div>
+                    <h5 class="card-title">Saved</h5>
+                    <p class="card-text">View and manage your saved items.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to Saved</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-eye-fill display-4 text-success"></i>
+                    </div>
+                    <h5 class="card-title">Watch List</h5>
+                    <p class="card-text">View and manage your watch list.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to Watch List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-bell-fill display-4 text-info"></i>
+                    </div>
+                    <h5 class="card-title">Notifications</h5>
+                    <p class="card-text">View your recent notifications.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to Notifications</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="bi bi-graph-up-arrow display-4 text-secondary"></i>
+                    </div>
+                    <h5 class="card-title">Statistics</h5>
+                    <p class="card-text">View your account statistics and activity.</p>
+                    <a href="#" class="btn btn-primary-subtle">Go to Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class=" shadow-sm border-0">
+                <div class="">
+                    <h5 class="">Recent Activity</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-hand-thumbs-up me-2 text-primary"></i>
+                            You liked the blog post "How to Learn Laravel".
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-chat-left-text me-2 text-success"></i>
+                            You commented on "Top 10 PHP Tips".
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-bookmark-plus me-2 text-warning"></i>
+                            You saved the post "Understanding MVC Architecture".
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-eye me-2 text-danger"></i>
+                            You added "Introduction to PHP" to your watch list.
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary-subtle mt-3">View All Activity</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-user-layout>
