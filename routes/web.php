@@ -25,6 +25,8 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('login', [LoginController::class, 'authenticate'])->name('account.authenticate');
         Route::get('register', [LoginController::class, 'register'])->name('account.register');
         Route::post('register', [LoginController::class, 'processRegister'])->name('account.processRegister');
+        Route::get('forgotPassword', [LoginController::class, 'forgotPassword'])->name('account.forgotPassword');
+        Route::post('passwordReset', [LoginController::class, 'passwordResetPost'])->name('account.passwordResetPost');
         
     });
 

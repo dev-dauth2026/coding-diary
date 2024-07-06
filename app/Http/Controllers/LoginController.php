@@ -85,7 +85,9 @@ class LoginController extends Controller
         return view('contact');
     }
 
-    
+    public function forgotPassword(){
+        return view('forgotPassword');
+    }
         
 
 
