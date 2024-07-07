@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -85,9 +86,35 @@ class LoginController extends Controller
         return view('contact');
     }
 
+
     public function forgotPassword(){
         return view('forgotPassword');
     }
+
+    public function sendResetLinkEmail(Request $request){
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        // If validation fails, redirect back with errors and input
+    if ($validator->fails()) {
+        return redirect()->route('account.forgotPassword')
+            ->withErrors($validator)
+            ->withInput();
+    }
+        // Attempt to send the reset link
+        $response = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        // Handle the response accordingly
+        if ($response == Password::RESET_LINK_SENT) {
+            return redirect()->route('account.forgotPassword')
+                ->with('status', trans($response));
+        }
+
+    }
+
         
 
 

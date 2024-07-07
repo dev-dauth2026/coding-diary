@@ -54,7 +54,7 @@
                         <hr class="mt-5 mb-4 border-secondary-subtle">
                         <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-center">
                             <a href="{{route('account.register')}}" class="link-secondary text-decoration-none">Create new account</a>
-                            <a href="{{route('account.forgotPassword')}}" class="link-secondary text-primary">Forgot Password?</a>
+                            <a href="{{route('password.request')}}" class="link-secondary text-primary">Forgot Password?</a>
                         </div>
                     </div>
                 </div>

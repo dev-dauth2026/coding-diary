@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{route('account.passwordResetPost')}}" method="POST" >
+                <form action="{{route('account.sendResetLinkEmail')}}" method="POST" >
                     @csrf
                     <div class="row gy-3 overflow-hidden">
                        
