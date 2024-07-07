@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\ChangeUserName;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
@@ -31,11 +34,8 @@ Route::group(['prefix'=>'account'],function(){
         // Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('account.sendResetLinkEmail');
         // Route::post('passwordReset', [LoginController::class, 'passwordResetPost'])->name('account.passwordResetPost');
 
-            // Password Reset Routes
-        Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+       
+
         
     });
 
@@ -44,6 +44,14 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('logout', [LoginController::class, 'logout'])->name('account.logout');
         Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('account.dashboard');
         Route::get('account', [DashboardController::class, 'account'])->name('account.account');
+        // Password Reset Routes
+        Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+        Route::put('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+        Route::put('password/change',[ChangePasswordController::class,'changePassword'])->name('password.change');
+        Route::put('username/change',[ChangeUserName::class,'changeUserName'])->name('username.change');
+        Route::put('profile_picture/change',[ChangeUserName::class,'changeProfilePicture'])->name('profile_picture.change');
                 
     });
 });

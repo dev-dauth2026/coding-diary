@@ -1,20 +1,30 @@
 <x-user-layout>
-    <div class="container mt-4">
-        <h1 class="mb-4 text-center">My Account</h1>
+    <div class="container mt-4 p-5">
+        @if(Session::has('status'))
+        <p class="text-success bg-success-subtle p-2 rounded">{{Session::get('status')}} </p>
+        @endif
+        <h1 class="mb-5w text-center mb-5x">My Account</h1>
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <h5 class="card-title">Personal Information</h5>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('username.change')}}">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ Auth::user()->name }}" required>
+                                <label for="name" class="form-label @error('name') is-inavlid @enderror">Name</label>
+                                <input type="text"  class="form-control" id="name" name="name" value="{{ Auth::user()->name }}" >
+                                @error('name')
+                                <p class="invalid-feedback">{{$message}} </p>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}" required>
+                                <label for="email" class="form-label @error('email') is-invalid @enderror" >Email</label>
+                                <input type="text"  class="form-control" id="email" name="email" value="{{ Auth::user()->email }}"  readonly>
+                                @error('email')
+                                <p class="invalid-feedback">{{$message}}</p>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary-subtle">Update Information</button>
                         </form>
@@ -25,19 +35,31 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <h5 class="card-title">Change Password</h5>
-                        <form method="POST" action="">
+                        
+                        <form method="POST" action="{{ route('password.change') }}">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
-                                <label for="current_password" class="form-label">Current Password</label>
-                                <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                <label for="current_password" class="form-label @error('current_password') is-invalid @enderror">Current Password</label>
+                                <input type="password" class="form-control" id="current_password" name="current_password" >
+                                @error('current_password')
+                                    <p class="invalid-feedback">{{$message}} </p>
+                                @enderror
+                               
                             </div>
                             <div class="mb-3">
-                                <label for="new_password" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                <label for="new_password" class="form-label @error('new_password') is-invalid @enderror">New Password</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password" >
+                                @error('new_password')
+                                    <p class="invalid-feedback">{{$message}} </p>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
+                                <label for="new_password_confirmation" class="form-label @error('new_password_confirmation') is-invalid @enderror">Confirm New Password</label>
+                                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" >
+                                @error('new_password_confirmation')
+                                    <p class="invalid-feedback">{{$message}} </p>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary-subtle">Change Password</button>
                         </form>
@@ -48,11 +70,21 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <h5 class="card-title">Profile Picture</h5>
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        @if(Auth::user()->profile_picture)
+                            <img src="{{asset('storage/' . Auth::user()->profile_picture)}} " alt="profile picture" style="width: 100px; height: 100px; border-radius: 50%">
+                        @else
+                        <h1><i class="bi bi-person-circle bi-3x"></i></h1>
+                        @endif
+                        
+                        <form method="POST" action="{{route('profile_picture.change')}}" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
-                                <label for="profile_picture" class="form-label">Upload New Profile Picture</label>
-                                <input type="file" class="form-control" id="profile_picture" name="profile_picture" required>
+                                <label for="profile_picture" class="form-label @error('profile_picture') is-inavlid @enderror">Upload New Profile Picture</label>
+                                <input type="file" class="form-control" id="profile_picture" name="profile_picture" >
+                                @error('profile_picture')
+                                <p class="invalid-feedback">{{$message}} </p>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary-subtle">Upload Picture</button>
                         </form>
@@ -65,6 +97,7 @@
                         <h5 class="card-title">Account Settings</h5>
                         <form method="POST" action="">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
                                 <label for="notification_preferences" class="form-label">Notification Preferences</label>
                                 <select class="form-control" id="notification_preferences" name="notification_preferences">
