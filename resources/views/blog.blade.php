@@ -18,7 +18,7 @@
                     @if ($latestPost)
                         <div class="heading mb-5 d-flex flex-column">
                             <h3>{{$latestPost->title}} </h3>
-                            <small class="text-secondary">Author: John Smith  </small>
+                            <small class="text-secondary">Author: {{$latestPost->author}}  </small>
                             <small class="text-secondary">Published on:{{ $latestPost->created_at->format('M d, Y') }} </small>
                         </div>
                         <div class="d-flex justify-content-center align-items-center" >
