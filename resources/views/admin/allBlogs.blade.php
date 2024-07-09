@@ -1,18 +1,25 @@
 <x-admin.admin-layout>
-    <div class="d-flex align-items-center justify-content-between w-100">
-        <div><h2>Blog List</h2></div>
-        <div>
-            <a href="{{ route('admin.createBlog') }}" class="btn btn-sm btn-primary">Add Post</a>
+    <div class=" w-100">
+        @if(Session::has('postUpdated'))
+            <p class="bg-success-subtle text-success p-2 rounded">{{Session::get('postUpdated')}} </p>
+        @endif
+        <div class="d-flex align-items-center justify-content-between w-100">
+            <div><h2>Blog List</h2></div>
+            <div>
+                <a href="{{ route('admin.createBlog') }}" class="btn btn-sm btn-primary">Add Post</a>
+            </div>
         </div>
+       
     </div>
     
-    
-        <table class="table table-striped">
+    <div class="table-responsive">
+        <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Image</th>
                     <th>Title</th>
+                    <th>Author</th>
                     <th>Created</th>
                     <th>Updated</th>
                     <th>Action</th>
@@ -28,6 +35,14 @@
                     
                     </td>
                     <td>{{$post->title}} </td>
+                    <td>
+                        @if($post->author)
+                        {{$post->author}} 
+                        @else
+                        N/A
+                        @endif
+                       
+                    </td>
                     <td>{{$post->created_at}} </td>
                     <td>{{$post->updated_at}} </td>
                     <td >
@@ -46,6 +61,8 @@
                 @endif
             </tbody>
         </table>
+    </div>
+       
 </x-admin.admin-layout>
                             
                             

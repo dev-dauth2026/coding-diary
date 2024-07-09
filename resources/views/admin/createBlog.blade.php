@@ -23,6 +23,13 @@
             @enderror
         </div>
         <div class="form-group mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input class="form-control @error('author') is-invalid @enderror" value="{{Auth::user()->name}}" type="text" id="author" name="author" placeholder="Enter author (comma-separated)" >
+            @error('author')
+                <p class="invalid-feedback">{{$message}} </p>
+            @enderror
+        </div>
+        <div class="form-group mb-3">
             <label for="image" class="form-label">Image</label>
             <input class ="form-control @error('image') is-invalid @enderror"  type="file" id="image" name="image">
             @if (Session::has('temp_image'))

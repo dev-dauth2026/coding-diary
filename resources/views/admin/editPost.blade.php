@@ -29,6 +29,10 @@
                 <label for="tags" class="form-label">Tags</label>
                 <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', $post->tags) }}">
             </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" value="{{ old('author', $post->author) }}">
+            </div>
 
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>

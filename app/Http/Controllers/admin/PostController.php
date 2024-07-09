@@ -21,6 +21,7 @@ class PostController extends Controller
             'title' =>'required|min:3',
             'content' =>'required',
             'tags' =>'required',
+            'author' => 'required|min:3',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -40,6 +41,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->content = $request->content;
             $post->tags = $request->tags;
+            $post->author = $request->author;
             
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -69,6 +71,7 @@ class PostController extends Controller
             'title' => 'required|min:3',
             'content' => 'required',
             'tags' => 'required',
+            'author' => 'required|min:3',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -80,6 +83,8 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->tags = $request->tags;
+        $post->author = $request->author;
+
 
         if($request->hasFile('image')){
             $image = $request->file('image');
