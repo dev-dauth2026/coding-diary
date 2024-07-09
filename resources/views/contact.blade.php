@@ -2,6 +2,11 @@
     <section class="contact-section ">
         <div class="container p-5">
             <div class="row">
+                <div>
+                    <h1 class=" text-center">Contact Us</h1>
+                    <hr class="mb-5 col-4 mx-auto">
+                </div>
+               
                 <div class="col-lg-6">
                     <div class="card contact-details p-4">
                         <h2>Contact Information</h2>

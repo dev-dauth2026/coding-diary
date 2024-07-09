@@ -36,7 +36,7 @@
                 </li>
                 @auth
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {{Auth::user()->name}} <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%"> </a>
+                    <a class="nav-link dropdown-toggle text-white" href="#!" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {{Auth::user()->name}} <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%"> </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow bsb-zoomIn bg-white" aria-labelledby="accountDropdown"> 
                         <li class="nav-item">
                             <a href="{{route('account.dashboard')}}" class=" text-decoration-none text-black dropdown-item">Dashboard</a>
@@ -84,7 +84,7 @@
 
     <main>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row p-5">
                {{$slot}}
             </div>
         </div>
