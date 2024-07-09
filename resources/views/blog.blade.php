@@ -1,7 +1,7 @@
 <x-user-layout>
     <div class=" d-flex  justify-content-center p-5" style="min-height:80vh">
         <div class="col-11 ">
-            @if ($allBlogs->isEmpty())
+            @if ($posts->isEmpty())
             <p>No blogs found.</p>
         @else
         <div class="row ">
@@ -39,7 +39,7 @@
                         
                     </form>
                     <h4 class="">Recent Blogs</h4>
-                    @foreach ($allBlogs as $post)
+                    @foreach ($posts->take(3) as $post)
                        
                         <div class="d-flex  flex-column mb-3">
                             <a href="#"><h6 class="mb-1">{{ $post->title }}</h6></a> 
@@ -48,6 +48,9 @@
                         </div>
                  
                     @endforeach
+                    @if ($totalBlogs > 3)
+                    <a href="{{ route('account.blog') }}">More >></a>
+                    @endif
                 </div>
             </div>
            

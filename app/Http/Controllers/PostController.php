@@ -9,7 +9,8 @@ class PostController extends Controller
 {
     public function blog(){
         $posts = Post::orderBy('created_at','DESC')->get();
+        $totalBlogs = $posts->count();
         $latestPost = Post::latest()->first();
-        return view('blog',['allBlogs'=>$posts,'latestPost'=> $latestPost]);
+        return view('blog',compact('posts','totalBlogs','latestPost'));
     }
 }

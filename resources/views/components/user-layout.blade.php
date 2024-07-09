@@ -13,9 +13,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle px-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark px-3">
         <a class="navbar-brand" href="/">
-            <h2 class="logotitle">CodingDiary</h2>
+            <img src="{{asset('storage/logo/CodingDiarylogo.png')}}" alt="Coding Diary Logo" style="height:50px; width:150px; object-fit:cover" >
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,16 +23,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/">Home</a>
+                    <a class="nav-link text-white" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{route('account.blog')}}">Blogs</a>
+                    <a class="nav-link text-white" href="{{route('account.blog')}}">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{route('account.about')}}">About</a>
+                    <a class="nav-link text-white" href="{{route('account.about')}}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{route('account.contact')}}">Contact</a>
+                    <a class="nav-link text-white" href="{{route('account.contact')}}">Contact</a>
                 </li>
                 @auth
                 <li class="nav-item dropdown">
