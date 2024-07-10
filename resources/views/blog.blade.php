@@ -1,14 +1,13 @@
 <x-user-layout>
-    <div class=" d-flex justify-content-center p-5" style="min-height: 80vh">
+    <div class=" d-flex justify-content-center p-5 " style="min-height: 80vh">
 
             @if (empty($posts))
                 <p>No blogs found.</p>
             @else
-                <div class="row ">
-                    @if(!empty($query))
-                    <a href="{{route('account.blog')}}" alt="blog page" class="text-align-end"> Refresh </a>
-                   @endif
-                   <div @class(['d-flex flex-column flex-md-row','justify-content-between' => empty($query) ])> 
+
+                    <div class="col-12 ">
+                
+                   <div class="d-flex flex-column flex-md-row"> 
                        
                         {{-- search in small devices  --}}
                        
@@ -34,13 +33,19 @@
                          {{-- main blog section ended --}}
 
                          {{-- search section  --}}
-                         @if($posts)
+                         <div class="col-12  d-flex flex-column col-lg-3 col-md-3">
+                            <x-blog.blog-search :posts="$posts" />
 
-                            <x-blog.blog-search :posts="$posts" :query="$query"  />
-                        @endif
+                            @if($totalBlogs > 3)
+                            <div>
+                                <a href="{{route('account.allBlogs')}}" class="">More >></a>
+                            </div>
+                            @endif
+                        </div>
                          {{-- search section ended --}}
                     </div>
                 </div>
+
             @endif
     </div>
 </x-user-layout>
