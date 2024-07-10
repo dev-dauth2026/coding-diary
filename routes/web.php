@@ -32,9 +32,15 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('login', [LoginController::class, 'authenticate'])->name('account.authenticate');
         Route::get('register', [LoginController::class, 'register'])->name('account.register');
         Route::post('register', [LoginController::class, 'processRegister'])->name('account.processRegister');
-        // Route::get('forgotPassword', [LoginController::class, 'forgotPassword'])->name('account.forgotPassword');
-        // Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('account.sendResetLinkEmail');
+        Route::get('forgot-password', [LoginController::class, 'forgotPassword'])->name('account.forgotPassword');
+        Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('account.sendResetLinkEmail');
         // Route::post('passwordReset', [LoginController::class, 'passwordResetPost'])->name('account.passwordResetPost');
+
+        // Password Reset Routes
+        Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
        
 
@@ -87,3 +93,11 @@ Route::group(['prefix'=>'admin'],function(){
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
