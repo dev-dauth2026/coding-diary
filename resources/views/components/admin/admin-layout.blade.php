@@ -6,6 +6,8 @@
     <title>Admin Dashboard | Coding Diary</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tiny.cloud/1/w8mpofb4fsu0da2x3j136ktemojtn4e8crol4882w3rpw0qo/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 </head>
 <body>
  
