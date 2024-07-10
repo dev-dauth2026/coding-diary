@@ -1,63 +1,46 @@
 <x-user-layout>
-    <div class=" d-flex  justify-content-center p-5" style="min-height:80vh">
-        <div class="col-11 ">
-            @if ($posts->isEmpty())
-            <p>No blogs found.</p>
-        @else
-        <div class="row ">
-            <div class="d-flex justify-content-between flex-column  flex-md-row ">
-                <form action="" class="mb-5 d-block d-md-none">
-                    @csrf
-                    <div class="form-group d-flex gap-2">
-                        <input class="form-control" placeholder="Search blog topics..." name="blogSearch" id="blogSearch"/>
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    </div>
-                    
-                </form>
-                <div class="latestBlog col-12 col-sm-12 col-md-8 col-lg-9">
-                    @if ($latestPost)
-                        <div class="heading mb-5 d-flex flex-column">
-                            <h3>{{$latestPost->title}} </h3>
-                            <small class="text-secondary">Author: {{$latestPost->author}}  </small>
-                            <small class="text-secondary">Published on:{{ $latestPost->created_at->format('M d, Y') }} </small>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center" >
-                            <img src="{{ asset('storage/' . $latestPost->image) }}" alt="{{ $latestPost->title }}" class="img-fluid" style="width: 600px; min-width:200px; height:auto;">
-                        </div>
-                                                
-                        <p>{!! $latestPost->content !!} </p>
-                    
-                    @endif
-                </div>
-                <div class="list-group col-12 col-sm-12 col-md-3 col-lg-3 ">
-                    <form action="" class="mb-5 d-md-flex d-none">
-                        @csrf
-                        <div class="form-group d-flex gap-2">
-                            <input class="form-control" placeholder="Search blog topics..." name="blogSearch" id="blogSearch"/>
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        </div>
-                        
-                    </form>
-                    <h4 class="">Recent Blogs</h4>
-                    @foreach ($posts->take(3) as $post)
+    <div class=" d-flex justify-content-center p-5" style="min-height: 80vh">
+
+            @if (empty($posts))
+                <p>No blogs found.</p>
+            @else
+                <div class="row ">
+                    @if(!empty($query))
+                    <a href="{{route('account.blog')}}" alt="blog page" class="text-align-end"> Refresh </a>
+                   @endif
+                   <div @class(['d-flex flex-column flex-md-row','justify-content-between' => empty($query) ])> 
                        
-                        <div class="d-flex  flex-column mb-3">
-                            <a href="#"><h6 class="mb-1">{{ $post->title }}</h6></a> 
-                            <small>{{ $post->created_at->format('M d, Y') }}</small>
-                            <small>By John</small>
+                        {{-- search in small devices  --}}
+                       
+                        <div class="mb-5 d-block d-md-none">
+                            <form action="{{ route('blog.search') }}" class=" d-block d-md-none" method="get">
+                                <div class="form-group d-flex gap-2">
+                                    <input class="form-control @error('blogSearch') is-invalid @enderror" placeholder="Search blog topics..." name="blogSearch" id="blogSearch" value="{{ old('blogSearch', $query ?? '') }}" />
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                    <div>
+                                        @error('blogSearch')
+                                            <p class="invalid-feedback">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                 
-                    @endforeach
-                    @if ($totalBlogs > 3)
-                    <a href="{{ route('account.blog') }}">More >></a>
-                    @endif
+                       {{-- search in small devices ended --}}
+                     
+                       {{-- main blog section  --}}
+                        @if ($latestPost && empty($query))
+                           <x-blog.main-blog :latestPost="$latestPost"/>
+                         @endif
+                         {{-- main blog section ended --}}
+
+                         {{-- search section  --}}
+                         @if($posts)
+
+                            <x-blog.blog-search :posts="$posts" :query="$query"  />
+                        @endif
+                         {{-- search section ended --}}
+                    </div>
                 </div>
-            </div>
-           
-        </div>
-            
-        @endif
-        </div>
-        
+            @endif
     </div>
 </x-user-layout>
