@@ -1,45 +1,55 @@
 <x-user-layout>
-    <div class=" d-flex justify-content-center p-5 " style="min-height: 80vh">
+    <div class="py-5 bg-light" style="min-height: 80vh;">
 
-            @if (empty($posts))
-                <p>No blogs found.</p>
-            @else
-
-                    <div class="col-12 ">
-                
-                   <div class="d-flex flex-column flex-md-row"> 
-                       
-                        {{-- search in small devices  --}}
-                       
-                        <div class="mb-5 d-block d-md-none">
-                            <form action="{{ route('blog.search') }}" class=" d-block d-md-none" method="get">
-                                <div class="form-group d-flex gap-2">
-                                    <input class="form-control @error('blogSearch') is-invalid @enderror" placeholder="Search blog topics..." name="blogSearch" id="blogSearch" value="{{ old('blogSearch', $query ?? '') }}" />
-                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                    <div>
-                                        @error('blogSearch')
-                                            <p class="invalid-feedback">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                       {{-- search in small devices ended --}}
-                     
-                       {{-- main blog section  --}}
-                        @if ($post && empty($query))
-                           <x-blog.main-blog :post="$post" />
-                         @endif
-                         {{-- main blog section ended --}}
-
-                         {{-- search section  --}}
-                         <div class="col-12  d-flex flex-column col-lg-3 col-md-3">
-                            <x-blog.blog-search :posts="$posts" :totalBlogs="$totalBlogs" />
-                        </div>
-                         {{-- search section ended --}}
+        @if (empty($posts))
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p class="text-center fs-4">No blogs found.</p>
                     </div>
                 </div>
+            </div>
+        @else
+            <div class="container">
+                <div class="row gx-5">
+                    {{-- Main Content Area --}}
+                    <div class="col-lg-9">
+                        @if ($post && empty($query))
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+                                    <x-blog.main-blog :post="$post" />
+                                </div>
+                            </div>
+                        @endif
 
-            @endif
+                        {{-- Blog List Section --}}
+                        <div class="row gx-4">
+                            @foreach ($posts as $blogPost)
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100 border-0 shadow-sm">
+                                        <img src="{{asset('storage/' . $blogPost->image)  }}" class="card-img-top self-auto" alt="{{ $blogPost->title }}" style="height: auto;width:50;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $blogPost->title }}</h5>
+                                            <p class="card-text">{{ Str::limit(strip_tags($blogPost->content), 120) }}</p>
+                                            <a href="{{ route('blog.detail', $blogPost->id) }}" class="btn btn-primary stretched-link">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Sidebar --}}
+                    <div class="col-lg-3">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-body">
+                                <x-blog.blog-search :posts="$posts" :totalBlogs="$totalBlogs" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
     </div>
 </x-user-layout>
