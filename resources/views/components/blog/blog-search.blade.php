@@ -16,11 +16,16 @@
    <h4 class="">Recent Blogs</h4>
    @foreach ($posts as $post)
        <div class="d-flex flex-column mb-3">
-           <a href="#"><h6 class="mb-1">{{ $post->title }}</h6></a>
+           <a href="{{route('blog.detail',$post->id)}}"><h6 class="mb-1">{{ $post->title }}</h6></a>
            <small>{{ $post->created_at->format('M d, Y') }}</small>
-           <small>By John</small>
+           <small>By {{$post->author ?$post->author: 'N/A'}} </small>
        </div>
    @endforeach
+   @if($totalBlogs > 2)
+   <div>
+       <a href="{{route('account.allBlogs')}}" class="">More >></a>
+   </div>
+   @endif
    
  
 

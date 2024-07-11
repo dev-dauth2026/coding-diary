@@ -24,8 +24,9 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('about', [LoginController::class, 'about'])->name('account.about');
     Route::get('contact', [LoginController::class, 'contact'])->name('account.contact');
     Route::get('blog', [PostController::class, 'blog'])->name('account.blog');
+    Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
-    Route::get('blog/search', [PostController::class, 'blogSearch'])->name('blog.search');
+    Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){
         Route::get('login', [LoginController::class, 'index'])->name('account.login');

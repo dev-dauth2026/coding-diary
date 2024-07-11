@@ -1,6 +1,11 @@
 <x-user-layout>
     <div class=" col-12 col-md-12 col-lg-12  py-5 bg-body-tertiary">
         <div class="row ">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="hero-main col-12 col-md-6  d-flex justify-content-center py-5">
                 <div>
                     <h1>Welcome to Coding Diary</h1>
