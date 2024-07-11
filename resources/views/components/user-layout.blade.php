@@ -85,7 +85,7 @@
 
     <main>
         <div class="container-fluid">
-            <div class="row p-5">
+            <div class="row">
                {{$slot}}
             </div>
         </div>
