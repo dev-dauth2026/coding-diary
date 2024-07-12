@@ -1,7 +1,33 @@
 <x-user-layout>
+    <style>
+        /* Styles for wavy bottom overlay */
+        .wavy-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .wavy-overlay::before {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+
+            animation: wave-animation 1s infinite linear;
+        }
+
+  
+    </style>
+
     <!-- Hero Section -->
     <div class="position-relative bg-body-tertiary " style="min-height: 60vh;width:100vw">
-        <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;"></div>
+        <div class="wavy-overlay overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1; border-radius: 0% 0% 30% 60% / 0% 0% 30% 60%"></div>
         <div class=" position-relative  text-white d-flex  align-items-center  h-100 w-100" style="z-index: 2;">
             <div class="row w-100" >
                 @if (session('status'))
