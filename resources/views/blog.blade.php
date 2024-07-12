@@ -11,11 +11,11 @@
             </div>
         @else
             <div class="container">
-                <div class="row gx-5">
+                <div class="row  gx-5">
                     {{-- Main Content Area --}}
                     <div class="col-lg-9">
                         @if ($post && empty($query))
-                            <div class="card shadow-sm mb-4">
+                            <div class="  mb-4 p-5">
                                 <div class="card-body">
                                     <x-blog.main-blog :post="$post" />
                                 </div>
@@ -26,7 +26,7 @@
                         <div class="row gx-4">
                             @foreach ($posts as $blogPost)
                                 <div class="col-md-4 mb-4">
-                                    <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card h-100  shadow">
                                         <img src="{{asset('storage/' . $blogPost->image)  }}" class="card-img-top self-auto" alt="{{ $blogPost->title }}" style="height: auto;width:50;">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $blogPost->title }}</h5>
@@ -40,8 +40,8 @@
                     </div>
 
                     {{-- Sidebar --}}
-                    <div class="col-lg-3">
-                        <div class="card shadow-sm mb-4">
+                    <div class="col-lg-3 position-relative " style="z-index: 1">
+                        <div class="sticky-top shadow mb-4 p-3" style="top: 80px;">
                             <div class="card-body">
                                 <x-blog.blog-search :posts="$posts" :totalBlogs="$totalBlogs" />
                             </div>

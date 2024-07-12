@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark px-3">
+    <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-dark px-3" style="z-index: 100">
         <a class="navbar-brand" href="/">
             <img src="{{asset('storage/logo/CodingDiarylogo.png')}}" alt="Coding Diary Logo" style="height:50px; width:150px; object-fit:cover" >
         </a>
@@ -72,11 +72,12 @@
                 @auth
                 
                 @else
-                <button class="btn btn-primary ms-2">
+                <button class="btn btn-outline-primary ms-2" >
                     <a href="{{route('account.register')}}" class="text-decoration-none text-white">Sign Up</a>
                 </button>
-                <button class="btn btn-secondary ms-2">
-                    <a href="{{route('account.login')}}" class="text-decoration-none text-white">Login</a>
+                <button class="btn btn-outline-success ms-2">
+
+                    <a href="{{ route('account.login') }}" class="text-decoration-none text-white">Login</a>
                 </button>
                 @endauth
             </div>
@@ -84,15 +85,15 @@
     </nav>
 
     <main>
-        <div class="container-fluid">
-            <div class="row">
+        <div class="container-fluid position-relative">
+            <div class="row position-relative">
                {{$slot}}
             </div>
         </div>
         
     </main>
 
-    <footer class="footer-section   text-white ">
+    <footer class="footer-section position-relative   text-white ">
       
             <div class="row bg-dark py-5 px-5" style="--bs-bg-opacity: .85;">
                 <div class="col-md-4">

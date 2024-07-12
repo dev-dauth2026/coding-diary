@@ -2,7 +2,7 @@
     <!-- Hero Section -->
     <div class="position-relative bg-body-tertiary " style="min-height: 60vh;width:100vw">
         <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;"></div>
-        <div class=" position-relative  text-white d-flex align-items-center  h-100 w-100" style="z-index: 2;">
+        <div class=" position-relative  text-white d-flex  align-items-center  h-100 w-100" style="z-index: 2;">
             <div class="row w-100" >
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -12,7 +12,7 @@
                 <div class="col-12 col-md-6 d-flex justify-content-center align-items-center py-5 h-100">
                     <div class="">
                         <h1>Welcome to Coding Diary</h1>
-                        <a href="{{route('account.blog')}}" class="btn bg-danger-subtle bg-opacity-50 mt-3">Get Started</a>
+                        <a href="{{route('account.blog')}}" class="btn btn-outline-secondary  mt-3">Get Started</a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 d-flex justify-content-center align-items-center py-5">
@@ -71,6 +71,25 @@
                 </div>
             </div>
         </div>
+
+         <!-- Newsletter Section -->
+    <section class="newsletter-section py-5" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-11">
+                    <div class="card shadow p-4" style=" border-radius: 10px;">
+                        <h2 class="text-center mb-4">Subscribe to Our Newsletter</h2>
+                        <form action="#" method="post">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Your email address" aria-label="Your email address" aria-describedby="button-addon2">
+                                <button class="btn " type="button" id="button-addon2" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     
 
