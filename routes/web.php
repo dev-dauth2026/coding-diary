@@ -18,8 +18,8 @@ use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 
 //User Routes
 
+Route::get('/', [HomeController::class, 'index'])->name('account.home');
 Route::group(['prefix'=>'account'],function(){
-    Route::get('/', [HomeController::class, 'index'])->name('account.home');
     Route::get('about', [LoginController::class, 'about'])->name('account.about');
     Route::get('contact', [ContactController::class, 'contact'])->name('account.contact');
     Route::post('contact', [ContactController::class, 'processContact'])->name('account.processContact');
