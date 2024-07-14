@@ -1,6 +1,8 @@
 <x-user-layout>
     <div class="p-5">
-        <h1 class="my-4 text-center">Welcome to Your Dashboard, {{ Auth::user()->name }}!</h1>
+        @if(session('loggedIn'))
+        <p class="alert alert-success text-success p-2 my-4 text-center" >Welcome {{ Auth::user()->name }}! {{session('loggedIn')}} </p>
+        @endif
         <div class="row p-5">
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card dashboardCard shadow-sm border-0">

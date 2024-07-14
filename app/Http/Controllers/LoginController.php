@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         if($validator->passes()){
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-                return redirect()->route('account.dashboard');
+                return redirect()->route('account.dashboard')->with('loggedIn',' You have been successfully logged in.');
             }else{
                 return redirect()->route('account.login')->withInput()->with('error','Either email or password is incorrect.');
             }
