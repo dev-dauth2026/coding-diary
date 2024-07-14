@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\ChangeUserName;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
@@ -14,14 +15,11 @@ use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\admin\LoginController as AdminLoginController;
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 
-Route::get('/', function () {
-    return view('home');
-});
 
 //User Routes
 
 Route::group(['prefix'=>'account'],function(){
-
+    Route::get('/', [HomeController::class, 'index'])->name('account.home');
     Route::get('about', [LoginController::class, 'about'])->name('account.about');
     Route::get('contact', [ContactController::class, 'contact'])->name('account.contact');
     Route::post('contact', [ContactController::class, 'processContact'])->name('account.processContact');
@@ -29,6 +27,7 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
+    Route::post('newsletter-subscription', [HomeController::class, 'newsletterSubscription'])->name('newsletter.subscription');
 
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){
