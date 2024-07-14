@@ -86,7 +86,7 @@
 
     <main>
         <div class="container-fluid position-relative">
-            <div class="row position-relative">
+            <div class="row position-relative ">
                {{$slot}}
             </div>
         </div>

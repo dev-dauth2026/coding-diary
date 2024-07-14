@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\ChangeUserName;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
@@ -22,11 +23,13 @@ Route::get('/', function () {
 Route::group(['prefix'=>'account'],function(){
 
     Route::get('about', [LoginController::class, 'about'])->name('account.about');
-    Route::get('contact', [LoginController::class, 'contact'])->name('account.contact');
+    Route::get('contact', [ContactController::class, 'contact'])->name('account.contact');
+    Route::post('contact', [ContactController::class, 'processContact'])->name('account.processContact');
     Route::get('blog', [PostController::class, 'blog'])->name('account.blog');
     Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
+
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){
         Route::get('login', [LoginController::class, 'index'])->name('account.login');

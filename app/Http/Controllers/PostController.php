@@ -30,7 +30,6 @@ class PostController extends Controller
             return redirect()->route('account.allBlogs')->withInput()->withErrors($validator);
         }
         
-
         $query = $request->input('blogSearch');
 
         $totalBlogs = Post::count();
@@ -46,6 +45,7 @@ class PostController extends Controller
         return view('allBlogs',compact('posts','query', 'totalBlogs'));
         
     }
+
 
     public function blogDetail($id){
         $post = Post::findOrFail($id);
