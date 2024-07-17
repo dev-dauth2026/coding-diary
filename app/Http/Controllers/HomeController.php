@@ -28,19 +28,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function newsletterSubscription(Request $request){
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email|unique:newslettersubscriptions',
-        ]);
-
-        if($validator->fails()){
-            return redirect()->route('account.home')->withInput()->withErrors($validator);
-        }
-
-        $subscribe = new Newslettersubscription();
-        $subscribe->email = $request->email;
-        $subscribe->save();
-
-        return redirect()->route('account.home')->with('subscribed', 'You have been successfully subscribed.');
-    }
 }

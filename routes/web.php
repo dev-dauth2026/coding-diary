@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\ChangeUserName;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChangeUserName;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\BlogsController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\NewsLetterSubscriptionController;
 use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\admin\LoginController as AdminLoginController;
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
@@ -27,7 +30,18 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
-    Route::post('newsletter-subscription', [HomeController::class, 'newsletterSubscription'])->name('newsletter.subscription');
+    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+    Route::get('/verify-email/{id}/{hash}', [SubscriptionController::class, 'verifyEmail'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+     
+        return redirect('/')->with('message', 'Verification link sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){

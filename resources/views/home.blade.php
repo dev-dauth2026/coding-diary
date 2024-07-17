@@ -35,9 +35,9 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                @if (session('subscribed'))
+                @if (session('message'))
                 <div class="alert alert-success" role="alert">
-                    {{ session('subscribed') }}
+                    {{ session('message') }}
                 </div>
                   @endif
                 <div class="col-12 col-md-6 d-flex justify-content-center align-items-center py-5 h-100">
@@ -170,7 +170,7 @@
                 <div class="col-md-11">
                     <div class="card shadow p-4" style=" border-radius: 10px;">
                         <h2 class="text-center mb-4">Subscribe to Our Newsletter</h2>
-                        <form action="{{route('newsletter.subscription')}}" method="post">
+                        <form action="{{route('subscriptions.subscribe')}}" method="post">
                             @csrf
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Your email address" aria-label="Your email address" aria-describedby="button-addon2">
@@ -180,8 +180,19 @@
                                 @enderror
                             </div>
                         </form>
+                        @if (session('message'))
+                        <div class="col-md-12 d-flex justify-content-center mt-5">
+                            <form action="{{route('verification.send')}}" method="POST">
+                                @csrf
+                                <button class="btn btn-info" type="submit" id="button-addon2">Send Link Again</button>
+                            </form>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
+
+               
             </div>
         </div>
     </section>
