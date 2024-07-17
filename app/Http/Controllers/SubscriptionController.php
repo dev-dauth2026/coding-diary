@@ -37,7 +37,7 @@ class SubscriptionController extends Controller
 
             event(new Registered($subscription));  // Trigger verification notice
     
-            return back()->with('message', 'Thanks for subscribing! Please check your email to verify.');  
+            return to_route('home')->with('message', 'Thanks for subscribing! Please check your email to verify.');  
         }
 
         
