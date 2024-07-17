@@ -37,11 +37,7 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('/verify-email/{id}/{hash}', [SubscriptionController::class, 'verifyEmail'])
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-     
-        return redirect('/')->with('message', 'Verification link sent!');
-    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    Route::post('/email/verification/resend',[SubscriptionController::class, 'verificationResend'])->name('verification.resend') ;
 
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){

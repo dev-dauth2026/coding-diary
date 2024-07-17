@@ -173,7 +173,7 @@
                         <form action="{{route('subscriptions.subscribe')}}" method="post">
                             @csrf
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Your email address" aria-label="Your email address" aria-describedby="button-addon2">
+                                <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', session('subscription_email')) }}" name="email" id="email" placeholder="Your email address" aria-label="Your email address" aria-describedby="button-addon2">
                                 <button class="btn " type="submit" id="button-addon2" style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">Subscribe</button>
                                 @error('email')
                                     <p class="invalid-feedback">{{$message}} </p>
@@ -182,14 +182,16 @@
                         </form>
                         @if (session('message'))
                         <div class="col-md-12 d-flex justify-content-center mt-5">
-                            <form action="{{route('verification.send')}}" method="POST">
+                            <form id="resend-form" method="POST" action="{{route('verification.resend')}}">
                                 @csrf
-                                <button class="btn btn-info" type="submit" id="button-addon2">Send Link Again</button>
+                                <input type="hidden" id="resend-email" name="email">
+                                <button type="button" class="btn btn-outline-warning" onclick="resendVerification()">Resend Verification Email</button>
                             </form>
                         </div>
                         @endif
 
                     </div>
+                   
                 </div>
 
                
@@ -201,3 +203,15 @@
 
     
 </x-user-layout>
+
+<script>
+    function resendVerification() {
+        const email = document.getElementById('email').value;
+        if (!email) {
+            alert('Please enter your email to resend the verification link.');
+            return;
+        }
+        document.getElementById('resend-email').value = email;
+        document.getElementById('resend-form').submit();
+    }
+</script>
