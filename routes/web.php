@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavouritePostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChangeUserName;
 use App\Http\Controllers\HomeController;
@@ -37,6 +38,8 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
+
+
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');
     Route::get('/verify-email/{id}/{hash}', [LoginController::class, 'verifyEmail'])
     ->middleware(['signed', 'throttle:6,1'])
@@ -80,6 +83,9 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('password/change',[ChangePasswordController::class,'changePassword'])->name('password.change');
         Route::put('username/change',[ChangeUserName::class,'changeUserName'])->name('username.change');
         Route::put('profile_picture/change',[ChangeUserName::class,'changeProfilePicture'])->name('profile_picture.change');
+
+        Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
+
                 
     });
 });

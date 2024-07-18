@@ -3,11 +3,12 @@
         @if(Session::has('status'))
         <p class="text-success bg-success-subtle p-2 rounded">{{Session::get('status')}} </p>
         @endif
-        <h1 class="mb-5w text-center mb-5x">My Account</h1>
+        <h1 class="mb-5w text-center ">My Account</h1>
+        <hr class="col-4 mx-auto mb-5" >
         <div class="row">
             <div class="col-md-6 mb-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body">
+                <div class="card shadow-sm border-0 border-start border-info-subtle">
+                    <div class="card-body ">
                         <h5 class="card-title">Personal Information</h5>
                         <form method="POST" action="{{route('username.change')}}">
                             @csrf
@@ -32,7 +33,7 @@
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 border-start border-info-subtle">
                     <div class="card-body">
                         <h5 class="card-title">Change Password</h5>
                         
@@ -67,7 +68,7 @@
                 </div>
             </div>
             <div class="col-md-12 mb-4">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 border-start border-info-subtle">
                     <div class="card-body">
                         <h5 class="card-title">Profile Picture</h5>
                         @if(Auth::user()->profile_picture)
@@ -92,7 +93,7 @@
                 </div>
             </div>
             <div class="col-md-12 mb-4">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 border-start border-info-subtle">
                     <div class="card-body">
                         <h5 class="card-title">Account Settings</h5>
                         <form method="POST" action="">

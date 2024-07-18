@@ -59,10 +59,9 @@ class PostController extends Controller
             abort(404, 'Post not found');
         }
 
-
         return view('blog', compact('post','posts','totalBlogs'));
-
-        
     }
+
+    
     
 }

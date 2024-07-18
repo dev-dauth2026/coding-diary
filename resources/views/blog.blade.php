@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="row px-5 ">
-                    <div class="col-lg-9">
+                    <div class="col-lg-9 col-md-8 col-12 col-sm-12">
                         
                             <div class="  mb-4 p-5">
                                 <div class="card-body">
@@ -35,8 +35,8 @@
 
                     </div>
                       {{-- Sidebar --}}
-                      <div class="col-lg-3 position-relative mt-3 " style="z-index: 1">
-                        <div class=" shadow mb-4 p-3" style="top: 80px;">
+                      <div class="col-lg-3 position-relative mt-3  " style="z-index: 1">
+                        <div class=" shadow mb-4 py-5 px-3 border-0 border-top border-info-subtle" style="top: 80px;">
                             <div class="card-body">
                                 <x-blog.blog-search :posts="$posts" :totalBlogs="$totalBlogs" />
                             </div>
