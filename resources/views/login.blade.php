@@ -12,9 +12,9 @@
                                 {{ session('error') }}
                             </div>
                             @endif
-                            @if (Session::has('success'))
+                            @if (Session::has('message'))
                             <div class="p-2 bg-success-subtle text-success rounded">
-                                {{ Session::get('success') }}
+                                {{ Session::get('message') }}
                             </div>
                             @endif
                         </div>
@@ -26,7 +26,7 @@
                        
                         <div class="col-12">
                             <div class="form-floating mb-3">
-                                <input type="text" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="name@example.com" >
+                                <input type="text" value="{{old('email',session('verify_email'))}}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="name@example.com" >
                                 <label for="email" class="form-label">Email</label>
                                 @error('email')
                                     <p class="invalid-feedback">{{$message}} </p>
@@ -49,6 +49,15 @@
                         </div>
                     </div>
                 </form>
+                @if (session('message'))
+                <div class="col-md-12 d-flex justify-content-center mt-5">
+                    <form id="resend-form" method="POST" action="{{route('login.verification.resend')}}">
+                        @csrf
+                        <input type="hidden" id="resend-email" name="email" >
+                        <button type="button" class="btn btn-outline-warning" onclick="resendVerification()">Resend Verification Email</button>
+                    </form>
+                </div>
+                @endif
                 <div class="row">
                     <div class="col-12">
                         <hr class="mt-5 mb-4 border-secondary-subtle">
@@ -62,5 +71,17 @@
         </div>
     </div>
 </x-user-layout>
+
+<script>
+    function resendVerification() {
+        const email = document.getElementById('email').value;
+        if (!email) {
+            alert('Please enter your email to resend the verification link.');
+            return;
+        }
+        document.getElementById('resend-email').value = email;
+        document.getElementById('resend-form').submit();
+    }
+</script>
                     
                

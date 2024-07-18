@@ -75,8 +75,6 @@ class SubscriptionController extends Controller
 
         if (! hash_equals((string) $hash, sha1($subscription->email))) {
 
-            
-
             return to_route('home')->with('status','Invalid verification link');
 
         }
