@@ -31,12 +31,12 @@
         <div class=" position-relative  text-white d-flex  align-items-center  h-100 w-100" style="z-index: 2;">
             <div class=" w-100 " >
                 @if (session('status'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="position-absolute top-0 w-100 alert alert-success p-2 mt-2" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
                 @if (session('message'))
-                <div class="alert alert-success" role="alert">
+                <div class="position-absolute top-0 w-100 alert alert-success p-2 mt-2" role="alert">
                     {{ session('message') }}
                 </div>
                   @endif
@@ -180,7 +180,7 @@
                                 @enderror
                             </div>
                         </form>
-                        @if (session('message'))
+                        @if (session('subscription_email'))
                         <div class="col-md-12 d-flex justify-content-center mt-5">
                             <form id="resend-form" method="POST" action="{{route('verification.resend')}}">
                                 @csrf
