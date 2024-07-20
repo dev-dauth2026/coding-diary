@@ -85,6 +85,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('profile_picture/change',[ChangeUserName::class,'changeProfilePicture'])->name('profile_picture.change');
 
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
+        Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
 
                 
     });

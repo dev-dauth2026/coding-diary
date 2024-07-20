@@ -20,4 +20,18 @@ class FavouritePostController extends Controller
         return redirect()->route('account.login')->with('error', 'You are not logged in. Please log in.');
 
     }
+
+    public function removeFavourite($id){
+
+        if(Auth::user()){
+
+            $user = Auth::user();
+            $user->favouriteBlogs()->detach($id);
+    
+            return redirect()->back()->with('success', 'Blog has been removed from  favourites.');
+        }
+
+        return redirect()->route('account.login')->with('error', 'You are not logged in. Please log in.');
+
+    }
 }
