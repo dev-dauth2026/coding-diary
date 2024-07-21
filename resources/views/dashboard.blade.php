@@ -12,7 +12,7 @@
                         </div>
                         <h5 class="card-title">My Account</h5>
                         <p class="card-text">Manage your personal information and settings.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to My Account</a>
+                        <a href="{{route('account.account')}}" class="btn btn-primary-subtle">Go to My Account</a>
                     </div>
                 </div>
             </div>
@@ -24,34 +24,11 @@
                         </div>
                         <h5 class="card-title">My Favorite</h5>
                         <p class="card-text">View and manage your favorite blog posts.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to My Favorite</a>
+                        <a href="{{route('account.favourites')}}" class="btn btn-primary-subtle">Go to My Favorite</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card dashboardCard shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bi bi-bookmark-fill display-4 text-warning"></i>
-                        </div>
-                        <h5 class="card-title">Saved</h5>
-                        <p class="card-text">View and manage your saved items.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to Saved</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card  dashboardCard shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bi bi-eye-fill display-4 text-success"></i>
-                        </div>
-                        <h5 class="card-title">Watch List</h5>
-                        <p class="card-text">View and manage your watch list.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to Watch List</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card shadow-sm border-0">
                     <div class="card-body text-center">
