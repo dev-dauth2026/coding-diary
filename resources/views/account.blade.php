@@ -3,6 +3,11 @@
         @if(Session::has('status'))
         <p class="text-success bg-success-subtle p-2 rounded">{{Session::get('status')}} </p>
         @endif
+         @if($errors->any())    
+            @foreach($errors->all() as $error)
+                <p class="alert alert-danger p-2">{{ $error }}</p>
+            @endforeach
+         @endif
         <h1 class="mb-5w text-center ">My Account</h1>
         <hr class="col-4 mx-auto mb-5" >
         <div class="row">
