@@ -47,13 +47,7 @@
                                 <a href="{{route('account.account')}}" class=" text-decoration-none text-black dropdown-item">My Account</a>
                             </li> 
                             <li class="nav-item">
-                                <a href="" class="dropdown-item text-decoration-none text-black">My Favorite</a>
-                            </li>  
-                            <li class="nav-item">
-                                <a href="" class="dropdown-item text-decoration-none text-black">Saved</a>
-                            </li>  
-                            <li class="nav-item">
-                                <a href="" class="dropdown-item text-decoration-none text-black">Watch List</a>
+                                <a href="{{route('account.favourites')}}" class="dropdown-item text-decoration-none text-black">My Favorite</a>
                             </li>  
                             <li class="nav-item">
                                 <a href="" class="dropdown-item text-decoration-none text-black">Settings</a>

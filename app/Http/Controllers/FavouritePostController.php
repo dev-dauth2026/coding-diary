@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class FavouritePostController extends Controller
 {
+
+    public function dashboardFavouriteBlog(){
+        $favourites = Auth::user()->favouriteBlogs()->get();
+
+        return view('favouriteBlogs',compact('favourites'));
+    }
     public function addFavourite($id){
 
         if(Auth::user()){
