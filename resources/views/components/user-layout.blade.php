@@ -23,18 +23,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/">Home</a>
+                <ul class="navbar-nav ms-auto ">
+                    <li class="nav-item  ">
+                        <a class="nav-link   {{ request()->is('/') ? 'active text-white  ' : 'text-white-50' }}" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('account.blog')}}">Blogs</a>
+                        <a class="nav-link  {{request()->routeIs('account.blog')?'active text-white':'text-white-50'}} " href="{{route('account.blog')}}">Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('account.about')}}">About</a>
+                        <a class="nav-link  {{request()->routeIs('account.about')?'active text-white':'text-white-50'}} " href="{{route('account.about')}}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{route('account.contact')}}">Contact</a>
+                        <a class="nav-link {{request()->routeIs('account.contact')?'active text-white':'text-white-50'}} " href="{{route('account.contact')}}">Contact</a>
                     </li>
                     @auth
                     <li class="nav-item dropdown">
