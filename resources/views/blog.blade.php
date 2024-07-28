@@ -1,5 +1,5 @@
 <x-user-layout>
-    <div class="m-0 p-0" style="min-height: 80vh;">
+    <div class="container-fluid" style="min-height: 80vh;">
 
         @if (empty($posts))
             <div class="container">
@@ -14,18 +14,18 @@
             
         {{-- Main Content Area --}}
         @if ($post && empty($query))
-                <div class="position-relative d-flex justify-content-center align-items-center p-3 w-100" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
-                    <img class="rounded shadow" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid" style="width: auto; height: 400px;">
-                    <div class="position-absolute heading mb-5 d-flex flex-column p-5" style="z-index: 3;bottom:0;right:20px">
+                <div class="position-relative  d-flex justify-content-center align-items-center p-1 p-lg-3 w-100" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
+                    <img class="rounded shadow" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid" style="width: 100%; max-height: 400px;">
+                    <div class="position-absolute d-flex flex-column " style="z-index: 3;bottom:8%;right:8%">
                 
                         <small class="text-secondary">Author: {{ $post->author ? $post->author : 'CodingDiary'}}</small>
                         <small class="text-secondary">Published on: {{ $post->created_at->format('M d, Y') }}</small>
                     </div>
                 </div>
-                <div class="row px-5 ">
+                <div class="row px-3 px-lg-5">
                     <div class="col-lg-9 col-md-8 col-12 col-sm-12">
                         
-                            <div class="  mb-4 p-5">
+                            <div class="  mb-4 p-0 p-lg-5">
                                 <div class="card-body">
                                     <x-blog.main-blog :post="$post" />
                                 </div>

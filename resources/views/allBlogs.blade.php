@@ -2,9 +2,9 @@
     <div class="bg-gradient" style="min-height: 100vh;">
         <div class="container py-5">
             <div class="row justify-content-center">
-                <div class="col-lg-8 ">
-                    <div class="card bg-glass border-0 shadow p-5">
-                        <div class="card-body">
+                <div class="col-lg-8 col-12 ">
+                    <div class=" border-0 shadow p-md-5 p-2">
+                        <div class="">
                             <h2 class="text-center mb-4 text-dark">
                                 @if(empty($query))
                                     All Blogs

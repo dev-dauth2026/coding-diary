@@ -1,57 +1,58 @@
 <x-user-layout>
-    <div class="p-5">
+    <div class="p-md-5 py-5">
         @if(session('loggedIn'))
         <p class="alert alert-success text-success p-2 my-4 text-center" >Welcome {{ Auth::user()->name }}! {{session('loggedIn')}} </p>
         @endif
-        <div class="row p-5">
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card dashboardCard shadow-sm border-0">
+        <div class="row p-md-5 ">
+            <div class="col-6 col-md-6 col-lg-4 mb-4">
+                <a href="{{route('account.account')}}" class="text-decoration-none card dashboardCard shadow-sm border-0">
+               
                     <div class="card-body text-center">
                         <div class="icon mb-3">
                             <i class="bi bi-person-circle display-4 text-primary"></i>
                         </div>
                         <h5 class="card-title">My Account</h5>
-                        <p class="card-text">Manage your personal information and settings.</p>
-                        <a href="{{route('account.account')}}" class="btn btn-primary-subtle">Go to My Account</a>
+                        <small class="card-text text-secondary d-md-block d-none">Manage your personal information and settings.</small>
+        
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card dashboardCard shadow-sm border-0">
+            <div class="col-6 col-md-4 col-lg-4 mb-4">
+                <a href="{{route('account.favourites')}}" class="text-decoration-none card dashboardCard shadow-sm border-0">
                     <div class="card-body text-center">
                         <div class="icon mb-3">
                             <i class="bi bi-heart-fill display-4 text-danger"></i>
                         </div>
                         <h5 class="card-title">My Favorite</h5>
-                        <p class="card-text">View and manage your favorite blog posts.</p>
-                        <a href="{{route('account.favourites')}}" class="btn btn-primary-subtle">Go to My Favorite</a>
+                        <small class="card-text text-secondary d-md-block d-none">View and manage your favorite blog posts.</small>
+
                     </div>
-                </div>
+                </a>
             </div>
 
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
+            <div class="col-6 col-md-4 col-lg-4 mb-4">
+                <a href="#" class=" text-decoration-none card shadow-sm border-0">
+                    <div  class="  card-body text-center">
                         <div class="icon mb-3">
                             <i class="bi bi-bell-fill display-4 text-info"></i>
                         </div>
                         <h5 class="card-title">Notifications</h5>
-                        <p class="card-text">View your recent notifications.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to Notifications</a>
+                        <small class="card-text text-secondary d-md-block d-none">View your recent notifications.</small>
+
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
+            <div class="col-6 col-md-4 col-lg-4 mb-4">
+                <a href="#" class=" text-decoration-none card shadow-sm border-0">
+                    <div  class=" card-body text-center">
                         <div class="icon mb-3">
                             <i class="bi bi-graph-up-arrow display-4 text-secondary"></i>
                         </div>
                         <h5 class="card-title">Statistics</h5>
-                        <p class="card-text">View your account statistics and activity.</p>
-                        <a href="#" class="btn btn-primary-subtle">Go to Statistics</a>
+                        <small class="card-text text-secondary d-md-block d-none">View your account statistics and activity.</small>
+
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="row mt-4">

@@ -1,6 +1,6 @@
 <x-user-layout>
     
-    <div class="col-12 d-flex justify-content-center align-items-center m-5 ">
+    <div class="col-12 d-flex justify-content-center align-items-center my-5 ">
         <div class="col-12 col-md-9 col-lg-4  card border border-light-subtle rounded-4">
             <div class="card-body p-3 p-md-4 p-xl-5">
                 <div class="row">
