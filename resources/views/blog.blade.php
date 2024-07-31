@@ -1,8 +1,8 @@
 <x-user-layout>
     <div class="container-fluid" style="min-height: 80vh;">
 
-        @if(Session::has('status'))
-            <p class="p-2 rounded mt-2 bg-success-subtle text-success"> {{Session::get('status')}} </p>
+        @if(Session::has('success'))
+            <p class="p-2 rounded mt-2 bg-success-subtle text-success"> {{Session::get('success')}} </p>
 
         @endif
 

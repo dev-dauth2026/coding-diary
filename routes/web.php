@@ -92,7 +92,7 @@ Route::group(['prefix'=>'account'],function(){
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
-        Route::put('blog/comments/comment/{id}/delete',[CommentController::class, 'commentDelete'])->name('comment.delete');
+        Route::delete('blog/comments/{comment}',[CommentController::class, 'destroy'])->name('comment.destroy');
 
         // Route::delete('/dashboard/favourite/{id}', [FavouritePostController::class, 'removeDashboardFavouriteBlog'])->name('account.favourite.remove');
 

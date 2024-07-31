@@ -17,10 +17,14 @@
                                     <p class="mb-0">{{ $comment->content }}</p>
                                     @auth
                                         @if(Auth::id() === $comment->user_id)
-                                            <p>
+                                            <div class="d-flex gap-2">
                                                 <a href="javascript:void(0);" onclick="showEditForm({{ $comment->id }});" class="ms-2">Edit</a>
-                                                <a href="{{ route('comment.delete', $comment->id) }}">Delete</a>
-                                            </p> 
+                                                <form action="{{ route('comment.destroy', $comment->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link p-0 ms-2" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button>
+                                                </form>
+                                            </div> 
                                         @endif
                                     @endauth
                                 </div>

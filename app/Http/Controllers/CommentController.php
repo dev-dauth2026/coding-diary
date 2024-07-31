@@ -50,10 +50,21 @@ class CommentController extends Controller
         $comment->save();
 
          // Redirect back to the blog post with a success message
-         return redirect()->route('account.blog', $comment->blog_post_id)->with('status', 'Comment updated successfully.');
+         return redirect()->route('account.blog', $comment->blog_post_id)->with('success', 'Comment updated successfully.');
 
     }
-    public function commentDelete($id){
-        return 'comment edit';
+    public function destroy(Comment $comment){
+         // Ensure the authenticated user is the owner of the comment
+         if (Auth::id() !== $comment->user_id) {
+            return redirect()->route('blog.show', $comment->blog_post_id)->with('error', 'Unauthorized access.');
+        }
+
+        // Delete the comment
+        $comment->delete();
+
+        // Redirect back to the blog post with a success message
+        return redirect()->route('account.blog', $comment->blog_post_id)->with('success', 'Comment deleted successfully.');
+
+
     }
 }
