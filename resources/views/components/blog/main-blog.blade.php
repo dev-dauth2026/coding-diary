@@ -4,7 +4,7 @@
             <form id="remove-favourite-form-{{ $post->id }}" action="{{route('favourite.remove',$post->id)}}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $post->id }});">
                 @csrf
                 @method('DELETE')
-                <div class="d-flex mb-5">
+                <div class="d-flex my-3">
                     <button class="border-0 bg-transparent ms-auto" type="submit">
                         <i class="bi bi-heart-fill" style="font-size: 1.5rem;color:red;"></i>
                     </button>
@@ -14,7 +14,7 @@
         @else
         <form action="{{route('favourite.add', $post->id)}}" method="POST">
             @csrf
-            <div class="d-flex mb-5">
+            <div class="d-flex my-3">
                 <button class="border-0 bg-transparent ms-auto" type="submit">
                     <i class="bi bi-heart" style="font-size: 1.5rem;"></i>
                 </button>
@@ -25,7 +25,7 @@
     @else
         <form action="{{route('favourite.add', $post->id)}}" method="POST">
             @csrf
-            <div class="d-flex mb-5">
+            <div class="d-flex my-3">
                 <button class="border-0 bg-transparent ms-auto" type="submit">
                     <i class="bi bi-heart" style="font-size: 1.5rem;"></i>
                 </button>

@@ -12,7 +12,12 @@ class PostController extends Controller
         $post = Post::latest()->first();
         $posts = Post::latest()->paginate(3);
         $totalBlogs = Post::count();
-        return view('blog',compact('post','posts','totalBlogs'));
+        $comments = $post->comments()
+                            ->with('user')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(15);
+
+        return view('blog',compact('post','posts','totalBlogs','comments'));
     }
     public function allBlogs(){
         $posts = Post::latest()->paginate(3);
@@ -49,19 +54,24 @@ class PostController extends Controller
 
     public function blogDetail($id){
         $post = Post::findOrFail($id);
+        $comments = $post->comments()
+                     ->with('user')
+                     ->orderBy('created_at', 'desc')
+                     ->paginate(15);
 
         // Retrieve all posts except the one with the given ID
         $posts = Post::where('id', '!=', $id)->get();
         $totalBlogs =$posts->count();
+
 
         if (!$post) {
             // Handle the case where the post is not found, e.g., show a 404 page
             abort(404, 'Post not found');
         }
 
-        return view('blog', compact('post','posts','totalBlogs'));
+        return view('blog', compact('post','posts','totalBlogs','comments'));
     }
 
-    
+
     
 }

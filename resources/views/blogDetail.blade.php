@@ -21,12 +21,14 @@
            <x-blog.main-blog :post="$post"/>
          @endif
          {{-- main blog section ended --}}
-         
+
         {{-- search section  --}}
         <div class="col-12  d-flex flex-column col-lg-3 col-md-3">
              <x-blog.blog-search :posts="$posts" totalBlogs="$totalBlogs"/>
         </div>
         {{-- search section ended --}}
+
+       
 
     </div>
 </x-user-layout>

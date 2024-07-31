@@ -45,7 +45,7 @@
                 </div>
 
                         {{-- Blog List Section --}}
-                    <div class="row px-5 gx-4 mb-5">
+                    <div class="row px-md-5 gx-4 mb-5">
                         <h3 class="text-center mb-4">More Recent Blogs</h3>
                         <hr class="col-4 mb-5 mx-auto">
                             <!-- Carousel for blogs -->
@@ -55,12 +55,11 @@
                                 <div class="carousel-item {{$index == 0?'active':''}}" >
                                     <div class="d-flex justify-content-center w-100">
                                         <div class="col-md-4 mb-4">
-                                            <a href="{{ route('blog.detail', $blogPost->id) }}" >
+                                            <a class="text-decoration-none" href="{{ route('blog.detail', $blogPost->id) }}" >
                                                 <div class="card h-100  shadow">
                                                     <img src="{{asset('storage/' . $blogPost->image)  }}" class="card-img-top self-auto" alt="{{ $blogPost->title }}" style="height: 200px;width:auto;">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{ $blogPost->title }}</h5>
-                                                        <p class="card-text">{{ Str::limit(strip_tags($blogPost->content), 120) }}</p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -82,6 +81,9 @@
                 
 
                     </div>
+                     {{-- comment section  --}}
+        <x-comments.comment :comments="$comments" :post="$post"/>
+                    
         @endif
 
 

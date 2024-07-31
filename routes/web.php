@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\FavouritePostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChangeUserName;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\BlogsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FavouritePostController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -45,6 +46,7 @@ Route::group(['prefix'=>'account'],function(){
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
     Route::post('subscription/email/verification/resend',[SubscriptionController::class, 'verificationResend'])->name('verification.resend') ;
+    Route::post('/blog/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     //Guest middleware
     Route::group(['middleware'=>'guest'], function(){
