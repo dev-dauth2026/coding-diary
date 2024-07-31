@@ -1,6 +1,11 @@
 <x-user-layout>
     <div class="container-fluid" style="min-height: 80vh;">
 
+        @if(Session::has('status'))
+            <p class="p-2 rounded mt-2 bg-success-subtle text-success"> {{Session::get('status')}} </p>
+
+        @endif
+
         @if (empty($posts))
             <div class="container">
                 <div class="row">
@@ -14,7 +19,7 @@
             
         {{-- Main Content Area --}}
         @if ($post && empty($query))
-                <div class="position-relative  d-flex justify-content-center align-items-center p-1 p-lg-3 w-100" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
+                <div class="position-relative  d-flex justify-content-center align-items-center p-1 p-lg-3 mt-2 w-100" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
                     <img class="rounded shadow" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid" style="width: 100%; max-height: 400px;">
                     <div class="position-absolute d-flex flex-column " style="z-index: 3;bottom:8%;right:8%">
                 
