@@ -6,7 +6,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 50vw;
             z-index: 1;
             overflow: hidden;
         }
@@ -14,22 +14,62 @@
         .wavy-overlay::before {
             content: '';
             position: absolute;
-            bottom: -20%;
+
             left: 0;
             width: 100%;
-            height: 120%;
-
-            animation: wave-animation 1s infinite linear;
+            height: 40vw;
+            background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); 
+            /* border-radius: 0% 0% 40% 90% / 20% 10% 90% 90%; */
+            animation: wave-animation 8s infinite  linear;
         }
+
+        
+        @keyframes wave-animation {
+            0% {
+                border-radius: 0% 0% 20% 90% / 0% 0% 90% 90%;
+                
+            }
+            10% {
+                border-radius: 0% 0% 30% 80% / 0% 0% 80% 80%;
+            }
+            20% {
+                border-radius: 0% 0% 40% 70% / 0% 0% 70% 70%;
+            }
+            30% {
+                border-radius: 0% 0% 50% 60% / 0% 0% 60% 60%;
+            }
+            40% {
+                border-radius: 0% 0% 60% 50%/ 0% 0% 55% 50%;
+            }
+            50% {
+                border-radius: 0% 0% 55% 55% / 0% 0% 50% 55%;
+            }
+            60% {
+                border-radius: 0% 0% 50% 60% / 0% 0% 55% 60%;
+            }
+            70% {
+                border-radius: 0% 0% 40% 70% / 0% 0% 60% 70%;
+            }
+            80% {
+                border-radius: 0% 0% 30% 80% / 0% 0% 70% 80%;
+            }
+            90% {
+                border-radius: 0% 0% 25% 85%/ 0% 0% 85% 85%;
+            }
+            100% {
+                border-radius: 0% 0% 20% 90% / 0% 0% 90% 90%;
+            }
+        }
+      
 
   
     </style>
 
     <!-- Hero Section -->
-    <div class="position-relative bg-body-tertiary " style="min-height: 60vh;width:100vw">
-        <div class="wavy-overlay overlay position-absolute top-0 start-0 w-100 h-100 " style="background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1; border-radius: 0% 0% 30% 60% / 0% 0% 30% 60%"></div>
-        <div class=" position-relative  text-white d-flex  align-items-center  h-100 w-100" style="z-index: 2;">
-            <div class=" w-100 " >
+    <div class="position-relative bg-body-tertiary " style="max-height: 30vw;width:100vw;">
+        <div class="wavy-overlay  position-absolute top-0 start-0 " ></div>
+        <div class=" position-relative  text-white d-flex align-items-center  w-100 " style="z-index: 2;height:30vw;margin-top:40px" >
+            <div class="row w-100  " >
                 @if (session('status'))
                     <div class="position-absolute top-0 w-100 alert alert-success p-2 mt-2" role="alert">
                         {{ session('status') }}
@@ -40,14 +80,13 @@
                     {{ session('message') }}
                 </div>
                   @endif
-                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center py-5 h-100">
+                <div class="col-12 col-md-6 col-lg-6 d-flex justify-content-center align-items-center  py-lg-2 py-1 ">
                     <div class="">
                         <h1>Welcome to Coding Diary</h1>
-                        <hr class="col-12 mx-auto">
                         <a href="{{route('account.blog')}}" class="btn btn-outline-secondary  mt-3">Get Started</a>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center py-5">
+                <div class="col-12 col-md-6 col-lg-6  d-flex justify-content-center align-items-center text-white-50  py-lg-2 py-1 ">
                     <p>Your go-to place for coding tips, tutorials, and insights.</p>
                 </div>
             </div>
