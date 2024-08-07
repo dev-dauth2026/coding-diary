@@ -65,6 +65,15 @@ class AdminProfileController extends Controller
         return redirect()->back()->with('success','Profile Picture has been successfully updated.');
     }
 
+    public function destroyProfilePicture(){
+        $admin = Auth::guard('admin')->user();
+        $admin->profile_picture = null;
+
+        $admin->save();
+
+        return redirect()->back()->with('success', 'Profile Picture has been successfully removed.');
+    }
+
     public function changePassword(Request $request)
     {
        $validator= Validator::make($request->all(),[

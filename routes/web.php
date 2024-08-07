@@ -119,6 +119,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::put('profile', [AdminProfileController::class, 'updateProfile'])->name('admin.profile.update');
         Route::put('username/change',[AdminProfileController::class,'changeUserName'])->name('admin.username.change');
         Route::put('profile_picture/change',[AdminProfileController::class,'changeProfilePicture'])->name('admin.profile_picture.change');
+        Route::delete('profile_picture/remove',[AdminProfileController::class,'destroyProfilePicture'])->name('admin.profile_picture.destroy');
 
         Route::put('profile/password/change',[AdminProfileController::class,'changePassword'])->name('admin.password.change');
         // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');

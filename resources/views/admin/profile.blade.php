@@ -78,15 +78,23 @@
                     <div class="card-body">
                         <h5 class="card-title">Profile Picture</h5>
                         @if($admin->profile_picture)
-                            <img src="{{asset('storage/' . $admin->profile_picture)}} " alt="profile picture" style="width: 100px; height: 100px; border-radius: 50%">
+                            <div class="d-flex flex-column gap-2">
+                                <img src="{{asset('storage/' . $admin->profile_picture)}} " alt="profile picture" style="width: 100px; height: 100px; border-radius: 50%">
+                                <form action="{{route('admin.profile_picture.destroy')}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-secondary " onclick="return confirm('Are you sure you want to remove the profile picture?')">Remove</button>
+                                </form>
+                            </div>
+                            
                         @else
-                        <h1><i class="bi bi-person-circle bi-3x"></i></h1>
+                        <h1><i class="fa fa-user-circle fa-2x"></i></h1>
                         @endif
                         
                         <form method="POST" action="{{route('admin.profile_picture.change')}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="mb-3">
+                            <div class="my-3">
                                 <label for="profile_picture" class="form-label @error('profile_picture') is-inavlid @enderror">Upload New Profile Picture</label>
                                 <input type="file" class="form-control" id="profile_picture" name="profile_picture" >
                                 @error('profile_picture')
