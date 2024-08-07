@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 
 Route::get('/', [HomeController::class, 'index'])->name('account.home');
 Route::group(['prefix'=>'account'],function(){
@@ -113,14 +113,13 @@ Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.auth'],function(){
         Route::get('dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
-        Route::get('createBlog',[AdminDashboardController::class,'createBlog'])->name('admin.createBlog');
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
-        Route::get('createBlog',[AdminPostController::class,'createBlog'])->name('admin.createBlog');
-        Route::post('createBlog',[AdminPostController::class,'processCreateBlog'])->name('admin.processCreateBlog');
-        Route::get('blogs',[BlogsController::class,'blogs'])->name('admin.blogs');
-        Route::get('editPost/{id}/edit',[AdminPostController::class,'editPost'])->name('admin.editPost');
-        Route::post('updatePost/{id}/edit',[AdminPostController::class,'updatePost'])->name('admin.updatePost');
-        Route::delete('post/{id}',[AdminPostController::class,'deletePost'])->name('admin.deletePost');
+        Route::get('blogs',[AdminPostController::class,'blogs'])->name('admin.blogs');
+        Route::get('blogs/create',[AdminPostController::class,'create'])->name('admin.blog.create');
+        Route::post('blogs',[AdminPostController::class,'store'])->name('admin.store');
+        Route::get('blogs/{post}/edit',[AdminPostController::class,'editPost'])->name('admin.post.edit');
+        Route::put('blogs/{post}',[AdminPostController::class,'update'])->name('admin.post.update');
+        Route::delete('blogs/{post}',[AdminPostController::class,'destroy'])->name('admin.post.delete');
 
 
     });
@@ -130,10 +129,15 @@ Route::group(['prefix'=>'admin'],function(){
 
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/test-log', function () {
+    Log::info('Test log entry');
+    return 'Log entry created';
+});

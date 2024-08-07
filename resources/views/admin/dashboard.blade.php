@@ -31,7 +31,7 @@
     <div class="container p-3 bg-body-tertiary" style="min-height: 90vh;">
         <h4 class="text-capitalize mb-5">{{ Auth::guard('admin')->user()->role }} Dashboard</h4>
         
-        <div class="row g-4" >
+        <div class="row g-4 mb-5" >
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card h-100 text-white bg-primary-gradient">
                     <div class="card-body d-flex flex-row justify-content-center align-items-center gap-3 text-center">
@@ -89,12 +89,72 @@
                     <div class="card-body d-flex flex-column justify-content-center align-items-center ">
                  
                             <h5 class="card-title mt-3 ">Add New Blog</h5>
-                            <a href="{{ route('admin.createBlog') }}" class="text-decoration-none text-white mt-3"><i class="fas fa-plus-circle fa-3x text-white-50"></i></a>
+                            <a href="{{ route('admin.blog.create') }}" class="text-decoration-none text-white mt-3"><i class="fas fa-plus-circle fa-3x text-white-50"></i></a>
                        
                     </div>
                 </div>
             </div>
         </div>
+        <section>
+            <div class="mb-5">
+                <h5 class="text-secondary">Recent Blog Posts</h5>
+                <hr class="col-3 mb-5">
+                <div class="d-flex  gap-4 flex-wrap">
+                    @foreach($posts as $post)
+                    <div class="card flex-fill" style="width:15rem">
+                            <a href="#" class="text-decoration-none text-secondary">
+                            <img src="{{asset('storage/'. $post->image)}}" class="card-img-top " alt="{{$post->title}}" style="height: 100px; object-fit:cover;">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ Str::limit(strip_tags($post->title), 30) }} </h5>
+                           
+                            </div>
+                        </a>
+                        </div>
+                    @endforeach
+                   
+
+                </div>
+            </div>
+           
+        </section>
+        {{-- Recent blogs post comments  --}}
+        <section>
+            <div class=" mb-5">
+                <h5 class="text-secondary">Recent Posts Comments </h5>
+                <hr class="col-3 ">
+                <div class="">
+                    @foreach($posts as $post)
+                    <div class="border-bottom p-2">
+                        <a href="" class="text-decoration-none text-secondary">
+                            <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} 3 hrs ago</p>
+                        </a>
+                    </div>
+                       
+                    @endforeach
+                </div>
+            </div>
+           
+        </section>
+         {{-- Recent blogs post comments end --}}
+          {{-- Recent blogs post comments  --}}
+        <section>
+            <div class=" mb-5">
+                <h5 class="text-secondary">Recent Messages </h5>
+                <hr class="col-3 ">
+                <div class="">
+                    @foreach($posts as $post)
+                    <div class="border-bottom p-2">
+                        <a href="" class="text-decoration-none text-secondary">
+                            <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} 3 hrs ago</p>
+                        </a>
+                    </div>
+                       
+                    @endforeach
+                </div>
+            </div>
+           
+        </section>
+         {{-- Recent blogs post comments end --}}
     </div>
 
 </x-admin.admin-layout>

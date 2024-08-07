@@ -11,14 +11,13 @@ class DashboardController extends Controller
 {
     public function dashboard(){
         $totalPosts = Post::count();
+        $posts = Post::latest()->take(4)->get();
     // Retrieve users count with the specified role
         $totalUsers = User::where('role', 'customer')->count();
         $totalAdminUsers = User::where('role', 'admin')->count();
-        return view('admin.dashboard',['totalPosts'=> $totalPosts,'totalUsers' => $totalUsers,'totalAdminUsers'=>$totalAdminUsers] );
+        return view('admin.dashboard',compact('totalPosts','totalUsers','totalAdminUsers','posts') );
     }
 
-    public function createBlog(){
-        return view('admin.createBlog'); 
-    }
+   
     
 }

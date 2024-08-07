@@ -4,17 +4,16 @@
         <h1>Edit Post</h1>
 
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger p-2">
+                    {{ $error }}
+                </div>
+            @endforeach
         @endif
 
-        <form action="{{ route('admin.updatePost', $post->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.post.update', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
@@ -22,7 +21,7 @@
 
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" id="content" name="content">{{ old('content', $post->content) }}</textarea>
+                <textarea class="form-control" id="content" name="content" rows="10" value="{{ old('content', $post->content) }}">{{ old('content', $post->content) }}</textarea>
             </div>
 
             <div class="mb-3">
@@ -47,12 +46,5 @@
     </div>
 </x-admin.admin-layout>
 
-<script>
-    tinymce.init({
-      selector: 'textarea#content', // Replace this CSS selector to match the placeholder element for TinyMCE
-      plugins: 'code table lists',
-      toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
-    });
-  </script>
 </body>
 </html>

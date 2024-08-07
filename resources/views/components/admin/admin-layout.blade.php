@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <x-head.tinymce-config/>
     <style>
         #sidebarMenu {
-            transition: width 0.3s, display 0.3s;
+            transition: width 0.5s, display 0.3s;
         }
-        #main {
+        /* #main {
             transition: margin-left 0.3s;
-        }
+        } */
         .collapsed-sidebar {
             width: 80px !important;
         }
@@ -43,101 +44,110 @@
             display: none;
         }
 
+        .nav-item{
+            transition: 0.5s ease
+        }
+
     </style>
 </head>
 <body>
-    <div class="container-fluid mx-0 px-0 ">
-        <div class="row mx-0">
+    <div class="container-fluid mx-0 px-0 d-flex">
+      
             <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block navbar-dark bg-dark vh-100 py-4 overflow-scroll">
                 <div class="position-sticky">
-                    <a id="" class="navbar-brand sidebar-logo1" href="dashboard">
-                        <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
-                    </a>
-                    <a class="navbar-brand sidebar-logo2" href="dashboard">
-                        <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 50px; object-fit: cover">
-                    </a>
-                    <ul class="navbar-nav ms-auto d-flex flex-column mt-4 gap-2" style="min-height: 85vh;">
-                        <li class="nav-item px-3">
+                    <div class="d-flex justify-content-center">
+                        <a id="" class="navbar-brand sidebar-logo1 " href="dashboard">
+                            <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
+                        </a>
+                        <a class="navbar-brand sidebar-logo2" href="dashboard">
+                            <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 50px; object-fit: cover">
+                        </a>
+                    </div>
+                   
+                    <ul class="navbar-nav ms-auto d-flex flex-column mt-4 gap-2 " style="min-height: 85vh;">
+                        <li class="nav-item px-3 {{ request()->routeIs('admin.dashboard') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.dashboard') }}">
                                 <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-tachometer-alt sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Dashboard</span>
+                                <i class="fa-solid fa-tachometer-alt sidebar-icon fs-4 me-3 " style="width:25px;"></i> <span class="sidebar-text text-nowrap">Dashboard</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
 
-                                    <i class="fa-solid fa-user sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Profile</span>
+                                    <i class="fa-solid fa-user sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Profile</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('admin.blogs') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('admin.blogs') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.blogs') }}">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-blog sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">All Blogs</span>
+                                    <i class="fa-solid fa-blog sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">All Blogs</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
-                            <a class="nav-link {{ request()->routeIs('admin.createBlog') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.createBlog') }}">
+                        <li class="nav-item px-3 {{ request()->routeIs('admin.blog.create') ? 'bg-secondary' : '' }}">
+                            <a class="nav-link {{ request()->routeIs('admin.blog.create') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.blog.create') }}">
                                 <div class="d-flex align-items-center">
-                                  <i class="fa-solid fa-plus-circle sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Add Blog</span>
+                                  <i class="fa-solid fa-plus-circle sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Add Blog</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
-                            <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.createBlog') }}">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
+                            <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="{{ route('admin.blog.create') }}">
                                 <div class="d-flex align-items-center">
-                                  <i class="fa-solid fa-users sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Users</span>
+                                  <i class="fa-solid fa-users sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Users</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-list sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Categories</span>
+                                    <i class="fa-solid fa-list sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Categories</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-comments sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Comments</span>
+                                    <i class="fa-solid fa-comments sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Comments</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('3') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-envelope sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Messages</span>
+                                    <i class="fa-solid fa-envelope sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Messages</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-chart-bar sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Analytics</span>
+                                    <i class="fa-solid fa-chart-bar sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Analytics</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
                             <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
                                 <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-cogs sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Settings</span>
+                                <i class="fa-solid fa-cogs sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Settings</span>
                                 </div>
                             </a>
                         </li>
                        
                      
                         <li class="nav-item px-3 logout-item mt-auto">
-                            <a class="nav-link text-secondary" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-right-from-bracket sidebar-icon fs-4 me-3"></i> <span class="sidebar-text text-nowrap">Logout</span>
-                                </div>
-                            </a>
-                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="">
                                 @csrf
+                                <button class="nav-link text-secondary bg-transparent" type="submit" >
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-right-from-bracket sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Logout</span>
+                                    </div>
+                                </button>
+                            </form>
+                               
                             </li>
                     </ul>
                 </div>
@@ -149,7 +159,8 @@
                     <input class="form-control mx-3" placeholder="Search blogs..." />
                     <div class="d-flex align-items-center">
                         @if (Auth::guard('admin')->check())
-                            <a class="text-decoration-none text-secondary me-3" href="/admin/dashboard">Admin Dashboard ({{ Auth::guard('admin')->user()->name }})</a>
+                        <i class="fa fa-user-circle fs-4"></i>
+                        <a class="text-decoration-none text-secondary me-3 text-nowrap " href="/admin/dashboard"> ({{ Auth::guard('admin')->user()->name }})</a>
                             
                         @endif
                     </div>
@@ -163,7 +174,7 @@
                     </div>
                 </footer>
             </div>
-        </div>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
