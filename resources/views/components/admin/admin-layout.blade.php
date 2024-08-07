@@ -159,9 +159,13 @@
                     <input class="form-control mx-3" placeholder="Search blogs..." />
                     <div class="d-flex align-items-center">
                         @if (Auth::guard('admin')->check())
+                        @if (Auth::guard('admin')->user()->profile_picture)
+                        <img src="{{asset('storage/' . Auth::guard('admin')->user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">
+                        @else
                         <i class="fa fa-user-circle fs-4"></i>
+                        @endif
                         <a class="text-decoration-none text-secondary me-3 text-nowrap " href="/admin/dashboard"> ({{ Auth::guard('admin')->user()->name }})</a>
-                            
+                        
                         @endif
                     </div>
                 </div>

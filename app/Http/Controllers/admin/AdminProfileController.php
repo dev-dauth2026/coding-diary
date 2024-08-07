@@ -37,7 +37,7 @@ class AdminProfileController extends Controller
 
     public function changeProfilePicture(Request $request){
         $validator = Validator::make($request->all(),[
-            'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
+            'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg',
         ]);
 
         if($validator->fails()){
