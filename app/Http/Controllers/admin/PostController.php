@@ -126,4 +126,8 @@ class PostController extends Controller
 
         return redirect()->back()->with('success','The post has been successfully deleted');
     }
+
+  
+
+   
 }

@@ -72,8 +72,8 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
-                            <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
+                        <li class="nav-item px-3 {{ request()->routeIs('admin.profile') ? 'bg-secondary' : '' }}">
+                            <a class="nav-link {{ request()->routeIs('admin.profile') ? 'active text-white' : 'text-secondary' }}" href="{{route('admin.profile')}}">
                                 <div class="d-flex align-items-center">
 
                                     <i class="fa-solid fa-user sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Profile</span>

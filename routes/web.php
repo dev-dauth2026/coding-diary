@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\AdminPasswordChangeController;
+use App\Http\Controllers\admin\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChangeUserName;
 use App\Http\Controllers\HomeController;
@@ -113,31 +115,26 @@ Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.auth'],function(){
         Route::get('dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
-        Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
+        Route::get('profile', [AdminProfileController::class, 'showProfile'])->name('admin.profile');
+        Route::put('profile', [AdminProfileController::class, 'updateProfile'])->name('admin.profile.update');
+        Route::put('username/change',[AdminProfileController::class,'changeUserName'])->name('admin.username.change');
+        Route::put('profile_picture/change',[AdminProfileController::class,'changeProfilePicture'])->name('admin.profile_picture.change');
+
+        Route::put('profile/password/change',[AdminProfileController::class,'changePassword'])->name('admin.password.change');
+        // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
+        // Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+        // Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+        // Route::put('password/reset', [ResetPasswordController::class, 'reset'])->name('admin.password.update');
+
         Route::get('blogs',[AdminPostController::class,'blogs'])->name('admin.blogs');
         Route::get('blogs/create',[AdminPostController::class,'create'])->name('admin.blog.create');
         Route::post('blogs',[AdminPostController::class,'store'])->name('admin.store');
         Route::get('blogs/{post}/edit',[AdminPostController::class,'editPost'])->name('admin.post.edit');
         Route::put('blogs/{post}',[AdminPostController::class,'update'])->name('admin.post.update');
         Route::delete('blogs/{post}',[AdminPostController::class,'destroy'])->name('admin.post.delete');
+        Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 
 
     });
 });
 
-
-
-
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/test-log', function () {
-    Log::info('Test log entry');
-    return 'Log entry created';
-});
