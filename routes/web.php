@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminPasswordChangeController;
 use App\Http\Controllers\admin\AdminProfileController;
+use App\Http\Controllers\admin\AdminUsersListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChangeUserName;
 use App\Http\Controllers\HomeController;
@@ -133,6 +134,10 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('blogs/{post}/edit',[AdminPostController::class,'editPost'])->name('admin.post.edit');
         Route::put('blogs/{post}',[AdminPostController::class,'update'])->name('admin.post.update');
         Route::delete('blogs/{post}',[AdminPostController::class,'destroy'])->name('admin.post.delete');
+
+        Route::get('users',[AdminUsersListController::class,'users'])->name('admin.users');
+
+
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 
 

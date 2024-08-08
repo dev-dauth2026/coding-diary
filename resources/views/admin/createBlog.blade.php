@@ -1,6 +1,7 @@
 <x-admin.admin-layout>
-    <div class="p-5">
-    
+    <div class="p-5 pt-3">
+        <h4 class=" "><i class="fa-solid fa-plus-circle  me-2"></i> Create Blog</h4>
+        <hr class="col-2 mb-5" >
 
         <form class=" form" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
             @csrf

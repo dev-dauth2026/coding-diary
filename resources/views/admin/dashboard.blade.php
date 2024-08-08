@@ -29,7 +29,8 @@
     @endif
     
     <div class="container p-3 bg-body-tertiary" style="min-height: 90vh;">
-        <h4 class="text-capitalize mb-5">{{ Auth::guard('admin')->user()->role }} Dashboard</h4>
+        <h4 class="text-capitalize "><i class="fa-solid fa-gauge me-2"></i> {{ Auth::guard('admin')->user()->role }} Dashboard</h4>
+        <hr class="col-3 mb-5" >
         
         <div class="row g-4 mb-5" >
             <div class="col-12 col-md-6 col-lg-3">
@@ -37,7 +38,7 @@
                     <div class="card-body d-flex flex-row justify-content-center align-items-center gap-3 text-center">
                         <i class="fas fa-blog fa-3x text-white-50"></i>
                         <div>
-                            <h5 class="card-title mt-3">Total Blogs</h5>
+                            <h5 class="card-title mt-3 text-secondary">Total Blogs</h5>
                             <p class="card-text display-4">{{$totalPosts}}</p>
                         </div>
                        

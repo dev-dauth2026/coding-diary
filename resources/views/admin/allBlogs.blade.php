@@ -6,10 +6,11 @@
                 <p class="bg-success-subtle text-success p-2 rounded">{{Session::get('success')}} </p>
             @endif
             <div class="d-flex align-items-center justify-content-between w-100 mb-3">
-                <div>
-                    <h4>Blog List</h4>
+                <div class="col-10">
+                    <h4><i class="fa-solid fa-blog me-2"></i>Blog List</h4>
+                    <hr class="mb-5 col-2">
                 </div>
-                <div>
+                <div class="col-2 d-flex justify-content-end">
                     <a href="{{ route('admin.blog.create') }}" class="btn btn-sm btn-primary">Add Post</a>
                 </div>
             </div>
