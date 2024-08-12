@@ -11,8 +11,14 @@
         }
     </style>
     <div class="container  p-3  bg-body-tertiary">
+        @if (Session::has('success'))
+        <div class="p-2 bg-success-subtle text-success rounded mb-2">
+            {{ Session::get('success') }}
+        </div>
+        @endif
         <h4> <i class="fa-solid fa-users me-2"></i>Users Page</h4>
         <hr class="col-2 mb-5" >
+        
         <div class="row" style="min-height: 80vh;">
             <div class="d-flex flex-column justify-contente-center">
                 <div class="col-12 d-flex justify-content-between mb-5">
@@ -94,7 +100,19 @@
                               <td>{{$user->name}} </td>
                               <td>{{$user->email}} </td>
                               <td>
-                                <span @class(['bg-success text-white rounded p-2'=>$user->role =='admin','bg-secondary text-white p-2 rounded'=>$user->role =='customer'])>{{$user->role}}</span> 
+                                  <form action="{{route('admin.roles.update',$user->id)}}" method="POST">
+                                      @csrf
+                                      @method('PUT')
+                                      <select name="role_id" class="form-control" onchange="this.form.submit()">
+                                          @foreach($roles as $role)
+                                          <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                                <span @class(['bg-success text-white rounded p-2'=>$user->role =='admin','bg-secondary text-white p-2 rounded'=>!$user->role =='admin'])>
+                                                {{ $role->name }}
+                                            </span> 
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
                              </td>
                               <td>
                                 <div class="d-flex gap-2">
