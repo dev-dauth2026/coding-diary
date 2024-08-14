@@ -141,11 +141,6 @@ Route::group(['prefix'=>'admin'],function(){
         Route::put('users/{user}/update',[AdminUsersListController::class,'userUpdate'])->name('admin.user.update');
         Route::delete('users/{user}',[AdminUsersListController::class,'userDestroy'])->name('admin.user.delete');
 
-        // user filter functionality 
-       Route::get('users/role/filter',[AdminUsersListController::class,'userFilterByRole'])->name('admin.role.filter');
-       Route::get('users/username/search',[AdminUsersListController::class,'usernameSearch'])->name('admin.username.search');
-
-
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 
 

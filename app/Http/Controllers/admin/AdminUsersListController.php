@@ -11,16 +11,44 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminUsersListController extends Controller
 {
-    public function users(){
-        $users = User::orderBy('created_at','desc')->get();
+    public function users(Request $request){
+
+        //Retrieve the roles for filter dropdown
         $roles = Role::orderBy('name','asc')->get();
+
+        //Get filter and search query from the requestion
+        $filteredRole = $request->has('role_id') ? $request->input('role_id') : 'all';
+        $searchQuery = $request->has('search_username') ? $request->input('search_username') : '';
+
+
+        //Build query with conditions
+        $users = User::query();
+
+        if($filteredRole !=='all' && !empty($searchQuery)){
+            $users->where('role_id',$filteredRole)
+                    ->where('name','LIKE', "%$searchQuery%")
+                 ->orwhere('role_id',$filteredRole)
+                 ->where('email', 'LIKE', "%$searchQuery%");
+        }
+
+        if(!empty($searchQuery) && $filteredRole =='all'){
+            $users->where('name','LIKE', "%$searchQuery%")
+                        ->orwhere('email', 'LIKE', "%$searchQuery%");
+        }
+
+        $users =$users->orderBy('created_at','desc')->get();
+
+        //Calculate the total number of customer user
         $totalUsers = User::whereHas('role', function($query){
             $query->where('name','customer');
         })->count();
+
+        //Calculate the total number of admin user
         $totalAdminUsers = User::whereHas('role', function($query){
             $query->where('name','admin');
         })->count();
-        return view('admin.users', compact('users','roles','totalUsers','totalAdminUsers'));
+
+        return view('admin.users', compact('users', 'roles', 'totalUsers', 'totalAdminUsers', 'filteredRole', 'searchQuery'));
     }
 
     public function roleUpdate(Request $request, User $user){
@@ -67,71 +95,6 @@ class AdminUsersListController extends Controller
 
     }
 
-    public function userFilterByRole(Request $request){
 
-        $filteredRole = $request->role_id;
-       
-        if(!empty($request->role_id) && $request->role_id !=='all'){
-
-            $users = User::query()->where('role_id',$filteredRole)->orderBy('created_at','desc')->get();
-        }elseif($request->role_id =='all'){
-            $users = User::get();
-        }
-        // $users = User::when($request->role_id, function($query) use($request){
-        //     return $query->where('role_id',$filteredRole);  
-        // })->orderBy('created_at','DESC')->get();
-        $roles = Role::orderBy('name','asc')->get();
-        $totalUsers = User::whereHas('role', function($query){
-            $query->where('name','customer');
-        })->count();
-        $totalAdminUsers = User::whereHas('role', function($query){
-            $query->where('name','admin');
-        })->count();
-        
-        return view('admin.users', compact('users','roles','totalUsers','totalAdminUsers','filteredRole'));
-
-
-    }
-
-    public function usernameSearch(Request $request){
-       
-
-        $filteredRole = $request->filteredRole;
-
-        $searchQuery = $request->search_username;
-
-        if($filteredRole !=='all' || !empty($searchQuery)){
-           
-                $users =  User::query()->where('name','LIKE',"%{$searchQuery}%")
-                ->where('role_id',$filteredRole)
-                ->orwhere('email', 'LIKE',"%{$searchQuery}" )
-                ->where('role_id',$filteredRole)
-                ->orderBy('name','asc')->get();  
-  
-        }
-
-        if($filteredRole =='all' && empty($searchQuery)){
-       
-            $users = User::get();
-
-        }
-
-        if($filteredRole !=='all' && empty($searchQuery)){
-       
-            $users = User::query()->where('role_id',$filteredRole)->get();
-
-        }
-
-
-        $roles = Role::orderBy('name','asc')->get();
-        $totalUsers = User::whereHas('role', function($query){
-            $query->where('name','customer');
-        })->count();
-        $totalAdminUsers = User::whereHas('role', function($query){
-            $query->where('name','admin');
-        })->count();
-        
-        return view('admin.users', compact('users','roles','totalUsers','totalAdminUsers','filteredRole'));
-
-    }
+   
 }

@@ -51,17 +51,25 @@
                 </div>
                 <div class=" col-12 table-responsive p-5 bg-white">
                     <p>Filtered:</p>
-                    <p class="text-capitalize"> Role: 
-                    @if(!empty($filteredRole))
+                    <p class=""> Role: 
+                    @if($filteredRole !=='all')
                             @foreach ($roles as $role)
                             <span class='text-capitalize fw-bold'> {{$filteredRole == $role->id ?  $role->name : ''}}</span>
                             @endforeach
-                            @endif
-                           <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
+                   @else
+                    <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
+
+                    @endif
+                    @if(!empty($searchQuery))
+                    <span class="ms-2">, Search Query:</span>
+                    <span class="fw-bold">{{$searchQuery}} </span>
+                    @endif
+                    
                         </p>
                     <div class="d-flex gap-5 mb-5">
                         <div class="col-2">
-                            <form action="{{route('admin.role.filter')}}" method="GET">
+                            <form action="{{route('admin.users')}}" method="GET">
+                                <input type="hidden" value="{{$searchQuery}}"  name="search_username" hidden>
                                 <select class="form-select text-capitalize" name="role_id" aria-label="Default select example" onchange="this.form.submit()">
                                     <option value="all">All Users</option>
                                     @foreach ($roles as $role)
@@ -75,13 +83,13 @@
                         
                         <div class=" flex-grow-1 position-relative">
                           
-                            <form action="{{route('admin.username.search')}}" method="GET" class="d-flex gap-2 col-12 grow-fill ">
-                                <input type="hidden" value="{{$filteredRole}}" name="filteredRole" hidden>
+                            <form action="{{route('admin.users')}}" method="GET" class="d-flex gap-2 col-12 grow-fill ">
+                                <input type="hidden" value="{{$filteredRole}}"  name="role_id" hidden>
                                 <div class="d-flex align-items-center">
                                     <button class="btn bg-transparent" type="submit"><i class="fa-solid fa-magnifying-glass fs-4"></i></button>
                                 </div>
                                 <div class="d-flex flex-column grow-fill  form-group w-100 ">
-                                    <input class="form-control " name="search_username" placeholder="Search username...">
+                                    <input class="form-control " name="search_username" placeholder="Search username..." value="{{$searchQuery??old('search_username')}}">
                                    
                                 </div>
                                 
@@ -100,7 +108,7 @@
                          
                           
                     </div>
-                    @if(($users->count()>0))
+                    @if(($users)->count()>0)
                     <table class="table table-borderless table-striped table-hover align-middle">
                         <thead >
                             <tr >
