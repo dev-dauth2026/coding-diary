@@ -117,6 +117,7 @@
                               <th scope="col">Username</th>
                               <th scope="col">Email</th>
                               <th scope="col">Role</th>
+                              <th scope="col">Verified</th>
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
@@ -144,6 +145,16 @@
                                         @endforeach
                                     </select>
                                 </form>
+                             </td>
+                             <td>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    @if($user->email_verified_at !==null)
+                                    <span><i class="fa-solid fa-circle-check text-success"></i></span>
+                                    @else
+                                    <i class="fa-solid fa-circle-xmark text-danger"></i>
+                                    @endif
+                                </div>
+                               
                              </td>
                               <td>
                                 <div class="d-flex gap-2">
