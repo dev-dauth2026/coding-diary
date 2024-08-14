@@ -59,7 +59,7 @@
                             @endif
                            <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
                         </p>
-                    <div class="d-flex gap-3 mb-5">
+                    <div class="d-flex gap-5 mb-5">
                         <div class="col-2">
                             <form action="{{route('admin.role.filter')}}" method="GET">
                                 <select class="form-select text-capitalize" name="role_id" aria-label="Default select example" onchange="this.form.submit()">
@@ -72,14 +72,24 @@
                             </form>
                         
                         </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-magnifying-glass fs-4"></i>
+                        
+                        <div class=" flex-grow-1 position-relative">
+                          
+                            <form action="{{route('admin.username.search')}}" method="GET" class="d-flex gap-2 col-12 grow-fill ">
+                                <input type="hidden" value="{{$filteredRole}}" name="filteredRole" hidden>
+                                <div class="d-flex align-items-center">
+                                    <button class="btn bg-transparent" type="submit"><i class="fa-solid fa-magnifying-glass fs-4"></i></button>
+                                </div>
+                                <div class="d-flex flex-column grow-fill  form-group w-100 ">
+                                    <input class="form-control " name="search_username" placeholder="Search username...">
+                                   
+                                </div>
+                                
+                            </form>
+                            
                         </div>
-                        <div class="flex-grow-1">
-
-                            <input class="form-control grow-fill" placeholder="Search username...">
-                        </div>
-                        <div class="col-2">
+                        <div class="col-2 d-flex gap-2 align-items-center justify-content-center">
+                            <span>Rows:</span>
                             <select class="form-select" aria-label="Default select example">
 
                                 <option selected value="1">1</option>

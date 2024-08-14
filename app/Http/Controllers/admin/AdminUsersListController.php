@@ -92,4 +92,46 @@ class AdminUsersListController extends Controller
 
 
     }
+
+    public function usernameSearch(Request $request){
+       
+
+        $filteredRole = $request->filteredRole;
+
+        $searchQuery = $request->search_username;
+
+        if($filteredRole !=='all' || !empty($searchQuery)){
+           
+                $users =  User::query()->where('name','LIKE',"%{$searchQuery}%")
+                ->where('role_id',$filteredRole)
+                ->orwhere('email', 'LIKE',"%{$searchQuery}" )
+                ->where('role_id',$filteredRole)
+                ->orderBy('name','asc')->get();  
+  
+        }
+
+        if($filteredRole =='all' && empty($searchQuery)){
+       
+            $users = User::get();
+
+        }
+
+        if($filteredRole !=='all' && empty($searchQuery)){
+       
+            $users = User::query()->where('role_id',$filteredRole)->get();
+
+        }
+
+
+        $roles = Role::orderBy('name','asc')->get();
+        $totalUsers = User::whereHas('role', function($query){
+            $query->where('name','customer');
+        })->count();
+        $totalAdminUsers = User::whereHas('role', function($query){
+            $query->where('name','admin');
+        })->count();
+        
+        return view('admin.users', compact('users','roles','totalUsers','totalAdminUsers','filteredRole'));
+
+    }
 }

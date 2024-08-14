@@ -143,6 +143,7 @@ Route::group(['prefix'=>'admin'],function(){
 
         // user filter functionality 
        Route::get('users/role/filter',[AdminUsersListController::class,'userFilterByRole'])->name('admin.role.filter');
+       Route::get('users/username/search',[AdminUsersListController::class,'usernameSearch'])->name('admin.username.search');
 
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
