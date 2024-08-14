@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,8 +26,10 @@ class ContactController extends Controller
 
         if($validator->passes()){
 
+            $user = User::where('email', $request->email)->first();
+
             $contact = new Contact();
-            $contact->user_type = $request->user_type;
+            $contact->user_type =  $user?'user':'guest';;
             $contact->name = $request->name;
             $contact->email = $request->email;
             $contact->message = $request->message;
