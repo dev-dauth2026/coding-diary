@@ -136,7 +136,10 @@ Route::group(['prefix'=>'admin'],function(){
         Route::delete('blogs/{post}',[AdminPostController::class,'destroy'])->name('admin.post.delete');
 
         Route::get('users',[AdminUsersListController::class,'users'])->name('admin.users');
-        Route::put('users/{user}',[AdminUsersListController::class,'roleUpdate'])->name('admin.roles.update');
+        Route::put('users/{user}/update-role',[AdminUsersListController::class,'roleUpdate'])->name('admin.roles.update');
+        Route::get('users/{user}/edit',[AdminUsersListController::class,'userEdit'])->name('admin.user.edit');
+        Route::put('users/{user}/update',[AdminUsersListController::class,'userUpdate'])->name('admin.user.update');
+        Route::delete('users/{user}',[AdminUsersListController::class,'userDestroy'])->name('admin.user.delete');
 
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');

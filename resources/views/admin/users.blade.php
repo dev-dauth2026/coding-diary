@@ -28,7 +28,7 @@
                                 <i class="fa-solid fa-user fa-3x text-white-50"></i>
                                 <div>
                                     <h5 class="card-title text-white">Admin</h5>
-                                    <h4 class="card-text display-4 text-white">1</h4>
+                                    <h4 class="card-text display-4 text-white">{{$totalAdminUsers}} </h4>
                                 </div>
                                 
                             </div>
@@ -41,7 +41,7 @@
                                 <i class="fa-solid fa-users fa-3x text-white-50"></i>
                                 <div>
                                     <h5 class="card-title text-secondary text-white">Customers</h5>
-                                    <h4 class="card-text display-4 text-white">4 </h4>
+                                    <h4 class="card-text display-4 text-white">{{$totalUsers}} </h4>
                                 </div>
                                 
                             </div>
@@ -54,8 +54,9 @@
                         <div class="col-2">
                             <select class="form-select " aria-label="Default select example">
                                 <option selected>Select Role</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Customer</option>
+                                @foreach ($roles as $role)
+                                <option value="{{$role->id}}">{{$role->name}} </option>
+                                @endforeach
     
                               </select>
                         </div>
@@ -116,11 +117,11 @@
                              </td>
                               <td>
                                 <div class="d-flex gap-2">
-                                    <a href="" class=""><i class="fa-solid fa-pen-to-square text-warning"></i></a>
-                                    <form action="#" method="POST">
+                                    <a href="{{route('admin.user.edit',$user->id)}}" class=""><i class="fa-solid fa-pen-to-square text-warning"></i></a>
+                                    <form action="{{route('admin.user.delete',$user->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn bg-transparent border-none m-0 p-0" type="submit"><i class="fa-solid fa-trash text-danger"></i></button>
+                                        <button class="btn bg-transparent border-none m-0 p-0" type="submit" onclick="return confirm('Are you really want to remove this user?')"><i class="fa-solid fa-trash text-danger"></i></button>
                                     </form>
                                    
                                 </div>

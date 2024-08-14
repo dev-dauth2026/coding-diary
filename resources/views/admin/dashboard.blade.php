@@ -21,15 +21,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     @endsection
 
-    @if (Session::has('postCreated'))
+    @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('postCreated') }}
+            {{ Session::get('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     
     <div class="container p-3 bg-body-tertiary" style="min-height: 90vh;">
-        <h4 class="text-capitalize "><i class="fa-solid fa-gauge me-2"></i> {{ Auth::guard('admin')->user()->role }} Dashboard</h4>
+        <h4 class="text-capitalize "><i class="fa-solid fa-gauge me-2"></i> Admin Dashboard</h4>
         <hr class="col-3 mb-5" >
         
         <div class="row g-4 mb-5" >

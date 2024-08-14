@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         if($validator->passes()){
             if(Auth::guard('admin')->attempt(['email'=> $request->email, 'password' => $request->password])){
-                if(Auth::guard('admin')->user()->role !='admin'){
+                if(Auth::guard('admin')->user()->role()->name !='admin'){
                     Auth::guard('admin')->logout();
                     return redirect()->route('admin.login')->with('error', 'You are not authorized to access this page.');
                 }
