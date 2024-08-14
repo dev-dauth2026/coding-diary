@@ -50,26 +50,48 @@
                     </div>
                 </div>
                 <div class=" col-12 table-responsive p-5 bg-white">
-                    <p>Filtered:</p>
-                    <p class=""> Role: 
-                    @if($filteredRole !=='all')
-                            @foreach ($roles as $role)
-                            <span class='text-capitalize fw-bold'> {{$filteredRole == $role->id ?  $role->name : ''}}</span>
-                            @endforeach
-                   @else
-                    <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
 
-                    @endif
-                    @if(!empty($searchQuery))
-                    <span class="ms-2">, Search Query:</span>
-                    <span class="fw-bold">{{$searchQuery}} </span>
-                    @endif
+                    {{-- filtered categories display --}}
+                    <p>Filtered:</p>
+
+                    <div class="mb-3 d-flex align-items-baseline" > Role: 
+                        @if($filteredRole !=='all')
+                                @foreach ($roles as $role)
+                                <span class='text-capitalize fw-bold'> {{$filteredRole == $role->id ?  $role->name : ''}}</span>
+                                @endforeach
+                        @else
+                             <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
+                        @endif
+
+                        @if(!empty($searchQuery))
+                            <span class="ms-2">, Search Query:</span>
+                            <span class="fw-bold">{{$searchQuery}} </span>
+                        @endif
+
+                        @if(!empty($verified))
+                            <span class="ms-2">, Verified Filter:</span>
+                            <span class="fw-bold text-capitalize">{{$verified}} </span>
+                        @endif
+
+                        <form action="{{route('admin.users')}}" method="GET">
+                            <input type="hidden" value=""  name="search_username" hidden>
+                            <input type="hidden" value="all"  name="role_id" hidden>
+                            <input type="hidden" value="all"  name="verified" hidden>
+                            <button class="btn btn-transparent text-primary" type="submit"> Reset</button>
+                        </form>
+                        
                     
-                        </p>
+                    </div>
+                    {{-- filtered categories display ends--}}
+
+                    {{--all filters section  --}}
                     <div class="d-flex gap-5 mb-5">
+
+                        {{-- Role filter section  --}}
                         <div class="col-2">
                             <form action="{{route('admin.users')}}" method="GET">
                                 <input type="hidden" value="{{$searchQuery}}"  name="search_username" hidden>
+                                <input type="hidden" value="{{$verified}}"  name="verified" hidden>
                                 <select class="form-select text-capitalize" name="role_id" aria-label="Default select example" onchange="this.form.submit()">
                                     <option value="all">All Users</option>
                                     @foreach ($roles as $role)
@@ -80,11 +102,16 @@
                             </form>
                         
                         </div>
+                        {{-- Role filter section  ends --}}
+
+
+                        {{-- search section  --}}
                         
                         <div class=" flex-grow-1 position-relative">
                           
                             <form action="{{route('admin.users')}}" method="GET" class="d-flex gap-2 col-12 grow-fill ">
                                 <input type="hidden" value="{{$filteredRole}}"  name="role_id" hidden>
+                                <input type="hidden" value="{{$verified}}"  name="verified" hidden>
                                 <div class="d-flex align-items-center">
                                     <button class="btn bg-transparent" type="submit"><i class="fa-solid fa-magnifying-glass fs-4"></i></button>
                                 </div>
@@ -96,6 +123,27 @@
                             </form>
                             
                         </div>
+                        {{-- search section  ends--}}
+
+                        {{-- Verified filter section  --}}
+                        <div class="col-2 d-flex gap-2 align-items-center justify-content-center">
+                            <form action="{{route('admin.users')}}" method="GET" class="d-flex justify-content-center align-items-center gap-2">
+                                <span class="">Verified:</span>
+                                <input type="hidden" value="{{$searchQuery}}"  name="search_username" hidden>
+                                <input type="hidden" value="{{$filteredRole}}"  name="role_id" hidden>
+                                <select class="form-select" aria-label="Default select " name="verified" onchange="this.form.submit()">
+
+                                    <option  value="all" {{ request('verified') == 'all' ? 'selected' : '' }}>All</option>
+                                    <option  value="verified" {{ request('verified') == 'verified' ? 'selected' : '' }}>Verified</option>
+                                    <option value="unverified" {{ request('verified') == 'unverified' ? 'selected' : '' }}>Unverified</option>
+        
+                                </select>
+                            </form>
+                        </div>
+                          {{-- Verified filter section ends --}}
+
+
+                        {{-- Row filter section  --}}
                         <div class="col-2 d-flex gap-2 align-items-center justify-content-center">
                             <span>Rows:</span>
                             <select class="form-select" aria-label="Default select example">
@@ -105,11 +153,15 @@
     
                               </select>
                         </div>
+                          {{-- Row filter section ends --}}
                          
                           
                     </div>
+                    {{--all filters section ends --}}
+
+
                     @if(($users)->count()>0)
-                    <table class="table table-borderless table-striped table-hover align-middle">
+                    <table class="table table-borderless table-striped table-hover align-middle border-top">
                         <thead >
                             <tr >
                               <th scope="col">SN</th>

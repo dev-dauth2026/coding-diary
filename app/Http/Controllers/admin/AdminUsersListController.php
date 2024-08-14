@@ -19,22 +19,75 @@ class AdminUsersListController extends Controller
         //Get filter and search query from the requestion
         $filteredRole = $request->has('role_id') ? $request->input('role_id') : 'all';
         $searchQuery = $request->has('search_username') ? $request->input('search_username') : '';
+        $verified = $request->has('verified') ? $request->input('verified') : 'all';
 
 
         //Build query with conditions
         $users = User::query();
 
-        if($filteredRole !=='all' && !empty($searchQuery)){
-            $users->where('role_id',$filteredRole)
-                    ->where('name','LIKE', "%$searchQuery%")
-                 ->orwhere('role_id',$filteredRole)
-                 ->where('email', 'LIKE', "%$searchQuery%");
+        if($filteredRole !=='all' && empty($searchQuery) && $verified == 'all'){
+            $users->where('role_id',$filteredRole);
+            
         }
 
-        if(!empty($searchQuery) && $filteredRole =='all'){
-            $users->where('name','LIKE', "%$searchQuery%")
-                        ->orwhere('email', 'LIKE', "%$searchQuery%");
+        if($filteredRole !=='all' && !empty($searchQuery && $verified == 'all') ){
+            $users->where('role_id',$filteredRole)
+                    ->where('name','LIKE', "%$searchQuery%")
+                    ->orwhere('role_id',$filteredRole)
+                    ->where('email', 'LIKE', "%$searchQuery%") ;
+            
         }
+
+        if($filteredRole !=='all' && empty($searchQuery && $verified !== 'all') ){
+            if($verified ==='verified'){
+                $users->where('role_id',$filteredRole)
+                ->whereNotNull('email_verified_at');
+            } elseif($verified==='unverified') {
+                $users->where('role_id',$filteredRole)
+                ->whereNull('email_verified_at');
+            }
+            
+        }
+
+        if($filteredRole !=='all' && !empty($searchQuery && $verified !== 'all') ){
+
+            if($verified ==='verified'){
+                $users->where('role_id',$filteredRole)
+                ->where('name','LIKE', "%$searchQuery%")
+                ->whereNotNull('email_verified_at');
+            } elseif($verified==='unverified') {
+                $users->where('role_id',$filteredRole)
+                ->where('name','LIKE', "%$searchQuery%")
+                ->whereNull('email_verified_at');
+            }
+            
+        }
+
+        if(!empty($searchQuery) && $filteredRole =='all' && $verified=='all'){
+            $users->where('name','LIKE', "%$searchQuery%")
+                    ->orwhere('email', 'LIKE', "%$searchQuery%");
+        }
+
+        if(!empty($searchQuery) && $filteredRole =='all' && $verified!=='all'){
+            if($verified ==='verified'){
+                $users->where('name','LIKE', "%$searchQuery%")
+                ->whereNotNull('email_verified_at');
+                
+            } elseif($verified==='unverified') {
+                $users->where('name','LIKE', "%$searchQuery%")
+                ->whereNull('email_verified_at');
+                
+            }
+        }
+
+        if($verified !== 'all'){
+            if($verified ==='verified'){
+                $users->whereNotNull('email_verified_at');
+            } elseif($verified==='unverified') {
+                $users->whereNull('email_verified_at');
+            }
+        }
+        
 
         $users =$users->orderBy('created_at','desc')->get();
 
@@ -48,7 +101,7 @@ class AdminUsersListController extends Controller
             $query->where('name','admin');
         })->count();
 
-        return view('admin.users', compact('users', 'roles', 'totalUsers', 'totalAdminUsers', 'filteredRole', 'searchQuery'));
+        return view('admin.users', compact('users', 'roles', 'totalUsers', 'totalAdminUsers', 'filteredRole', 'searchQuery','verified'));
     }
 
     public function roleUpdate(Request $request, User $user){
