@@ -50,15 +50,27 @@
                     </div>
                 </div>
                 <div class=" col-12 table-responsive p-5 bg-white">
+                    <p>Filtered:</p>
+                    <p class="text-capitalize"> Role: 
+                    @if(!empty($filteredRole))
+                            @foreach ($roles as $role)
+                            <span class='text-capitalize fw-bold'> {{$filteredRole == $role->id ?  $role->name : ''}}</span>
+                            @endforeach
+                            @endif
+                           <span class='text-capitalize fw-bold'> {{ $filteredRole=='all'?'All':''}}</span>
+                        </p>
                     <div class="d-flex gap-3 mb-5">
                         <div class="col-2">
-                            <select class="form-select " aria-label="Default select example">
-                                <option selected>Select Role</option>
-                                @foreach ($roles as $role)
-                                <option value="{{$role->id}}">{{$role->name}} </option>
-                                @endforeach
-    
-                              </select>
+                            <form action="{{route('admin.role.filter')}}" method="GET">
+                                <select class="form-select text-capitalize" name="role_id" aria-label="Default select example" onchange="this.form.submit()">
+                                    <option value="all">All Users</option>
+                                    @foreach ($roles as $role)
+                                    <option value="{{$role->id}}" {{(!empty($filteredRole) && $filteredRole==$role->id)?'selected': ''}} >{{$role->name}} </option>
+                                    @endforeach
+        
+                                  </select>
+                            </form>
+                        
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-magnifying-glass fs-4"></i>
@@ -78,7 +90,7 @@
                          
                           
                     </div>
-                    @if(!empty($users))
+                    @if(($users->count()>0))
                     <table class="table table-borderless table-striped table-hover align-middle">
                         <thead >
                             <tr >
@@ -132,8 +144,8 @@
                           </tbody>
                     </table>
                     @else
-                    <div>
-                        <p>Sorry no users</p>
+                    <div class="bg-body-tertiary d-flex justify-content-center align-items-center" style="min-height:40vh;">
+                        <h4>Sorry no users</h4>
                     </div>
                     @endif
                 </div>
