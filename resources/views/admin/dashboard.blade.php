@@ -1,21 +1,5 @@
 <x-admin.admin-layout>
-    <style>
-        .bg-primary-gradient {
-            background: linear-gradient(45deg, #0460c2, #729cca);
-        }
-        .bg-success-gradient {
-            background: linear-gradient(45deg, #0ad038, #91dba2);
-        }
-        .bg-danger-gradient {
-            background: linear-gradient(45deg, #a90415, #d5838b);
-        }
-        .bg-secondary-gradient {
-            background: linear-gradient(45deg, #536779, #b9c6d2);
-        }
-        .bg-info-gradient {
-            background: linear-gradient(45deg, #066a79, #6cd0e0);
-        }
-    </style>
+    
 
     @section('head')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminCategoriesController;
+use App\Http\Controllers\admin\AdminCommentsController;
 use App\Http\Controllers\admin\AdminPasswordChangeController;
 use App\Http\Controllers\admin\AdminProfileController;
 use App\Http\Controllers\admin\AdminUsersListController;
@@ -148,6 +149,13 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('blogs/categories/{category}',[AdminCategoriesController::class,'editCategory'])->name('admin.category.edit');
         Route::put('blogs/categories/{category}',[AdminCategoriesController::class,'updateCategory'])->name('admin.category.update');
         Route::delete('blogs/categories/{category}',[AdminCategoriesController::class,'destroyCategory'])->name('admin.category.delete');
+
+        Route::get('comments',[AdminCommentsController::class,'comments'])->name('admin.comments');
+        Route::get('comments/{comment}',[AdminCommentsController::class,'editComments'])->name('admin.comments.edit');
+        Route::put('comments/{comment}',[AdminCommentsController::class,'updateComments'])->name('admin.comments.update');
+        Route::delete('comments/{comment}',[AdminCommentsController::class,'destroy'])->name('admin.comments.delete');
+
+
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 

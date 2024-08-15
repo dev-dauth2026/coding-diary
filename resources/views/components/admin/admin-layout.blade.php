@@ -48,6 +48,24 @@
             transition: 0.5s ease
         }
 
+
+        .bg-primary-gradient {
+            background: linear-gradient(45deg, #0460c2, #729cca);
+        }
+        .bg-success-gradient {
+            background: linear-gradient(45deg, #0ad038, #91dba2);
+        }
+        .bg-danger-gradient {
+            background: linear-gradient(45deg, #a90415, #d5838b);
+        }
+        .bg-secondary-gradient {
+            background: linear-gradient(45deg, #536779, #b9c6d2);
+        }
+        .bg-info-gradient {
+            background: linear-gradient(45deg, #066a79, #6cd0e0);
+        }
+   
+
     </style>
 </head>
 <body>
@@ -108,8 +126,8 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3 {{ request()->routeIs('#') ? 'bg-secondary' : '' }}">
-                            <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
+                        <li class="nav-item px-3 {{ request()->routeIs('admin.comments') ? 'bg-secondary' : '' }}">
+                            <a class="nav-link {{ request()->routeIs('admin.comments') ? 'active text-white' : 'text-secondary' }}" href="{{route('admin.comments')}}">
                                 <div class="d-flex align-items-center">
                                     <i class="fa-solid fa-comments sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Comments</span>
                                 </div>
