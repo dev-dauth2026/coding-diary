@@ -147,6 +147,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('blogs/categories',[AdminCategoriesController::class,'store'])->name('admin.category.store');
         Route::get('blogs/categories/{category}',[AdminCategoriesController::class,'editCategory'])->name('admin.category.edit');
         Route::put('blogs/categories/{category}',[AdminCategoriesController::class,'updateCategory'])->name('admin.category.update');
+        Route::delete('blogs/categories/{category}',[AdminCategoriesController::class,'destroyCategory'])->name('admin.category.delete');
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 

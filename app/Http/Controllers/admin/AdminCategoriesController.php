@@ -66,4 +66,10 @@ class AdminCategoriesController extends Controller
         return redirect()->route('admin.blog.category')->with('success','Category has been successfully updated.');
 
     }
+
+    public function destroyCategory(Request $request,Category $category){
+        $category->delete();
+
+        return redirect()->back()->with('success','The category has been successfully deleted.');
+    }
 }

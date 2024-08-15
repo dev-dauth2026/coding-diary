@@ -50,7 +50,7 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="{{route('admin.category.edit',$category->id)}}" class=""><i class="fa-solid fa-pen-to-square text-warning"></i></a>
-                                        <form action="#" method="POST">
+                                        <form action="{{route('admin.category.delete',$category->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn bg-transparent border-none m-0 p-0" type="submit" onclick="return confirm('Are you really want to remove this user?')"><i class="fa-solid fa-trash text-danger"></i></button>
