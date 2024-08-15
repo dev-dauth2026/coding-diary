@@ -143,17 +143,7 @@
                           {{-- Verified filter section ends --}}
 
 
-                        {{-- Row filter section  --}}
-                        <div class="col-2 d-flex gap-2 align-items-center justify-content-center">
-                            <span>Rows:</span>
-                            <select class="form-select" aria-label="Default select example">
-
-                                <option selected value="1">1</option>
-                                <option value="2">2</option>
-    
-                              </select>
-                        </div>
-                          {{-- Row filter section ends --}}
+                 
                          
                           
                     </div>

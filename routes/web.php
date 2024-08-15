@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminCategoriesController;
 use App\Http\Controllers\admin\AdminPasswordChangeController;
 use App\Http\Controllers\admin\AdminProfileController;
 use App\Http\Controllers\admin\AdminUsersListController;
@@ -140,6 +141,12 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('users/{user}/edit',[AdminUsersListController::class,'userEdit'])->name('admin.user.edit');
         Route::put('users/{user}/update',[AdminUsersListController::class,'userUpdate'])->name('admin.user.update');
         Route::delete('users/{user}',[AdminUsersListController::class,'userDestroy'])->name('admin.user.delete');
+
+        Route::get('blogs/category',[AdminCategoriesController::class,'blogCategory'])->name('admin.blog.category');
+        Route::get('blogs/category/create',[AdminCategoriesController::class,'createCategoryFormShow'])->name('admin.category.create');
+        Route::post('blogs/categories',[AdminCategoriesController::class,'store'])->name('admin.category.store');
+        Route::get('blogs/categories/{category}',[AdminCategoriesController::class,'editCategory'])->name('admin.category.edit');
+        Route::put('blogs/categories/{category}',[AdminCategoriesController::class,'updateCategory'])->name('admin.category.update');
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 
