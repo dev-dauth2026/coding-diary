@@ -98,13 +98,23 @@
                     <hr class="col-2 mb-5">
 
                     <div class="row gap-3">
+                        @if($comments->count()>0)
                         @foreach($comments->take(3) as $comment)
                         <div class="col-12 bg-body d-flex flex-column gap-3 p-3 rounded">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column comment-content gap-2" id="comment-content-{{$comment->id}}">
+                                <div class="d-flex justify-content-between align-items-center ">
                                     <div>
                                         <img src="storage/" . {{$comment->user->profile_picture}} alt="" style="height: 40px;width:40px;border-radius:50%;">
-                                        <span>{{$comment->user->name}} </span> 
+                                        <span class="fw-bold ">{{$comment->user->name}}</span> <span> commented on <strong>{{$comment->blogPost->title}}</strong> blog post. </span> 
+
+                                        {{-- replies display toggle button  --}}
+                                        @if($comment->replies->isNotEmpty())
+                                        <button class="btn btn-trapsparent text-secondary btn-sm" type="button" onclick="toggleReplies({{ $comment->id }})">
+                                             {{ $comment->replies->count() }} {{$comment->replies->count()==1?'reply':'replies'}} 
+                                        </button>
+                                        @endif
+                                         {{-- replies display toggle button end --}}
+   
                                     </div>
                                     <form action="{{route('admin.comments.delete',$comment->id)}}" method="POST">
                                         @csrf
@@ -116,18 +126,95 @@
                                  <small class="text-secondary">{{ $comment->created_at}} </small>
                             </div>
                             <p>{{$comment->content}} </p>
+
+                            {{-- if replies    --}}
+
+                            @if($comment->replies->isNotEmpty())
+                               
+                                @if($comment->replies)
+                                    <div class="replies p-2  flex-column gap-2" id="replies-{{$comment->id}}" style="display: none;">
+                                        @foreach($comment->replies as $reply)
+                                        <div class="d-flex">
+                                            <p><strong>{{ $reply->user->name }}</strong> replied:</p>
+                                            <small class="text-secondary">{{ $reply->created_at }}</small>
+                                        </div>
+                                        <p>{{ $reply->content }}</p>
+                
+                                        @endforeach
+                                    </div>
+
+                                @endif
+
+                            @endif
+
+                            @if(Session::has('reply_error'))
+                                <p class="alert alert-danger p-2 my-2">{{Session::get('reply_error')}} </p>
+                                <form action='{{route('admin.comments.reply',$comment->id)}}' method='post' class='d-flex flex-column gap-2'>
+                                    @csrf
+                                    <div class='form-floating'>
+                                        <textarea  class='form-control ' id='floatingTextarea'  placeholder='Write your reply to the comment' name ='comment_reply'> </textarea>
+                                        <label for='floatingTextarea'>Reply to the comment...</label>
+                                    </div>
+                                    <div class='d-flex justify-content-end gap-2'>
+                                        <a href='{{route('admin.comments')}}' type='submit' class='btn btn-outline-danger'>Cancel</a>
+                                        <button type='submit' class='btn btn-outline-info'>Reply</button>
+                                    </div>
+            
+                            </form>
+                            @endif
+                            
                             <div class="col-4 d-flex gap-4">
-                                <a href="{{route('admin.comments.edit',$comment->id)}}" class="text-decoration-none text-secondary"><i class="fa-solid fa-pen-to-square "></i></a>
-                                <a href="text-decoration-none text-secondary">
+                                <button class="btn btn-transparent">
+                                    <a href="{{route('admin.comments.edit',$comment->id)}}" class="text-decoration-none text-secondary" ><i class="fa-solid fa-pen-to-square "></i></a>
+                                </button>
+                                <button class="btn btn-transparent text-decoration-none text-secondary" type="button" onclick="reply({{$comment->id}})">
                                     <i class="fa-regular fa-message text-secondary"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
                         @endforeach
+                        @endif
                     </div>
                 </div>
             </main>
         </div>
     </div>
+    <script>
+
+        function reply(commentId){
+
+            const comment = document.getElementById(`comment-content-${commentId}`);
+            const replyForm = document.createElement('div');
+            replyForm.innerHTML = `
+                        <form action='blogs/comments/reply/${commentId}' method='post' class='d-flex flex-column gap-2' >
+                            @csrf
+                            <div class='form-floating'>
+                                <textarea  class='form-control' id='floatingTextarea'  placeholder='Write your reply to the comment' name ='comment_reply'> </textarea>
+                                <label for='floatingTextarea'>Reply to the comment...</label>
+                            </div>
+                            <div class='d-flex justify-content-end gap-2'>
+                                <a href='{{route('admin.comments')}}' type='submit' class='btn btn-outline-danger'>Cancel</a>
+                                <button type='submit' class='btn btn-outline-info'>Reply</button>
+                            </div>
+    
+                        </form>
+                       
+            `;
+            comment.appendChild(replyForm);
+        }
+
+        function toggleReplies(commentId){
+            const reply = document.getElementById(`replies-${commentId}`);
+            const button = event.target;
+
+            if(reply.style.display =="none"){
+                reply.style.display = "flex ";
+            }else{
+                reply.style.display = "none ";
+            }
+
+        }
+
+    </script>
 </x-admin.admin-layout>

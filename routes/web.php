@@ -154,6 +154,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('comments/{comment}',[AdminCommentsController::class,'editComments'])->name('admin.comments.edit');
         Route::put('comments/{comment}',[AdminCommentsController::class,'updateComments'])->name('admin.comments.update');
         Route::delete('comments/{comment}',[AdminCommentsController::class,'destroy'])->name('admin.comments.delete');
+        Route::post('blogs/comments/reply/{comment_id}',[AdminCommentsController::class,'reply'])->name('admin.comments.reply');
 
 
 
