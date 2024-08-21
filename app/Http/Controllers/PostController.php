@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,8 +13,9 @@ class PostController extends Controller
         $post = Post::latest()->first();
         $posts = Post::latest()->paginate(3);
         $totalBlogs = Post::count();
-        $comments = $post->comments()
-                            ->with('user')
+        $comments = Comment::where('blog_post_id',$post->id)
+                            ->whereNull('parent_id')
+                            ->with('replies')
                             ->orderBy('created_at', 'desc')
                             ->paginate(15);
 
@@ -54,10 +56,11 @@ class PostController extends Controller
 
     public function blogDetail($id){
         $post = Post::findOrFail($id);
-        $comments = $post->comments()
-                     ->with('user')
-                     ->orderBy('created_at', 'desc')
-                     ->paginate(15);
+        $comments = Comment::where('blog_post_id',$post->id)
+                    ->whereNull('parent_id')
+                    ->with('replies')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(15);
 
         // Retrieve all posts except the one with the given ID
         $posts = Post::where('id', '!=', $id)->get();

@@ -98,6 +98,7 @@
                     <hr class="col-2 mb-5">
 
                     <div class="row gap-3">
+                        {{-- if comments  --}}
                         @if($comments->count()>0)
                         @foreach($comments->take(3) as $comment)
                         <div class="col-12 bg-body d-flex flex-column gap-3 p-3 rounded">
@@ -146,6 +147,7 @@
                                 @endif
 
                             @endif
+                             {{-- if replies  ends  --}}
 
                             @if(Session::has('reply_error'))
                                 <p class="alert alert-danger p-2 my-2">{{Session::get('reply_error')}} </p>
@@ -175,6 +177,7 @@
 
                         @endforeach
                         @endif
+                         {{-- if comments ends --}}
                     </div>
                 </div>
             </main>

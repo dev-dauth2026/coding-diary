@@ -51,6 +51,7 @@ Route::group(['prefix'=>'account'],function(){
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
     Route::post('subscription/email/verification/resend',[SubscriptionController::class, 'verificationResend'])->name('verification.resend') ;
+
     Route::post('/blog/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     //Guest middleware
@@ -98,6 +99,8 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
         Route::delete('blog/comments/{comment}',[CommentController::class, 'destroy'])->name('comment.destroy');
+        Route::post('blog/comments/reply/{commentId}',[CommentController::class, 'commentReply'])->name('comment.reply');
+        Route::put('blog/comments/reply/update/{commentId}',[CommentController::class, 'updateCommentReply'])->name('comment.reply.update');
 
         // Route::delete('/dashboard/favourite/{id}', [FavouritePostController::class, 'removeDashboardFavouriteBlog'])->name('account.favourite.remove');
 
