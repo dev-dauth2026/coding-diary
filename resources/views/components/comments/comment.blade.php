@@ -30,14 +30,14 @@
 
             {{-- foreach for displaying all comments --}}
             @foreach($comments as $comment)
-                <div class="card mb-3 bg-body p-3 rounded gap-5">
-                    <div class="d-flex justify-content-between mb-3">
+              
+                    <div class="d-flex justify-content-between mb-1">
                         <div class="d-flex gap-2 w-100">
                             <div class="">
                                 <img src="{{ $comment->user->profile_picture ? asset('storage/' . $comment->user->profile_picture) : 'https://via.placeholder.com/50' }}" alt="Profile Picture" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                             </div>
                             <div class="d-flex flex-column flex-grow-1">
-                                <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center ">
                                     <strong>{{ $comment->user->name }} : <small class="ms-3 text-secondary">{{$comment->created_at}} </small> </strong>
                                     {{-- replies display toggle button  --}}
                                         @if($comment->replies->isNotEmpty())
@@ -55,7 +55,7 @@
                                 </div>
     
                                 <div class="" id="comment-content-{{ $comment->id }}">
-                                    <p class="mb-3" id="comment-{{$comment->id}}">{{ $comment->content }}</p>
+                                    <p class="mb-1" id="comment-{{$comment->id}}">{{ $comment->content }}</p>
                                      {{-- if user logged in can only edit or delete their comments  --}}
                                         @can('update',$comment)
                                         <div id="comment-edit-{{$comment->id}}" class="" style="display: none;">
@@ -77,14 +77,14 @@
     
                                     {{-- replies contents  --}}
                                     @if($comment->replies->isNotEmpty())
-                                    <div class="ms-5 mb-3" id="replies-{{$comment->id}}" style="display: none;" >
+                                    <div class="ms-5 " id="replies-{{$comment->id}}" style="display: none;" >
     
                                             @foreach($comment->replies as $reply)
-                                                <div class="mb-3 d-flex  gap-3" >
+                                                <div class="d-flex  gap-1" >
                                                     <div>
                                                         <img src="{{ $reply->user->profile_picture ? asset('storage/' . $reply->user->profile_picture) : 'https://via.placeholder.com/50' }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
                                                     </div>
-                                                    <div class="d-flex flex-column gap-2  flex-grow-1">
+                                                    <div class="d-flex flex-column  flex-grow-1">
                                                         <div class="d-flex  gap-2">
                                                             <strong>{{ $reply->user->name }} : <small class="mx-2 text-secondary">{{$reply->created_at}} </small> </strong>
                                                     
@@ -247,7 +247,7 @@
                          {{-- edit delete toggle end --}}
                     </div>
                     
-                </div>
+        
             @endforeach
             {{-- foreach for displaying all comments ends--}}
 
