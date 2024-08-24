@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Blog_Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $blogPostId)
-    {
+    public function store(Request $request, $blogPostId)  {
+        $comment = new Comment();
         $request->validate([
             'content' => 'required|string|max:1000',
         ]);
 
-        $comment = new Comment();
         $comment->user_id = Auth::id();
         $comment->blog_post_id = $blogPostId;
         $comment->content = $request->content;
@@ -23,16 +24,20 @@ class CommentController extends Controller
 
         return redirect()->route('blog.detail', $blogPostId)->with('success', 'Comment added successfully.');
     }
+    // store method ends 
+
 
     public function commentEdit($id){
         return 'comment edit';
     }
 
+
     public function commentUpdate(Request $request, Comment $comment){
          // Ensure the authenticated user is the owner of the comment
-         if (Auth::id() !== $comment->user_id) {
-            return redirect()->route('account.blog', $comment->blog_post_id)->with('error', 'Unauthorized access.');
-        }
+         Gate::authorize('update',$comment);
+        //  if (Auth::id() !== $comment->user_id) {
+        //     return redirect()->route('account.blog', $comment->blog_post_id)->with('error', 'Unauthorized access.');
+        // }
 
          // Validate the request data
         $validator = Validator::make($request->all(),[
@@ -42,8 +47,6 @@ class CommentController extends Controller
         if($validator->fails()){
             return redirect()->back()->withInput()->withErrors($validator);
         }
-     
-
 
         // Update the comment content
         $comment->content = $request->updateContent;
@@ -51,13 +54,14 @@ class CommentController extends Controller
 
          // Redirect back to the blog post with a success message
          return redirect()->back()->with('success', 'Comment updated successfully.');
-
     }
+
+    // commentUpdate method ends 
+
+
     public function destroy(Comment $comment){
          // Ensure the authenticated user is the owner of the comment
-         if (Auth::id() !== $comment->user_id) {
-            return redirect()->back()->with('error', 'Unauthorized access.');
-        }
+         Gate::authorize('delete',$comment);
 
         // Delete the comment
         $comment->delete();
@@ -65,8 +69,9 @@ class CommentController extends Controller
         // Redirect back to the blog post with a success message
         return redirect()->back()->with('success', 'Comment deleted successfully.');
 
-
     }
+    // destroy method ends 
+
 
     public function commentReply(Request $request, $commentId){
         $validator  = Validator::make($request->all(),[
@@ -91,17 +96,18 @@ class CommentController extends Controller
         return redirect()->back()->with('success','You have replied to the comment successfully.');
 
     }
+    // commentReply method ends 
 
-    public function updateCommentReply(Request $request, $commentId){
+
+    public function updateCommentReply(Request $request,Comment $comment){
+        Gate::authorize('updateReply',$comment);
         $validator  = Validator::make($request->all(),[
             'replies_content' => 'required | min:3',
         ]);
 
         if($validator->fails()){
-            return redirect()->back()->withErrors($validator,'replyError')->withInput()->with('edit_reply_comment_id',$commentId);
+            return redirect()->back()->withErrors($validator,'replyError')->withInput()->with('edit_reply_comment_id',$comment->id);
         }
-
-        $comment = Comment::findOrFail($commentId);
 
         $comment->content = $request->replies_content;
 
@@ -109,6 +115,26 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success','You have edited the reply to the comment successfully.');
     }
+    // updateCommentReply method ends 
+
+
+    public function likeComment($commentId){
+
+        $blog_like = new Blog_Like();
+
+        $comment = Comment::findOrFail($commentId);
+
+        $user_id = Auth::user()&&Auth::user()->id;
+
+        $blog_like->user_id = $user_id;
+        $blog_like->blog_post_id = $comment->blog_post_id;
+        $blog_like->comment_id = $commentId;
+
+        $blog_like->save();
+
+        return redirect()->back()->with('liked_comment',$commentId);
+    }
+    // likeComment method ends 
 
    
 }

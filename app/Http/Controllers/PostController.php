@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog_Like;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -59,6 +60,7 @@ class PostController extends Controller
         $comments = Comment::where('blog_post_id',$post->id)
                     ->whereNull('parent_id')
                     ->with('replies')
+                    ->with('likes')
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
 
