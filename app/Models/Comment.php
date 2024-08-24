@@ -31,6 +31,6 @@ class Comment extends Model
 
     public function likes()
     {
-        return $this->hasMany(Blog_Like::class);
+        return $this->hasMany(Blog_Like::class,'comment_id');
     }
 }

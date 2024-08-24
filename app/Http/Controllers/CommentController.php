@@ -124,7 +124,7 @@ class CommentController extends Controller
 
         $comment = Comment::findOrFail($commentId);
 
-        $user_id = Auth::user()&&Auth::user()->id;
+        $user_id = Auth::id();
 
         $blog_like->user_id = $user_id;
         $blog_like->blog_post_id = $comment->blog_post_id;
@@ -135,6 +135,24 @@ class CommentController extends Controller
         return redirect()->back()->with('liked_comment',$commentId);
     }
     // likeComment method ends 
+
+    public function unlikeComment($commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $userId = Auth::id();
+
+        // Check if the user has liked the comment
+        $existingLike = $comment->likes()->where('user_id', $userId)->first();
+
+        if ($existingLike) {
+            // Delete the like
+            $existingLike->delete();
+        }
+
+        return redirect()->back()->with('success', 'You unliked the comment successfully.');
+    }
+
+    // unlikeComment method ends 
 
    
 }

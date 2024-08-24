@@ -102,6 +102,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('blog/comments/reply/{commentId}',[CommentController::class, 'commentReply'])->name('comment.reply');
         Route::put('blog/comments/reply/{comment}',[CommentController::class, 'updateCommentReply'])->name('comment.reply.update');
         Route::post('blog/comments/like/{commentId}',[CommentController::class, 'likeComment'])->name('comment.like');
+        Route::delete('blog/comments/unlike/{commentId}',[CommentController::class, 'unlikeComment'])->name('comment.unlike');
 
         // Route::delete('/dashboard/favourite/{id}', [FavouritePostController::class, 'removeDashboardFavouriteBlog'])->name('account.favourite.remove');
 

@@ -30,14 +30,14 @@
 
             {{-- foreach for displaying all comments --}}
             @foreach($comments as $comment)
-                <div class="mb-3 bg-body p-3 rounded gap-5">
+                <div class="card mb-3 bg-body p-3 rounded gap-5">
                     <div class="d-flex justify-content-between mb-3">
                         <div class="d-flex gap-2 w-100">
                             <div class="">
                                 <img src="{{ $comment->user->profile_picture ? asset('storage/' . $comment->user->profile_picture) : 'https://via.placeholder.com/50' }}" alt="Profile Picture" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                             </div>
                             <div class="d-flex flex-column flex-grow-1">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center gap-2">
                                     <strong>{{ $comment->user->name }} : <small class="ms-3 text-secondary">{{$comment->created_at}} </small> </strong>
                                     {{-- replies display toggle button  --}}
                                         @if($comment->replies->isNotEmpty())
@@ -50,7 +50,7 @@
                                         @endif
         
                                         @if($comment->likes->isNotEmpty())
-                                            <small class="text-secondary">{{$comment->likes->count()}} {{$comment->likes->count()==1?'like':'likes'}} </small>
+                                            <small class="text-secondary ">{{$comment->likes->count()}} {{$comment->likes->count()==1?'like':'likes'}} </small>
                                         @endif
                                 </div>
     
@@ -143,38 +143,54 @@
                                         <button class="btn btn-transparent text-decoration-none text-secondary p-0" type="button" onclick="replyFormShow({{$comment->id}})">
                                             <small class="text-nowrap">Reply <i class="fa-solid fa-reply"></i></small>  
                                         </button>
-    
-                                        {{-- like comment  --}}
+
                                         @auth
-                                            @php
-                                                
-                                                $userLike = $comment->likes->where('user_id', Auth::user()->id)->first(); // Assume the user hasn't liked the comment
-                                            @endphp
-                                    
-                                            @if($userLike)
-                                                @if($userLike->count()>0)
-                                                <small class="text-nowrap">
-                                                    Liked
-                                                    <i class="fa-solid fa-thumbs-up" ></i>
-                                                </small>
-                                                @endif
-    
+
+                                        @if($comment->likes->isNotEmpty())
+                                            @if($comment->likes->where('user_id',Auth::id())->first())
+
+                                                <!-- If the user has already liked the comment -->
+                                                <form action="{{ route('comment.unlike', $comment->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-transparent text-decoration-none text-secondary" type="submit">
+                                                        <small class="text-nowrap">
+                                                            Liked
+                                                            <i class="fa-solid fa-thumbs-up"></i> <!-- Solid icon for liked state -->
+                                                        </small> 
+                                                    </button>
+                                                </form>
+
                                             @else
-                                            <form action="{{route('comment.like',$comment->id)}}" method="POST">
-                                                @csrf
-    
-                                                <button class="btn btn-transparent text-decoration-none text-secondary" type="submit" >
-                                                    <small class="text-nowrap">
+                                                <!-- If the user has not liked the comment yet -->
+                                                <form action="{{ route('comment.like', $comment->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <button class="btn btn-transparent text-decoration-none text-secondary" type="submit">
+                                                        <small class="text-nowrap">
                                                             Like
-                                                            <i class="fa-regular fa-thumbs-up"  ></i>
+                                                            <i class="fa-regular fa-thumbs-up"></i> <!-- Regular icon for not liked state -->
+                                                        </small> 
+                                                    </button>
+                                                </form>
+
+                                            @endif
+
+                                        @else
+                                            <!-- If the user has not liked the comment yet -->
+                                            <form action="{{ route('comment.like', $comment->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button class="btn btn-transparent text-decoration-none text-secondary" type="submit">
+                                                    <small class="text-nowrap">
+                                                        Like
+                                                        <i class="fa-regular fa-thumbs-up"></i> <!-- Regular icon for not liked state -->
                                                     </small> 
-                                                    
                                                 </button>
                                             </form>
-                                            @endif
-                                        @endauth
+                                        @endif
+                                    @endauth
+                                      
                                     
-                                        {{-- like comment  ends--}}
+                                        {{-- like a comment  ends--}}
                                         
                                     </div>
                                     {{-- reply and like buttons ends --}}
