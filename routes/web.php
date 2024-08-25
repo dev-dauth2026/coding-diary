@@ -5,12 +5,13 @@ use App\Http\Controllers\admin\AdminCommentsController;
 use App\Http\Controllers\admin\AdminPasswordChangeController;
 use App\Http\Controllers\admin\AdminProfileController;
 use App\Http\Controllers\admin\AdminUsersListController;
+use App\Http\Controllers\user\ChangeUserNameController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\user\ChangeUserName;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\user\CommentController as UserCommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\admin\BlogsController;
@@ -45,7 +46,6 @@ Route::group(['prefix'=>'account'],function(){
     Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
 
-
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');
     Route::get('/verify-email/{id}/{hash}', [LoginController::class, 'verifyEmail'])
     ->middleware(['signed', 'throttle:6,1'])
@@ -73,9 +73,6 @@ Route::group(['prefix'=>'account'],function(){
         Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-       
-
-        
     });
 
     //Authenticated middleware
@@ -89,14 +86,13 @@ Route::group(['prefix'=>'account'],function(){
         Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::put('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
         Route::put('password/change',[ChangePasswordController::class,'changePassword'])->name('password.change');
-        Route::put('username/change',[ChangeUserName::class,'changeUserName'])->name('username.change');
-        Route::put('profile_picture/change',[ChangeUserName::class,'changeProfilePicture'])->name('profile_picture.change');
+        Route::put('username/change',[ChangeUserNameController::class,'changeUserName'])->name('username.change');
+        Route::put('profile_picture/change',[ChangeUserNameController::class,'changeProfilePicture'])->name('profile_picture.change');
 
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
         Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
-        Route::get('/dashboard/comments', [FavouritePostController::class, 'dashboardComments'])->name('account.comments');
-
+        Route::get('/dashboard/comments', [UserCommentController::class, 'show'])->name('account.comments');
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
@@ -106,11 +102,8 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('blog/comments/like/{commentId}',[CommentController::class, 'likeComment'])->name('comment.like');
         Route::delete('blog/comments/unlike/{commentId}',[CommentController::class, 'unlikeComment'])->name('comment.unlike');
 
-
-
         // Route::delete('/dashboard/favourite/{id}', [FavouritePostController::class, 'removeDashboardFavouriteBlog'])->name('account.favourite.remove');
-
-                
+        
     });
 });
 
@@ -164,8 +157,6 @@ Route::group(['prefix'=>'admin'],function(){
         Route::put('comments/{comment}',[AdminCommentsController::class,'updateComments'])->name('admin.comments.update');
         Route::delete('comments/{comment}',[AdminCommentsController::class,'destroy'])->name('admin.comments.delete');
         Route::post('blogs/comments/reply/{comment_id}',[AdminCommentsController::class,'reply'])->name('admin.comments.reply');
-
-
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 

@@ -41,7 +41,5 @@ class FavouritePostController extends Controller
 
     }
 
-    public function dashboardComments(){
-        return view('user_dashboard.comments');
-    }
+   
 }

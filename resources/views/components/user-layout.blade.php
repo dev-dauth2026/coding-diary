@@ -98,9 +98,7 @@
                     @endauth
                 </ul>
                 <div class="d-none d-lg-flex justify-content-lg-center ms-3">
-                    @auth
-                    
-                    @else
+                    @guest
                         <div>
                             <a href="{{route('account.register')}}" class="text-decoration-none {{request()->routeIs('account.register')?'active text-white':'text-white-50'}}">Sign Up</a>
                             <span class="text-white-50">/</span>
@@ -108,7 +106,7 @@
                         </div>
                        
                     
-                    @endauth
+                    @endguest
                 </div>
             </div>
         </nav>

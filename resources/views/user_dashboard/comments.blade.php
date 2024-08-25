@@ -14,7 +14,7 @@
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body">
                             <h5 class="card-title">Total Comments</h5>
-                            <p class="display-5">56</p>
+                            <p class="display-5">{{$totalComment}} </p>
                         </div>
                     </div>
                 </div>
@@ -22,15 +22,21 @@
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body">
                             <h5 class="card-title">Comments This Month</h5>
-                            <p class="display-5">12</p>
+                            <p class="display-5">{{$totalCommentsThisMonth}} </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Most Commented Post</h5>
-                            <p class="display-6">"How to Learn Laravel"</p>
+                            <h5 class="card-title">Most Liked Comment</h5>
+                            @if($mostLikedComment)
+                                <p class="display-6"><a class="text-decoration-none" href="{{route('blog.detail',$mostLikedComment->blogPost->id)}}"> "{{ Str::limit($mostLikedComment->blogPost->title, 30) }}" </a></p>
+                                <p class="text-muted">{{ Str::limit($mostLikedComment->content, 50) }}</p>
+                                <p class="text-muted">Likes: {{ $mostLikedComment->likes_count }}</p>
+                            @else
+                                <p class="text-muted">No comments yet.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -61,55 +67,43 @@
 
             <!-- Comments List -->
             <div class="row">
-                <!-- Example Comment Card -->
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Posted on: July 20, 2024</h6>
-                            <p class="card-text">
-                                This is an example of a user's comment. It is designed to show the comment text along with the commenter's details.
-                            </p>
-                            <!-- Reply and Like Feature -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
-                                <a href="#" class="btn btn-outline-success btn-sm">Like (10)</a>
+                @if($comments)
+                    @foreach($comments as $comment)
+                    <!--  Comment Card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$comment->blogPost->title}} </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Posted on: {{$comment->created_at}} </h6>
+                                <p class="card-text">
+                                    {{$comment->content}}
+                                </p>
+                                <!-- Reply and Like Feature -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
+                                    <a href="#" class="btn btn-outline-success btn-sm">Like (10)</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
-                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    @endforeach
 
-                <!-- Another Example Comment Card -->
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Jane Smith</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Posted on: August 10, 2024</h6>
-                            <p class="card-text">
-                                Another example comment, showcasing how the design can accommodate various lengths of text while keeping a consistent style.
-                            </p>
-                            <!-- Reply and Like Feature -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
-                                <a href="#" class="btn btn-outline-success btn-sm">Like (5)</a>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
-                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endif
+
+               
                 
                 <!-- Additional Comment Cards can be added similarly -->
+            </div>
+
+             <!-- Pagination -->
+             <div class="d-flex justify-content-center mt-4">
+                {{ $comments->links('pagination::bootstrap-5') }} <!-- Use Bootstrap 5 pagination links -->
             </div>
 
             <!-- Top Commented Posts Section -->
@@ -132,18 +126,7 @@
                 </ul>
             </div>
 
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center mt-4">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
+         
 
             <!-- Bulk Actions and Export Comments -->
             <div class="mt-4 d-flex justify-content-between">

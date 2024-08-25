@@ -54,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'user_id');
     }
 
     public function role()
@@ -64,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function likes()
     {
-        return $this->hasMany(Blog_Like::class);
+        return $this->hasMany(Blog_Like::class,'user_id');
     }
 
 }
