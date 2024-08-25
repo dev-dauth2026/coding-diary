@@ -42,18 +42,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-6 col-md-4 col-lg-4 mb-4">
-                <a href="#" class=" text-decoration-none card shadow-sm border-0">
-                    <div  class=" card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bi bi-graph-up-arrow display-4 text-secondary"></i>
-                        </div>
-                        <h5 class="card-title">Statistics</h5>
-                        <small class="card-text text-secondary d-md-block d-none">View your account statistics and activity.</small>
-
-                    </div>
-                </a>
-            </div>
+            
         </div>
         <div class="row mt-4">
             <div class="col-md-12">

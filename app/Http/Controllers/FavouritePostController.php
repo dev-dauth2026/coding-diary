@@ -11,7 +11,7 @@ class FavouritePostController extends Controller
     public function dashboardFavouriteBlog(){
         $favourites = Auth::user()->favouriteBlogs()->get();
 
-        return view('favouriteBlogs',compact('favourites'));
+        return view('user_dashboard.favouriteBlogs',compact('favourites'));
     }
     public function addFavourite($id){
 
@@ -39,5 +39,9 @@ class FavouritePostController extends Controller
 
         return redirect()->route('account.login')->with('error', 'You are not logged in. Please log in.');
 
+    }
+
+    public function dashboardComments(){
+        return view('user_dashboard.comments');
     }
 }
