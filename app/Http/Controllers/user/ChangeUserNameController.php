@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-
-class ChangeUserName extends Controller
+class ChangeUserNameController extends Controller
 {
     public function changeUserName(Request $request){
         $validator = Validator::make($request->all(),[
@@ -57,6 +57,4 @@ class ChangeUserName extends Controller
         
         return redirect()->route('account.account')->with('status','Profile Picture has been successfully updated.');
     }
-
-  
 }

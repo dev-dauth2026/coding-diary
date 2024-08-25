@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavouritePostController extends Controller
 {
-
     public function dashboardFavouriteBlog(){
         $favourites = Auth::user()->favouriteBlogs()->get();
 

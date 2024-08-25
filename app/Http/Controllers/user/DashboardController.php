@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,4 +13,5 @@ class DashboardController extends Controller
     public function account(){
         return view('user_dashboard.account');
     }
+
 }

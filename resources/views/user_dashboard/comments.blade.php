@@ -1,15 +1,7 @@
 <x-user-dashboard-layout>
     <main style="min-height:90vh;">
         <div class="container py-3 py-md-3">
-            <!-- User Profile Summary -->
-            <div class="d-flex align-items-center mb-4">
-                <img src="path_to_user_profile_image.jpg" alt="Profile Picture" class="rounded-circle me-3" style="width: 60px; height: 60px;">
-                <div>
-                    <h4 class="mb-0">John Doe</h4>
-                    <p class="text-muted mb-0">Active since: January 2023</p>
-                </div>
-            </div>
-
+          
             <!-- Page Header -->
             <div class="mb-3">
                 <h4>My Comments</h4>
