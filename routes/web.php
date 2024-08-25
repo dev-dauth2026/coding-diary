@@ -95,6 +95,8 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
         Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
+        Route::get('/dashboard/comments', [FavouritePostController::class, 'dashboardComments'])->name('account.comments');
+
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
@@ -103,6 +105,8 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('blog/comments/reply/{comment}',[CommentController::class, 'updateCommentReply'])->name('comment.reply.update');
         Route::post('blog/comments/like/{commentId}',[CommentController::class, 'likeComment'])->name('comment.like');
         Route::delete('blog/comments/unlike/{commentId}',[CommentController::class, 'unlikeComment'])->name('comment.unlike');
+
+
 
         // Route::delete('/dashboard/favourite/{id}', [FavouritePostController::class, 'removeDashboardFavouriteBlog'])->name('account.favourite.remove');
 
