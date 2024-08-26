@@ -1,6 +1,18 @@
-<!-- resources/views/vendor/pagination/bootstrap-5.blade.php -->
 
-@if ($paginator->hasPages())
+<!-- resources/views/vendor/pagination/bootstrap-5.blade.php -->
+<div class="d-flex align-items-center me-3">
+    <p class="small text-muted">
+        {!! __('Showing') !!}
+        <span class="fw-semibold">{{ $paginator->firstItem() }}</span>
+        {!! __('to') !!}
+        <span class="fw-semibold">{{ $paginator->lastItem() }}</span>
+        {!! __('of') !!}
+        <span class="fw-semibold">{{ $paginator->total() }}</span>
+        {!! __('results') !!}
+    </p>
+</div>
+<div>
+    @if ($paginator->hasPages())
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
 
@@ -41,3 +53,6 @@
         </ul>
     </nav>
 @endif
+</div>
+
+
