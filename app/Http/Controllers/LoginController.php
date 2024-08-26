@@ -35,7 +35,7 @@ class LoginController extends Controller
                 if (Auth::attempt(['email' => $request->email, 'password' => $request->password]) && $user->email_verified_at !== null) {
                     $request->session()->forget('verify_email');
         
-                    return redirect()->route('account.dashboard')->with('loggedIn', 'You have been successfully logged in.');
+                    return redirect()->route('account.dashboard')->with('success', 'You have been successfully logged in.');
                 } elseif (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                     // Email exists but not verified, update the subscription timestamp
         

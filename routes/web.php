@@ -93,6 +93,9 @@ Route::group(['prefix'=>'account'],function(){
         Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
         Route::get('/dashboard/comments', [UserCommentController::class, 'show'])->name('account.comments');
+        Route::put('/dashboard/comments/edit/{comment}', [UserCommentController::class, 'update'])->name('account.comments.update');
+        Route::delete('/dashboard/comments/{comment}', [UserCommentController::class, 'destroy'])->name('account.comments.destroy');
+        Route::post('/dashboard/comments/reply/{comment}', [UserCommentController::class, 'store'])->name('account.comments.reply');
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');

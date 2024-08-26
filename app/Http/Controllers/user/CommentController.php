@@ -6,6 +6,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon; // Import Carbon for date handling
 
 class CommentController extends Controller
@@ -32,4 +33,32 @@ class CommentController extends Controller
         // Pass the data to the view
         return view('user_dashboard.comments', compact('comments', 'totalComment', 'totalCommentsThisMonth','mostLikedComment'));
     }
+    // method ends 
+
+    public function update(Request $request, Comment $comment){
+        $validator = Validator::make($request->all(),[
+            'update_content' => 'required|min:3'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator,'replyError')->withInput()->with('edit_reply_comment_id',$comment->id);
+        }
+
+        $comment->content = $request->update_content;
+
+        $comment->save();
+
+        return redirect()->back()->with('success','The comment has been successfully updated.');
+    }
+    // method ends 
+
+    public function destroy(Comment $comment){
+        $comment->delete();
+
+        return redirect()->back()->with('success','The comment has been successfully deleted.');
+
+    }
+    // method ends 
+
+
 }

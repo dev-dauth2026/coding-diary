@@ -1,8 +1,6 @@
 <x-user-dashboard-layout>
         <main class="p-md-3 py-3">
-            @if(session('loggedIn'))
-            <p class="alert alert-success text-success p-2 my-4 text-center" >Welcome {{ Auth::user()->name }}! {{session('loggedIn')}} </p>
-            @endif
+            <x-message.message></x-message.message>
             <div>
                 <h4>User Dashboard</h4>
                 <hr class="col-2 mb-3">

@@ -1,13 +1,7 @@
 <x-user-dashboard-layout>
     <main class=" p-3">
-        @if(Session::has('status'))
-        <p class="text-success bg-success-subtle p-2 rounded">{{Session::get('status')}} </p>
-        @endif
-         @if($errors->any())    
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger p-2">{{ $error }}</p>
-            @endforeach
-         @endif
+        <x-message.message></x-message.message>
+        
          <div class="mb-3">
             <h4 class="">My Account</h4>
             <hr class="col-2 " >

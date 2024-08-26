@@ -113,7 +113,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return redirect()->back()->with('success','You have edited the reply to the comment successfully.');
+        return redirect()->back()->with('success','The comment has been successfully updated.');
     }
     // updateCommentReply method ends 
 
