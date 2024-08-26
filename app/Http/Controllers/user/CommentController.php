@@ -13,7 +13,7 @@ class CommentController extends Controller
     public function show()
     {
         // Fetch paginated comments ordered by creation date in descending order
-        $comments = Auth::user()->comments()->orderBy('created_at', 'DESC')->paginate(4);
+        $comments = Auth::user()->comments()->orderBy('created_at', 'DESC')->paginate(6);
         
         // Calculate the total number of comments
         $totalComment = Auth::user()->comments()->count();

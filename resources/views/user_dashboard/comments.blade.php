@@ -1,7 +1,6 @@
 <x-user-dashboard-layout>
     <main style="min-height:90vh;">
         <div class="container py-3 py-md-3">
-          
             <!-- Page Header -->
             <div class="mb-3">
                 <h4>My Comments</h4>
@@ -14,7 +13,7 @@
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body">
                             <h5 class="card-title">Total Comments</h5>
-                            <p class="display-5">{{$totalComment}} </p>
+                            <p class="display-5">{{ $totalComment }}</p>
                         </div>
                     </div>
                 </div>
@@ -22,7 +21,7 @@
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body">
                             <h5 class="card-title">Comments This Month</h5>
-                            <p class="display-5">{{$totalCommentsThisMonth}} </p>
+                            <p class="display-5">{{ $totalCommentsThisMonth }}</p>
                         </div>
                     </div>
                 </div>
@@ -31,7 +30,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Most Liked Comment</h5>
                             @if($mostLikedComment)
-                                <p class="display-6"><a class="text-decoration-none" href="{{route('blog.detail',$mostLikedComment->blogPost->id)}}"> "{{ Str::limit($mostLikedComment->blogPost->title, 30) }}" </a></p>
+                                <p class="display-6"><a class="text-decoration-none" href="{{ route('blog.detail', $mostLikedComment->blogPost->id) }}"> "{{ Str::limit($mostLikedComment->blogPost->title, 30) }}" </a></p>
                                 <p class="text-muted">{{ Str::limit($mostLikedComment->content, 50) }}</p>
                                 <p class="text-muted">Likes: {{ $mostLikedComment->likes_count }}</p>
                             @else
@@ -69,40 +68,44 @@
             <div class="row">
                 @if($comments)
                     @foreach($comments as $comment)
-                    <!--  Comment Card -->
+                    <!-- Comment Card -->
                     <div class="col-md-6 mb-4">
                         <div class="card shadow-sm h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{$comment->blogPost->title}} </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Posted on: {{$comment->created_at}} </h6>
+                            <div class="card-body position-relative">
+                                <!-- Dropdown Toggle for Edit and Delete -->
+                                <div class="dropdown position-absolute top-0 end-0">
+                                    <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton{{ $comment->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $comment->id }}">
+                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                                    </ul>
+                                </div>
+
+                                <h5 class="card-title">{{ $comment->blogPost->title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Posted on: {{ $comment->created_at->format('d F Y') }} | {{ $comment->created_at->diffForHumans() }}</h6>
                                 <p class="card-text">
-                                    {{$comment->content}}
+                                    {{ $comment->content }}
                                 </p>
                                 <!-- Reply and Like Feature -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
-                                    <a href="#" class="btn btn-outline-success btn-sm">Like (10)</a>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <div class="d-flex justify-content-between">
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <div class="d-flex justify-content-start align-items-center">
+                                    <button class="btn btn-transparent text-decoration-none text-secondary me-3" type="button" onclick="replyFormShow({{ $comment->id }})">
+                                        <small class="text-nowrap"><i class="fa-solid fa-reply"></i> Reply</small>
+                                    </button>
+                                    <button class="btn btn-transparent text-decoration-none text-secondary" type="button">
+                                        <small class="text-nowrap"><i class="fa-solid fa-thumbs-up"></i> Like</small>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-
                 @endif
-
-               
-                
-                <!-- Additional Comment Cards can be added similarly -->
             </div>
 
-             <!-- Pagination -->
-             <div class="d-flex justify-content-center mt-4">
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4">
                 {{ $comments->links('pagination::bootstrap-5') }} <!-- Use Bootstrap 5 pagination links -->
             </div>
 
@@ -125,8 +128,6 @@
                     </li>
                 </ul>
             </div>
-
-         
 
             <!-- Bulk Actions and Export Comments -->
             <div class="mt-4 d-flex justify-content-between">
