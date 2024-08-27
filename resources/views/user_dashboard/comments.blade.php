@@ -1,5 +1,5 @@
 <x-user-dashboard-layout>
-    <main style="min-height:90vh;">
+    <main class="pb-5" style="min-height:90vh;">
 
         <x-message.message></x-message.message>
 
@@ -113,7 +113,7 @@
                                     <p class="mb-1" id="comment-{{$comment->id}}">{{ $comment->content }}</p>
                                      {{-- if user logged in can only edit or delete their comments  --}}
                                         @can('update',$comment)
-                                        <div id="comment-edit-{{$comment->id}}" class="" style="display: none;">
+                                        <div id="comment-edit-{{$comment->id}}" class="py-4 " style="display: none;">
                                             <form action="{{route('account.comments.update', $comment->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -132,177 +132,13 @@
     
                                     {{-- replies contents  --}}
                                     @if($comment->replies->isNotEmpty())
-                                    <div class="ms-5 " id="replies-{{$comment->id}}" style="display: none;" >
-    
-                                            @foreach($comment->replies as $reply)
-                                                <div class="d-flex  gap-1" >
-                                                    <div>
-                                                        <img src="{{ $reply->user->profile_picture ? asset('storage/' . $reply->user->profile_picture) : 'https://via.placeholder.com/50' }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-                                                    </div>
-                                                    <div class="d-flex flex-column  flex-grow-1">
-                                                        <div class="d-flex  gap-2">
-                                                            <strong>{{ $reply->user->name }} : <small class="mx-2 text-secondary">{{$reply->created_at}} </small> </strong>
-                                                    
-                                                            {{-- if user can update and delete the comment  --}}
-                                                            <div class="d-flex gap-2 align-items-center">
-                                                                @can('update',$reply)
-                                                                <small><button class="border-0 text-secondary bg-secondary-subtle p-1 rounded " onclick="editReply({{$reply->id}})">Edit</button></small> 
-                                                                @endcan
-                                                                @can('delete',$reply)
-                                                                <small>
-                                                                    <form action="{{ route('comment.destroy', $reply->id) }}" method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="text-decoration-none text-secondary bg-secondary-subtle p-1 rounded border-0" onclick="return confirm('Do you really want to delete the comment?')">
-                                                                            Delete
-                                                                        </button>
-                                                                    </form>
-                                                                </small> 
-                                                                @endcan
-        
-                                                                </div>
-                                                            {{-- if user can update and delete the comment ends--}}
-                                                        </div>
-                                                        <div id="display-replies-{{$reply->id}}" style="display: block;">
-                                                            {{$reply->content}}
-                                                        </div>
-
-                                                           {{-- edit replies form  --}}
-                                                        <div id="edit-replies-{{$reply->id}}" style="display: none;">
-                                                            <form action="{{route('account.comments.update',$reply->id)}}" method="POST" class="d-flex flex-column gap-3">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <div class="form-group">
-                                                                    <textarea class="form-control" name="replies_content" id="replies_content-{{$reply->id}}" rows="2" value="{{old('replies_content',$reply->content)}}">{{$reply->content}}</textarea>
-                                                                </div>
-                                                                <div class="d-flex gap-2">
-                                                                    <button class="btn btn-outline-danger btn-sm " type="button" onclick="hideEditReplyForm({{$reply->id}})">Cancel</button>
-                                                                    <button class="btn btn-outline-info btn-sm" type="submit">Update</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    {{-- edit replies form  ends --}}
-    
-                                                    </div> 
-                                                </div>
-                                                {{-- reply and like buttons  --}}
-                                                <div class="col-4 d-flex ">
-                                                    
-                                                    <button class="btn btn-transparent text-decoration-none text-secondary p-0" type="button" onclick="replyFormShow({{$comment->id}})">
-                                                        <small class="text-nowrap">Reply <i class="fa-solid fa-reply"></i></small>  
-                                                    </button>                             
-                                                </div>
-                                                {{-- reply and like buttons ends --}}
-
-                                                {{-- reply form  --}}
-                                                <div class="reply-form w-100 " id="reply-form-{{$comment->id}}" style="display: {{session('reply_comment_id')==$comment->id && $errors->replyError->isNotEmpty()?'flex':'none'}} ;">
-                                                    <form action='{{route('comment.reply',$comment->id)}}' method='post' class='d-flex flex-column gap-2 w-100' >
-                                                        @csrf
-                                                        <div class='form-floating'>
-                                                            <textarea  class='form-control @if(session('reply_comment_id')==$comment->id && $errors->replyError->has('comment_reply')) is-invalid @endif' id='floatingTextarea' rows="2"  placeholder='Write your reply to the comment' name ='comment_reply'> </textarea>
-                                                            <label for='floatingTextarea'>Reply to the comment...</label>
-                                                        </div>
-                                                        <div class='d-flex justify-content-end gap-2'>
-                                                            <button type='button' class='btn btn-outline-danger btn-sm' onclick="replyFormHide({{$comment->id}})">Cancel</button>
-                                                            <button type='submit' class='btn btn-outline-info btn-sm'>Reply</button>
-                                                        </div>
-                                    
-                                                    </form>
-                                                </div>
-                                                {{-- reply form ends --}}
-    
-                                            @endforeach
-    
-                                    </div>
+                                        @include('user_dashboard.reply',['comment'=>$comment])
                                     @endif
                                     {{-- replies contents  ends--}}
                                     
                                 </div>
 
-                                @if($comment->replies->isNotEmpty())
-                                <div class="ms-5 " id="replies-{{$comment->id}}" style="display: none;" >
-
-                                        @foreach($comment->replies as $reply)
-                                            <div class="d-flex  gap-1" >
-                                                <div>
-                                                    <img src="{{ $reply->user->profile_picture ? asset('storage/' . $reply->user->profile_picture) : 'https://via.placeholder.com/50' }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-                                                </div>
-                                                <div class="d-flex flex-column  flex-grow-1">
-                                                    <div class="d-flex  gap-2">
-                                                        <strong>{{ $reply->user->name }} : <small class="mx-2 text-secondary">{{$reply->created_at}} </small> </strong>
-                                                
-                                                        {{-- if user can update and delete the comment  --}}
-                                                        <div class="d-flex gap-2 align-items-center">
-                                                            @can('update',$reply)
-                                                            <small><button class="border-0 text-secondary bg-secondary-subtle p-1 rounded " onclick="editReply({{$reply->id}})">Edit</button></small> 
-                                                            @endcan
-                                                            @can('delete',$reply)
-                                                            <small>
-                                                                <form action="{{ route('comment.destroy', $reply->id) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="text-decoration-none text-secondary bg-secondary-subtle p-1 rounded border-0" onclick="return confirm('Do you really want to delete the comment?')">
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </small> 
-                                                            @endcan
-    
-                                                            </div>
-                                                        {{-- if user can update and delete the comment ends--}}
-                                                    </div>
-                                                    <div id="display-replies-{{$reply->id}}" style="display: block;">
-                                                        {{$reply->content}}
-                                                    </div>
-
-                                                       {{-- edit replies form  --}}
-                                                    <div id="edit-replies-{{$reply->id}}" style="display: none;">
-                                                        <form action="{{route('comment.reply.update',$reply->id)}}" method="POST" class="d-flex flex-column gap-3">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="form-group">
-                                                                <textarea class="form-control" name="replies_content" id="replies_content-{{$reply->id}}" rows="2" value="{{old('replies_content',$reply->content)}}">{{$reply->content}}</textarea>
-                                                            </div>
-                                                            <div class="d-flex gap-2">
-                                                                <button class="btn btn-outline-danger btn-sm " type="button" onclick="hideEditReplyForm({{$reply->id}})">Cancel</button>
-                                                                <button class="btn btn-outline-info btn-sm" type="submit">Update</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                {{-- edit replies form  ends --}}
-                                                <!-- Reply and Like Feature -->
-                                                <div class="d-flex justify-content-start align-items-center">
-                                                    <button class="btn btn-transparent text-decoration-none text-secondary me-3" type="button" onclick="replyFormShow({{ $comment->id }})">
-                                                        <small class="text-nowrap"><i class="fa-solid fa-reply"></i> Reply</small>
-                                                    </button>
-                                                    
-                                                </div>
-                                                {{-- replies contents  --}}
-                                                  {{-- reply form  --}}
-                                                    <div class="reply-form w-100 " id="reply-form-{{$comment->id}}" style="display: {{session('reply_comment_id')==$comment->id && $errors->replyError->isNotEmpty()?'flex':'none'}} ;">
-                                                        <form action='{{route('comment.reply',$comment->id)}}' method='post' class='d-flex flex-column gap-2 w-100' >
-                                                            @csrf
-                                                            <div class='form-floating'>
-                                                                <textarea  class='form-control @if(session('reply_comment_id')==$comment->id && $errors->replyError->has('comment_reply')) is-invalid @endif' id='floatingTextarea'  placeholder='Write your reply to the comment' name ='comment_reply'> </textarea>
-                                                                <label for='floatingTextarea'>Reply to the comment...</label>
-                                                            </div>
-                                                            <div class='d-flex justify-content-end gap-2'>
-                                                                <button type='button' class='btn btn-outline-danger btn-sm' onclick="replyFormHide({{$comment->id}})">Cancel</button>
-                                                                <button type='submit' class='btn btn-outline-info btn-sm'>Reply</button>
-                                                            </div>
-                                        
-                                                        </form>
-                                                    </div>
-                                                    {{-- reply form ends --}}
-
-                                                </div> 
-                                            </div>
-
-                                        @endforeach
-
-                                </div>
-                                @endif
-                                {{-- replies contents  ends--}}
+                           
                               
                             </div>
                         </div>
@@ -318,44 +154,59 @@
 
             <!-- Top Commented Posts Section -->
             <div class="mt-5">
-                <h5>Top Commented Posts</h5>
+                @if($topLikedComments)
+                <h5>Top Liked Comments</h5>
                 <hr class="col-2">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        How to Learn Laravel
-                        <span class="badge bg-primary rounded-pill">10 Comments</span>
+                    @foreach($topLikedComments as $likedComment)
+                    <li class="list-group-item py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Comment Content -->
+                            <div class="flex-grow-1">
+                                <p class="mb-1 text-secondary"><i class="fa-solid fa-comment-dots me-2 text-primary"></i>{{ Str::limit($likedComment->content, 80) }}</p>
+                                <a href="{{ route('blog.detail', $likedComment->blogPost->id) }}" class="text-decoration-none">
+                                    <h6 class="mb-0"><i class="fa-solid fa-book-open me-1 text-success"></i>{{ Str::limit($likedComment->blogPost->title, 50) }}</h6>
+                                </a>
+                            </div>
+            
+                            <!-- Comment Info -->
+                            <div class="text-end">
+                                <small class="text-muted"><i class="fa-solid fa-clock me-1"></i>{{ $likedComment->created_at->diffForHumans() }}</small>
+                                <div>
+                                    <span class="badge bg-primary"><i class="fa-solid fa-thumbs-up me-1"></i>{{ $likedComment->likes_count }} Likes</span>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Understanding MVC Architecture
-                        <span class="badge bg-primary rounded-pill">8 Comments</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Laravel vs. Other Frameworks
-                        <span class="badge bg-primary rounded-pill">5 Comments</span>
-                    </li>
+                    @endforeach
                 </ul>
+                @else
+                    <div>
+                        You haven't commented to any blog post yet.
+                    </div>
+                @endif
+            
             </div>
 
-            <!-- Bulk Actions and Export Comments -->
-            <div class="mt-4 d-flex justify-content-between">
-                <div>
-                    <button class="btn btn-outline-secondary me-2">Delete All</button>
-                    <button class="btn btn-outline-secondary">Mark All as Read</button>
-                </div>
-                <div>
-                    <button class="btn btn-outline-secondary">Export Comments</button>
-                </div>
-            </div>
 
             <!-- Notifications Panel -->
             <div class="mt-5">
                 <h5>Recent Notifications</h5>
                 <hr class="col-2">
+                @if($comment->replies->isNotEmpty())
                 <ul class="list-group">
-                    <li class="list-group-item">Jane Smith replied to your comment on "How to Learn Laravel".</li>
-                    <li class="list-group-item">New comment on your post "Understanding MVC Architecture".</li>
-                    <li class="list-group-item">Your comment on "Laravel vs. Other Frameworks" received a new like.</li>
+                    @foreach($comment->replies->take(3) as $reply)
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div>
+                            <strong>{{$reply->user->name}}</strong> replied to your comment on <strong>"{{$reply->blogPost->title}}"</strong>.
+                        </div>
+                        <div>
+                            <small>{{$reply->created_at->diffForHumans()}} </small>
+                        </div>
+                    </li>
+                    @endforeach
                 </ul>
+                @endif
             </div>
         </div>
     </main>
