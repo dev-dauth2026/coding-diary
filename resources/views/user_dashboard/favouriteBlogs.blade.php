@@ -15,19 +15,19 @@
             </div>
         @else
             <div class="row ">
-                @foreach($favourites as $post)
+                @foreach($favourites as $favourite)
                     <div class="col-md-4 mb-4 d-flex">
                         <div class="card h-100" style="width: 350px;">
-                            @if($post->image)
-                                <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}" style="height: 200px; object-fit: cover;">
+                            @if($favourite->post->image)
+                                <img src="{{ asset('storage/' . $favourite->post->image) }}" class="card-img-top" alt="{{ $favourite->title }}" style="height: 200px; object-fit: cover;">
                             @endif
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $post->title }}</h5>
-                                <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($post->content), 90) }} <a href="{{ route('blog.detail', $post->id) }}" class="">Read More</a></p>
+                                <h5 class="card-title">{{ $favourite->title }}</h5>
+                                <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($favourite->post->content), 90) }} <a href="{{ route('blog.detail', $favourite->id) }}" class="">Read More</a></p>
                                 
                             </div>
                             <div class="card-footer">
-                                <form class="d-flex w-100" id="remove-favourite-form-{{$post->id}}" action="{{ route('favourite.remove', $post->id) }}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $post->id }});">
+                                <form class="d-flex w-100" id="remove-favourite-form-{{$favourite->id}}" action="{{ route('favourite.remove', $favourite->id) }}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $favourite->id }});">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger w-100" type="submit">Remove from Favourites</button>

@@ -19,7 +19,7 @@
             $user = Auth::user();
 
             // Fetch statistics
-            $totalFavorites = Blog_Like::where('user_id', $user->id)->count();
+            $totalFavorites = $user->favouriteBlogs->count();
             $newMessages = Message::where('receiver_id', $user->id)->where('is_read', false)->count();
             $totalMessages = Message::where('receiver_id', $user->id)->count();
             $totalComments = Comment::where('user_id', $user->id)->count();
@@ -39,7 +39,7 @@
             ->take(3)
             ->get();
 
-            $activities = Activity::orderBy('created_at','desc')->take(4)->get();
+            $activities = Activity::where('user_id',$user->id)->orderBy('created_at','desc')->take(4)->get();
 
             return view('user_dashboard.dashboard', compact('totalFavorites', 'newMessages', 'totalMessages', 'totalComments', 'newReplies','recommendedPosts','activities'));
         }

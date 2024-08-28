@@ -96,7 +96,7 @@ Route::group(['prefix'=>'account'],function(){
 
         // User Dashboard Favourite page
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
-        Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
+        Route::delete('blog/favourites/remove/{favouriteBlog}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
 
         //User Dashboard Comment page

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\user;
 
+use App\Models\FavouriteBlog;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Helpers\ActivityHelper;
@@ -11,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class FavouritePostController extends Controller
 {
     public function dashboardFavouriteBlog(){
-        $favourites = Auth::user()->favouriteBlogs()->get();
+
+        $user = Auth::user();
+        $favourites = $user->favouriteBlogs;
 
         return view('user_dashboard.favouriteBlogs',compact('favourites'));
     }
@@ -24,7 +27,7 @@ class FavouritePostController extends Controller
             $user = Auth::user();
             $user->favouriteBlogs()->attach($id);
             // Log activity
-            ActivityHelper::log('like', 'Liked a post', $post);
+            ActivityHelper::log('saved_favorite', 'liked a post', $post);
     
             return redirect()->back()->with('success', 'Blog has been added to  favourites.');
         }
@@ -33,23 +36,12 @@ class FavouritePostController extends Controller
 
     }
 
-    public function removeFavourite($id){
-        $post= Post::findOrFail($id);
+    public function removeFavourite(FavouriteBlog $favouriteBlog){
 
-        if(Auth::user()){
-
-            $user = Auth::user();
-            $user->favouriteBlogs()->detach($id);
-
+            $favouriteBlog->delete();
             // Log activity
-            ActivityHelper::log('unlike', 'Remove a post from a favorite list', $post);
+            ActivityHelper::log('removed_favorite', 'removed a post from a favorite list', $favouriteBlog->post);
     
             return redirect()->back()->with('success', 'Blog has been removed from  favourites.');
         }
-
-        return redirect()->route('account.login')->with('error', 'You are not logged in. Please log in.');
-
     }
-
-   
-}

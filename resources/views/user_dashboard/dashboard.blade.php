@@ -126,7 +126,7 @@
                             @if($activities)
                                 @foreach($activities as $activity)
                                 <li class="list-group-item">
-                                    <i class="fas fa-thumbs-up me-2 text-primary"></i>
+                                    <i class="{{$activity->icon}} me-2 text-primary"></i>
                                     You {{$activity->description}} <strong>{{$activity->subject_type}} </strong>
                                 </li>
                                 @endforeach

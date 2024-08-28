@@ -22,6 +22,10 @@ class Post extends Model
         return $this->belongsToMany(User::class,'favourite_blogs','blog_post_id', 'user_id')->withTimestamps();
     }
 
+    public function favouriteBlog(){
+        return $this->hasMany(FavouriteBlog::class,'blog_post_id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class,'blog_post_id');
