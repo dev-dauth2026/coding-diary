@@ -1,6 +1,6 @@
 <x-user-layout>
     <div class="p-md-5 py-5">
-        @if(session('loggedIn'))
+        @if(session('success'))
         <p class="alert alert-success text-success p-2 my-4 text-center" >Welcome {{ Auth::user()->name }}! {{session('loggedIn')}} </p>
         @endif
         <div class="row p-md-5 ">

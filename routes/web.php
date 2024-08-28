@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\user\UserActivitiesController;
+use App\Http\Controllers\user\UserNotificationsController;
 use App\Http\Controllers\user\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -112,14 +114,20 @@ Route::group(['prefix'=>'account'],function(){
 
         // User Dashboard Setting page
         Route::get('/user/settings', [UserSettingsController::class, 'index'])->name('account.settings.index');
-    Route::put('/user/settings/privacy', [UserSettingsController::class, 'updatePrivacy'])->name('account.settings.updatePrivacy');
-    Route::post('/user/settings/language', [UserSettingsController::class, 'updateLanguage'])->name('account.settings.updateLanguage');
-    Route::post('/user/settings/theme', [UserSettingsController::class, 'updateTheme'])->name('account.settings.updateTheme');
-    Route::post('/user/settings/email-preferences', [UserSettingsController::class, 'updateEmailPreferences'])->name('account.settings.updateEmailPreferences');
-    Route::post('/user/settings/deactivate', [UserSettingsController::class, 'deactivateAccount'])->name('account.settings.deactivate');
-    Route::post('/user/settings/2fa', [UserSettingsController::class, 'update2FA'])->name('account.settings.update2FA');
-    Route::post('/user/settings/download-data', [UserSettingsController::class, 'downloadData'])->name('account.settings.downloadData');
+        Route::put('/user/settings/privacy', [UserSettingsController::class, 'updatePrivacy'])->name('account.settings.updatePrivacy');
+        Route::post('/user/settings/language', [UserSettingsController::class, 'updateLanguage'])->name('account.settings.updateLanguage');
+        Route::post('/user/settings/theme', [UserSettingsController::class, 'updateTheme'])->name('account.settings.updateTheme');
+        Route::post('/user/settings/email-preferences', [UserSettingsController::class, 'updateEmailPreferences'])->name('account.settings.updateEmailPreferences');
+        Route::post('/user/settings/deactivate', [UserSettingsController::class, 'deactivateAccount'])->name('account.settings.deactivate');
+        Route::post('/user/settings/2fa', [UserSettingsController::class, 'update2FA'])->name('account.settings.update2FA');
+        Route::post('/user/settings/download-data', [UserSettingsController::class, 'downloadData'])->name('account.settings.downloadData');
 
+
+        // User Dashboard notification page
+        Route::get('/user/notifications', [UserNotificationsController::class, 'index'])->name('account.notifications');
+
+         // User Dashboard notification page
+         Route::get('/user/activities', [UserActivitiesController::class, 'index'])->name('account.activities');
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');

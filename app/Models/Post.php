@@ -30,4 +30,6 @@ class Post extends Model
     public function likes(){
         return $this->hasMany(Blog_Like::class,'blog_post_id');
     }
+
+ 
 }

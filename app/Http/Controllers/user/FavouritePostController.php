@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\user;
 
-use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityHelper;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class FavouritePostController extends Controller
@@ -15,10 +17,14 @@ class FavouritePostController extends Controller
     }
     public function addFavourite($id){
 
+        $post= Post::findOrFail($id);
+
         if(Auth::user()){
 
             $user = Auth::user();
             $user->favouriteBlogs()->attach($id);
+            // Log activity
+            ActivityHelper::log('like', 'Liked a post', $post);
     
             return redirect()->back()->with('success', 'Blog has been added to  favourites.');
         }
@@ -28,11 +34,15 @@ class FavouritePostController extends Controller
     }
 
     public function removeFavourite($id){
+        $post= Post::findOrFail($id);
 
         if(Auth::user()){
 
             $user = Auth::user();
             $user->favouriteBlogs()->detach($id);
+
+            // Log activity
+            ActivityHelper::log('unlike', 'Remove a post from a favorite list', $post);
     
             return redirect()->back()->with('success', 'Blog has been removed from  favourites.');
         }
