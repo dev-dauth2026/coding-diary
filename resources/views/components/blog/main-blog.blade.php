@@ -1,6 +1,6 @@
 <div class="">
-    @if(Auth::check())
-        @if(Auth::user()->favouriteBlogs->contains($post->id))
+    @auth
+        @if(Auth::user()->favouriteBlogs->contains('blog_post_id',$post->id))
             <form id="remove-favourite-form-{{ $post->id }}" action="{{route('favourite.remove',$post->id)}}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $post->id }});">
                 @csrf
                 @method('DELETE')
@@ -21,8 +21,9 @@
             </div>
         </form>
         @endif
+    @endauth
        
-    @else
+    @guest
         <form action="{{route('favourite.add', $post->id)}}" method="POST">
             @csrf
             <div class="d-flex my-3">
@@ -31,7 +32,7 @@
                 </button>
             </div>
         </form>
-    @endif
+    @endguest
     <p>{!! $post->content !!}</p>
 
     <script>

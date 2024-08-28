@@ -22,17 +22,16 @@ class FavouritePostController extends Controller
 
         $post= Post::findOrFail($id);
 
-        if(Auth::user()){
+        $favourite_blog = new FavouriteBlog();
+        $favourite_blog->user_id = Auth::id();
+        $favourite_blog->blog_post_id = $post->id;
 
-            $user = Auth::user();
-            $user->favouriteBlogs()->attach($id);
-            // Log activity
-            ActivityHelper::log('saved_favorite', 'liked a post', $post);
-    
-            return redirect()->back()->with('success', 'Blog has been added to  favourites.');
-        }
+        $favourite_blog->save();
 
-        return redirect()->route('account.login')->with('error', 'You are not logged in. Please log in.');
+        // Log activity
+        ActivityHelper::log('saved_favorite', 'liked a post', $favourite_blog->post);
+
+        return redirect()->back()->with('success', 'Blog has been added to  favourites.');
 
     }
 
