@@ -20,24 +20,28 @@
         <div class="row g-3">
             <!-- Total Favorites -->
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
-                        <div class="icon mb-3 ">
-                            <i class="fas fa-heart display-4 text-danger"></i>
+                <a href="{{route('account.favourites')}}" class="text-decoration-none">
+                    <div class="card dashboardCard  shadow-sm border-0 h-100 ">
+                        <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
+                            <div class="icon mb-3 ">
+                                <i class="fas fa-heart display-4 text-danger"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h5 class="card-title text-secondary">Total Favorites</h5>
+                                <p class="card-text display-4">{{ $totalFavorites }}</p>
+                            </div>
+    
                         </div>
-                        <div class="d-flex flex-column">
-                            <h5 class="card-title text-secondary">Total Favorites</h5>
-                            <p class="card-text display-4">{{ $totalFavorites }}</p>
-                        </div>
-
                     </div>
-                </div>
+                </a>
+                
             </div>
 
             <!-- New Messages -->
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
+                    <a href="{{route('account.messages.index')}}" class="text-decoration-none">
+                     <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
                         <div class="icon mb-3">
                             <i class="fas fa-envelope display-4 text-warning"></i>
                         </div>
@@ -46,13 +50,15 @@
                             <p class="card-text display-4">{{ $newMessages }}</p>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
 
             <!-- Total Messages -->
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
+                    <a href="{{route('account.messages.index')}}" class="text-decoration-none">
+                     <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
                         <div class="icon mb-3">
                             <i class="fas fa-comments display-4 text-info"></i>
                         </div>
@@ -61,13 +67,15 @@
                         <p class="card-text display-4">{{ $totalMessages }}</p>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
 
             <!-- Total Comments -->
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
+                    <a href="{{route('account.comments')}}" class="text-decoration-none">
+                     <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
                         <div class="icon mb-3">
                             <i class="fas fa-comment-dots display-4 text-success"></i>
                         </div>
@@ -76,13 +84,15 @@
                             <p class="card-text display-4">{{ $totalComments }}</p>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
 
             <!-- New Replies -->
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
+                    <a href="{{route('account.comments')}}" class="text-decoration-none">
+                     <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
                         <div class="icon mb-3">
                             <i class="fas fa-reply display-4 text-primary"></i>
                         </div>
@@ -92,6 +102,7 @@
                         </div>
                  
                     </div>
+                    </a>
                 </div>
             </div>
 
@@ -100,7 +111,7 @@
             <!-- Notifications -->
             <div class="col-6 col-md-4 col-lg-3">
                 <a href="{{ route('account.notifications') }}" class="text-decoration-none card dashboardCard shadow-sm border-0 h-100">
-                    <div class="card-body d-flex align-items-center gap-3 text-center">
+                     <div class="card-body d-flex justify-content-center align-items-center gap-3 text-center">
                         <div class="icon mb-3">
                             <i class="fas fa-bell display-4 text-info"></i>
                         </div>
