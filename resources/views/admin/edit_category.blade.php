@@ -29,7 +29,7 @@
                 </div>
                 <div class="d-flex justify-content-end gap-2">
                     <a href="{{route('admin.blog.category')}}" class="btn btn-outline-danger" type="button">Cancle</a>
-                    <button class="btn btn-outline-info" type="submit">Update Category</button>
+                    <button class="btn btn-outline-info " type="submit">Update Category</button>
                 </div>
 
             </form>

@@ -127,7 +127,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::get('/user/notifications', [UserNotificationsController::class, 'index'])->name('account.notifications');
 
          // User Dashboard notification page
-         Route::get('/user/activities', [UserActivitiesController::class, 'index'])->name('account.activities');
+         Route::get('/user/activities', [UserActivitiesController::class, 'index'])->name('account.activities.index');
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
