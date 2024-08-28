@@ -1,31 +1,32 @@
 <?php
 
-use App\Http\Controllers\admin\AdminCategoriesController;
-use App\Http\Controllers\admin\AdminCommentsController;
-use App\Http\Controllers\admin\AdminPasswordChangeController;
-use App\Http\Controllers\admin\AdminProfileController;
-use App\Http\Controllers\admin\AdminUsersListController;
-use App\Http\Controllers\user\ChangeUserNameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\user\CommentController as UserCommentController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\admin\BlogsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\user\FavouritePostController;
-use App\Http\Controllers\user\ChangePasswordController;
+use App\Http\Controllers\user\DashboardController;
+use App\Http\Controllers\user\UserMessageController;
+use App\Http\Controllers\admin\AdminProfileController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\user\FavouritePostController;
+use App\Http\Controllers\admin\AdminCommentsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\user\ChangePasswordController;
+use App\Http\Controllers\user\ChangeUserNameController;
+use App\Http\Controllers\admin\AdminUsersListController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\admin\AdminCategoriesController;
 use App\Http\Controllers\NewsLetterSubscriptionController;
+use App\Http\Controllers\admin\AdminPasswordChangeController;
 use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\admin\LoginController as AdminLoginController;
+use App\Http\Controllers\user\CommentController as UserCommentController;
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 
 
@@ -89,13 +90,25 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('username/change',[ChangeUserNameController::class,'changeUserName'])->name('username.change');
         Route::put('profile_picture/change',[ChangeUserNameController::class,'changeProfilePicture'])->name('profile_picture.change');
 
+
+        // User Dashboard Favourite page
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
         Route::delete('blog/favourite/remove/{id}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
+
+        //User Dashboard Comment page
         Route::get('/dashboard/comments', [UserCommentController::class, 'show'])->name('account.comments');
         Route::put('/dashboard/comments/edit/{comment}', [UserCommentController::class, 'update'])->name('account.comments.update');
         Route::delete('/dashboard/comments/{comment}', [UserCommentController::class, 'destroy'])->name('account.comments.destroy');
         Route::post('/dashboard/comments/reply/{comment}', [UserCommentController::class, 'store'])->name('account.comments.reply');
+
+        // User Dashboard Message page
+        Route::get('/user/messages', [UserMessageController::class, 'index'])->name('account.messages.index');
+        Route::get('/user/messages/{message}', [UserMessageController::class, 'show'])->name('account.messages.show');
+        Route::post('/user/messages/{message}/reply', [UserMessageController::class, 'reply'])->name('account.messages.reply');
+        Route::delete('/user/messages/{message}', [UserMessageController::class, 'destroy'])->name('account.messages.destroy');
+        Route::post('/user/messages/{message}/mark-read', [UserMessageController::class, 'markRead'])->name('account.messages.markRead');
+
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
