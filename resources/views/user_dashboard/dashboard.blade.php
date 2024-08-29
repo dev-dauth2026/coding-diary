@@ -145,7 +145,7 @@
                            
                         </ul>
                         <div class="text-end mt-3">
-                            <a href="{{route('account.activities')}}" class="btn btn-outline-primary"><i class="fas fa-list"></i> View All Activity</a>
+                            <a href="{{route('account.activities.index')}}" class="btn btn-outline-primary"><i class="fas fa-list"></i> View All Activity</a>
                         </div>
                     </div>
                 </div>
