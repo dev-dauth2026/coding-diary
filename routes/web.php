@@ -3,6 +3,7 @@
 use App\Http\Controllers\user\UserActivitiesController;
 use App\Http\Controllers\user\UserNotificationsController;
 use App\Http\Controllers\user\UserSettingsController;
+use App\Http\Controllers\user\WatchedBlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -98,6 +99,11 @@ Route::group(['prefix'=>'account'],function(){
         Route::post('blog/favourite/{id}', [FavouritePostController::class, 'addFavourite'])->name('favourite.add');
         Route::delete('blog/favourites/remove/{favouriteBlog}', [FavouritePostController::class, 'removeFavourite'])->name('favourite.remove');
         Route::get('/dashboard/favourites', [FavouritePostController::class, 'dashboardFavouriteBlog'])->name('account.favourites');
+
+        // User Dashboard Watch List page
+        Route::get('/dashboard/watched', [WatchedBlogController::class, 'index'])->name('account.watched');
+        Route::post('/blog/watch/{id}', [WatchedBlogController::class, 'store'])->name('watched.add');
+
 
         //User Dashboard Comment page
         Route::get('/dashboard/comments', [UserCommentController::class, 'show'])->name('account.comments');

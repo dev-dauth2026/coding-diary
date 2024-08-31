@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog_Like;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Blog_Like;
+use App\Models\WatchedBlog;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityHelper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
     public function blog(){
+        $user = Auth::user();
         $post = Post::latest()->first();
         $posts = Post::latest()->paginate(3);
         $totalBlogs = Post::count();
@@ -19,6 +23,9 @@ class PostController extends Controller
                             ->with('replies')
                             ->orderBy('created_at', 'desc')
                             ->paginate(15);
+
+        // Use helper function to track watched blogs
+        ActivityHelper::trackWatchedBlog($post);
 
         return view('blog',compact('post','posts','totalBlogs','comments'));
     }
@@ -73,6 +80,9 @@ class PostController extends Controller
             // Handle the case where the post is not found, e.g., show a 404 page
             abort(404, 'Post not found');
         }
+
+        // Use helper function to track watched blogs
+        ActivityHelper::trackWatchedBlog($post);
 
         return view('blog', compact('post','posts','totalBlogs','comments'));
     }

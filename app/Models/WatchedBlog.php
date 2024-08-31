@@ -11,7 +11,7 @@ class WatchedBlog extends Model
 
     protected $fillable = [
         'user_id',
-        'post_id',
+        'blog_post_id',
         'viewed_at',
         'view_count'
     ];
@@ -23,6 +23,6 @@ class WatchedBlog extends Model
 
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class,'post_id');
     }
 }

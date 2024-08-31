@@ -39,7 +39,7 @@ class WatchedBlogController extends Controller
         $user = Auth::user();
 
         $watchedBlog = WatchedBlog::firstOrCreate(
-            ['user_id' => $user->id, 'post_id' => $postId],
+            ['user_id' => $user->id, 'blog_post_id' => $postId],
             ['viewed_at' => now(), 'view_count' => 1]
         );
 

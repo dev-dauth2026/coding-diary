@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Activity;
+use App\Models\WatchedBlog;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,5 +47,56 @@ class ActivityHelper
             'subject_id' => $subject ? $subject->id : null,
             'is_read' => false,
         ]);
+    }
+
+    public static function trackWatchedBlog($post)
+    {
+        // watchedBlog for authenticated user
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Check if the blog is already watched
+            $watchedBlog = WatchedBlog::where('user_id', $user->id)
+                                      ->where('blog_post_id', $post->id)
+                                      ->first();
+
+            if (!$watchedBlog) {
+                // Record this post as watched for the first time
+                WatchedBlog::create([
+                    'user_id' => $user->id,
+                    'blog_post_id' => $post->id,
+                    'viewed_at' => now(), // Record the current time
+                    'view_count' => 1,
+                ]);
+            } else {
+                // Update the existing watched record
+                $watchedBlog->update([
+                    'viewed_at' => now(), // Update the last viewed time
+                    'view_count' => $watchedBlog->view_count + 1, // Increment the view count
+                ]);
+            }
+        }else{
+            // watchedBlog for unauthenticated user
+            $watchedBlog = WatchedBlog::whereNull('user_id')
+            ->where('blog_post_id', $post->id)
+            ->first(); 
+            
+            if (!$watchedBlog) {
+                // Record this post as watched for the first time
+                WatchedBlog::create([
+                    'user_id' => null,
+                    'blog_post_id' => $post->id,
+                    'viewed_at' => now(), // Record the current time
+                    'view_count' => 1,
+                ]);
+            } else {
+                // Update the existing watched record
+                $watchedBlog->update([
+                    'viewed_at' => now(), // Update the last viewed time
+                    'view_count' => $watchedBlog->view_count + 1, // Increment the view count
+                ]);
+            }
+
+        }
     }
 }

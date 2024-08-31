@@ -11,13 +11,54 @@ use Illuminate\Support\Facades\Auth;
 
 class FavouritePostController extends Controller
 {
-    public function dashboardFavouriteBlog(){
+    public function dashboardFavouriteBlog(Request $request)
+{
+    $user = Auth::user();
 
-        $user = Auth::user();
-        $favourites = $user->favouriteBlogs;
+    // Get query parameters for search, sort
+    $search = $request->input('search');
+    $sort = $request->input('sort');
 
-        return view('user_dashboard.favouriteBlogs',compact('favourites'));
+    // Query user's favourite blogs with optional search and sort functionality
+    $query = $user->favouriteBlogs()->with('post');
+
+    if ($search) {
+        $query->whereHas('post', function($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%");
+        });
     }
+
+    switch ($sort) {
+        case 'oldest':
+            $query->orderBy('created_at', 'asc');
+            break;
+        case 'title_asc':
+            $query->orderBy('title', 'asc');
+            break;
+        case 'title_desc':
+            $query->orderBy('title', 'desc');
+            break;
+        default:
+            $query->orderBy('created_at', 'desc');
+            break;
+    }
+
+    $favourites = $query->paginate(9);
+
+     // Fetch recently updated blogs that are not already favorited by the user
+     $recentlyWatched = Post::whereIn('id', $user->watchedBlog()->pluck('blog_post_id'))
+     ->orderBy('updated_at', 'desc')
+     ->take(5)
+     ->get();
+
+    // Fetch recommended blogs based on favourite blogs of other users
+    $recommendedBlogs = Post::whereNotIn('id', $user->watchedBlog()->pluck('blog_post_id'))
+        ->inRandomOrder()  // Optionally randomize the order
+        ->take(5)
+        ->get();   
+
+    return view('user_dashboard.favouriteBlogs', compact('favourites', 'recentlyWatched', 'recommendedBlogs'));
+}
     public function addFavourite($id){
 
         $post= Post::findOrFail($id);
