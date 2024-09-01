@@ -14,28 +14,30 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Total Comments</h5>
-                            <p class="display-5">{{ $totalComment }}</p>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title text-secondary">Total Comments</h5>
+                            <p class="display-4 ">{{ $totalComment }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Comments This Month</h5>
-                            <p class="display-5">{{ $totalCommentsThisMonth }}</p>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title text-secondary">Comments This Month</h5>
+                            <p class="display-4 ">{{ $totalCommentsThisMonth }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Most Liked Comment</h5>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title text-secondary">Most Liked Comment</h5>
                             @if($mostLikedComment)
-                                <p class="display-6"><a class="text-decoration-none" href="{{ route('blog.detail', $mostLikedComment->blogPost->id) }}"> "{{ Str::limit($mostLikedComment->blogPost->title, 30) }}" </a></p>
-                                <p class="text-muted">{{ Str::limit($mostLikedComment->content, 50) }}</p>
-                                <p class="text-muted">Likes: {{ $mostLikedComment->likes_count }}</p>
+                            <p class="fw-bold">"{{ Str::limit($mostLikedComment->content, 50) }}"</p>
+                            <div class="d-flex gap-2">
+                                <p class=" "><a class="text-decoration-none text-info" href="{{ route('blog.detail', $mostLikedComment->blogPost->id) }}"> {{ Str::limit($mostLikedComment->blogPost->title, 30) }} </a></p>
+                                    <p class="text-muted">Likes: {{ $mostLikedComment->likes_count }}</p>
+                            </div>
                             @else
                                 <p class="text-muted">No comments yet.</p>
                             @endif
@@ -98,7 +100,7 @@
                                     </ul>
                                 </div>
 
-                                <h5 class="card-title"> <a class="text-decoration-none" href="{{ route('blog.detail', $comment->blogPost->id) }}">{{ $comment->blogPost->title }}</a> </h5>
+                                <h5 class="card-title"> <a class="text-decoration-none text-info" href="{{ route('blog.detail', $comment->blogPost->id) }}">{{ $comment->blogPost->title }}</a> </h5>
                                 <small class="card-subtitle mb-2 text-secondary">Posted on: {{ $comment->created_at->format('d F Y') }} | {{ $comment->created_at->diffForHumans() }}</small>
                                 {{-- replies display toggle button  --}}
                                 @if($comment->replies->isNotEmpty())
@@ -163,9 +165,9 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Comment Content -->
                             <div class="flex-grow-1">
-                                <p class="mb-1 text-secondary"><i class="fa-solid fa-comment-dots me-2 text-primary"></i>{{ Str::limit($likedComment->content, 80) }}</p>
+                                <p class="mb-1 "><i class="fa-solid fa-comment-dots me-2 text-secondary"></i>{{ Str::limit($likedComment->content, 80) }} <span class="text-secondary"><i class="fa-solid fa-thumbs-up mx-1"></i>{{ $likedComment->likes_count }} Likes</span></p>
                                 <a href="{{ route('blog.detail', $likedComment->blogPost->id) }}" class="text-decoration-none">
-                                    <h6 class="mb-0"><i class="fa-solid fa-book-open me-1 text-success"></i>{{ Str::limit($likedComment->blogPost->title, 50) }}</h6>
+                                    <h6 class="mb-0 text-secondary"><i class="fa-solid fa-book-open me-1 text-success"></i>{{ Str::limit($likedComment->blogPost->title, 50) }}</h6>
                                 </a>
                             </div>
             
@@ -173,7 +175,7 @@
                             <div class="text-end">
                                 <small class="text-muted"><i class="fa-solid fa-clock me-1"></i>{{ $likedComment->created_at->diffForHumans() }}</small>
                                 <div>
-                                    <span class="badge bg-primary"><i class="fa-solid fa-thumbs-up me-1"></i>{{ $likedComment->likes_count }} Likes</span>
+                                    
                                 </div>
                             </div>
                         </div>

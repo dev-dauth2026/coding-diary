@@ -41,14 +41,14 @@
         @endif
 
         <!-- Dashboard Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex flex-column">
+        <div class="row  d-flex justify-content-between align-items-center mb-4">
+            <div class="col-4 d-flex flex-column">
                 <h4>My Favorite Blogs</h4>
-                <hr class="col-12 mb-3">
+                <hr class="col-6 mb-3">
             </div>
-            <div class="d-flex align-items-center gap-3">
+            <div class="col-8 d-flex align-items-center gap-3">
                 <!-- Search Bar -->
-                <form method="GET" action="{{ route('account.favourites') }}" class="d-flex align-items-center">
+                <form method="GET" action="{{ route('account.favourites') }}" class="d-flex align-items-center flex-grow-1">
                     <input type="text" name="search" value="{{ request('search') }}" class="form-control " placeholder="Search favourites..." style="border-radius: 50px;">
                 </form>
 
@@ -82,22 +82,23 @@
                         @else
                             <div class="row g-4">
                                 @foreach($favourites as $favourite)
+                       
                                     <div class="col-md-6">
                                         <div class="card h-100 shadow-sm border-0 position-relative hover-card">
-                                            @if($favourite->post->image)
+                                            @if($favourite->image)
                                                 <div class="card-img-container position-relative">
-                                                    <img src="{{ asset('storage/' . $favourite->post->image) }}" class="card-img-top rounded-top" alt="{{ $favourite->post->title }}" style="height: 200px; object-fit: cover;">
+                                                    <img src="{{ asset('storage/' . $favourite->image) }}" class="card-img-top rounded-top" alt="{{ $favourite->title }}" style="height: 200px; object-fit: cover;">
                                                     <div class="overlay d-flex flex-column justify-content-center align-items-center">
-                                                        <p class="description-overlay text-white text-center mb-3">{{ Str::limit(strip_tags($favourite->post->content), 120) }}</p>
-                                                        <a href="{{ route('blog.detail', $favourite->post->id) }}" class="btn btn-light btn-sm text-primary">View Post</a>
+                                                        <p class="description-overlay text-white text-center mb-3">  {!! Str::limit(strip_tags($favourite->content), 120) !!}</p>
+                                                        <a href="{{ route('blog.detail', $favourite->id) }}" class="btn btn-light btn-sm text-primary">View Post</a>
                                                     </div>
                                                 </div>
                                             @endif
                                             <div class="card-body d-flex flex-column">
-                                                <h5 class="card-title fw-bold">{{ $favourite->post->title }}</h5>
+                                                <h5 class="card-title fw-bold">{{ $favourite->title }}</h5>
                                                 <div class="mt-2">
-                                                    <span class="badge bg-info text-dark">{{ $favourite->post->category->name ?? 'Uncategorized' }}</span>
-                                                    <span class="badge bg-secondary">{{ $favourite->post->created_at->format('d M Y') }}</span>
+                                                    <span class="badge bg-info text-dark">{{ $favourite->category->name ?? 'Uncategorized' }}</span>
+                                                    <span class="badge bg-secondary">{{ $favourite->created_at->format('d M Y') }}</span>
                                                 </div>
                                             </div>
                                             <div class="card-footer bg-light border-0 d-flex justify-content-between">
@@ -110,6 +111,7 @@
                                             </div>
                                         </div>
                                     </div>
+                    
                                 @endforeach
                             </div>
                             <!-- Pagination -->

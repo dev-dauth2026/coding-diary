@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -48,9 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function favouriteBlogs(){
-        return $this->hasMany(FavouriteBlog::class,'user_id');
+    public function favouriteBlogs():BelongsToMany
+    {
+        return $this->belongsToMany(Post::class,'favourite_blogs', 'user_id','blog_post_id')->as('favourite')->withTimestamps();
     }
+
 
     public function comments()
     {

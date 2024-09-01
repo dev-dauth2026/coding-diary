@@ -18,13 +18,11 @@ class Post extends Model
         'author'
     ];
 
-    public function favouriteBy(){
-        return $this->belongsToMany(User::class,'favourite_blogs','blog_post_id', 'user_id')->withTimestamps();
+    public function favouriteBy():BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'favourite_blogs','blog_post_id', 'user_id')->as('favorite')->withTimestamps();
     }
 
-    public function favouriteBlog(){
-        return $this->hasMany(FavouriteBlog::class,'blog_post_id');
-    }
 
     public function comments()
     {

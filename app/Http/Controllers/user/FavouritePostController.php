@@ -20,28 +20,29 @@ class FavouritePostController extends Controller
     $sort = $request->input('sort');
 
     // Query user's favourite blogs with optional search and sort functionality
-    $query = $user->favouriteBlogs()->with('post');
-
+    $query = $user->favouriteBlogs(); 
+    // Apply search filtering
     if ($search) {
-        $query->whereHas('post', function($q) use ($search) {
-            $q->where('title', 'like', "%{$search}%");
-        });
+        $query->where('title', 'like', "%{$search}%");
     }
 
+    // Apply sorting based on the requested criteria
     switch ($sort) {
-        case 'oldest':
-            $query->orderBy('created_at', 'asc');
-            break;
         case 'title_asc':
             $query->orderBy('title', 'asc');
             break;
         case 'title_desc':
             $query->orderBy('title', 'desc');
             break;
-        default:
+        case 'oldest':
+            $query->orderBy('created_at', 'asc');
+            break;
+        default: // Latest
             $query->orderBy('created_at', 'desc');
             break;
     }
+
+
 
     $favourites = $query->paginate(9);
 
