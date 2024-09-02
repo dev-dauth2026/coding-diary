@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -19,8 +22,12 @@ class PostController extends Controller
 
     }
     public function create(){
-        $auth =Auth::guard('admin')->check();
-        return view('admin.createBlog', compact('auth'));
+        $adminUsers = User::where('role_id','1')->get();
+        $auth =Auth::guard('admin')->user();
+        $statusOptions = Post::getStatusOptions();
+        $categories = Category::all();
+
+        return view('admin.createBlog', compact('auth','statusOptions', 'categories','adminUsers'));
     }
 
     public function store(Request $request){
@@ -28,8 +35,11 @@ class PostController extends Controller
         $validator = Validator::make($request->all(),[
             'title' =>'required|min:3',
             'content' =>'required',
-            'tags' =>'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'slug' =>'required',
+            'status'=>'required',
+            'category'=>'required',
+            'author' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         if ($validator->fails()) {
@@ -47,7 +57,9 @@ class PostController extends Controller
             $post = new Post();
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->tags = $request->tags;
+            $post->slug = $request->slug;
+            $post->author_id = $request->author;
+            $post->category_id = $request->category;
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -69,19 +81,23 @@ class PostController extends Controller
     }
 
     public function editPost(Post $post){
-        return view('admin.editPost', compact('post'));
+        $adminUsers = User::where('role_id','1')->get();
+        $auth =Auth::guard('admin')->user();
+        $statusOptions = Post::getStatusOptions();
+        $categories = Category::all();
+        return view('admin.editPost', compact('post','auth','statusOptions', 'categories','adminUsers'));
     }
 
     public function update(Request $request, Post $post){
-        Log::info('Session ID: ' . session()->getId());
-        Log::info('Admin ID in session: ' . session('admin_id'));
-        Log::info('CSRF Token: ' . $request->input('_token'));
+        
 
         $validator = Validator::make($request->all(),[
             'title' =>'required|min:3',
             'content' =>'required',
             'tags' =>'required',
-            'author'=> 'required',
+            'status'=>'required',
+            'category'=>'required',
+            'author' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -101,7 +117,8 @@ class PostController extends Controller
         if($validator->passes()){
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->author = $request->author;
+            $post->author_id = $request->author;
+            $post->category_id = $request->category;
             $post->tags = $request->tags;
 
             if ($request->hasFile('image')) {

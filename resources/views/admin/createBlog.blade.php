@@ -7,7 +7,7 @@
             @csrf
             <div class="form-group mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input class="form-control @error('title') is-invalid @enderror" value="{{old('title')}}" type="text" id="title" name="title" placeholder="Enter blog title" >
+                <input class="form-control @error('title') is-invalid @enderror" value="{{old('title')}}" type="text" id="title" name="title" placeholder="Enter blog title" oninput="generateSlug()" >
                 @error('title')
                     <p class="invalid-feedback">{{$message}} </p>
                 @enderror
@@ -20,19 +20,50 @@
                 @enderror
             </div>
             <div class="form-group mb-3">
-                <label for="tags" class="form-label">Tags</label>
-                <input class="form-control @error('tags') is-invalid @enderror" value="{{old('tags')}}" type="text" id="tags" name="tags" placeholder="Enter tags (comma-separated)" >
-                @error('tags')
+                <label for="slug" class="form-label">Slug</label>
+                <input class="form-control @error('slug') is-invalid @enderror" value="{{old('slug')}}" type="text" id="slug" name="slug" placeholder="Enter slug (comma-separated)" >
+                @error('slug')
                     <p class="invalid-feedback">{{$message}} </p>
                 @enderror
             </div>
             <div class="form-group mb-3">
                 <label for="author" class="form-label">Author</label>
-                <input class="form-control @error('author') is-invalid @enderror" value="{{Auth::user() && Auth::user()->name}}" type="text" id="author" name="author" placeholder="Enter author (comma-separated)" >
+                <select class="form-control @error('author') is-invalid @enderror" value="{{old('author',$auth->name)}}"  id="author" name="author"  >
+                    @if($adminUsers)
+                    @foreach($adminUsers as $user)
+                        <option value="{{ $user->id }}" {{ (old('user->id')== $auth->id  || $user->id == $auth->id) ? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
+                    @endforeach
+                    @endif
+                </select>
                 @error('author')
                     <p class="invalid-feedback">{{$message}} </p>
                 @enderror
             </div>
+            <div class="form-group mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-control @error('category') is-invalid @enderror" value="{{old('category')}}" type="text" id="category" name="category"  >
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category->id') == $category->id ? 'selected' : '' }}>{{ ucfirst($category->name) }}</option>
+                    @endforeach
+
+                </select>
+                @error('category')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control @error('status') is-invalid @enderror" value="" type="text" id="status" name="status"  >
+                    @foreach($statusOptions as $status)
+                        <option value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                    @endforeach
+
+                </select>
+                @error('status')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
+            </div>
+            
             <div class="form-group mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input class ="form-control @error('image') is-invalid @enderror"  type="file" id="image" name="image">
@@ -54,6 +85,13 @@
             <button type="submit" class="btn btn-primary">Create Blog Post</button>
         </form>
     </div>
+    <script>
+        function generateSlug() {
+            const title = document.getElementById('title').value;
+            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            document.getElementById('slug').value = slug;
+        }
+    </script>
     
 </x-admin.admin-layout>
 

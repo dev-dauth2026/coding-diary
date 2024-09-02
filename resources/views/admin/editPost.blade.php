@@ -28,9 +28,30 @@
                 <label for="tags" class="form-label">Tags</label>
                 <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', $post->tags) }}">
             </div>
-            <div class="mb-3">
+            <div class="form-group mb-3">
                 <label for="author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="author" name="author" value="{{ old('author', $post->author) }}">
+                <select class="form-control @error('author') is-invalid @enderror" value="{{old('author',$auth->name)}}"  id="author" name="author"  >
+                    @if($adminUsers)
+                    @foreach($adminUsers as $user)
+                        <option value="{{ $user->id }}" {{ old('user->id') == $auth->id ? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
+                    @endforeach
+                    @endif
+                </select>
+                @error('author')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-control @error('category') is-invalid @enderror" value="{{old('category')}}" type="text" id="category" name="category"  >
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category->id') == $category->id ? 'selected' : '' }}>{{ ucfirst($category->name) }}</option>
+                    @endforeach
+
+                </select>
+                @error('category')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
             </div>
 
             <div class="mb-3">
