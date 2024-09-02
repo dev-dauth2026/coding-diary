@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     public function blogs(){
-        $allBlogs = Post::all();
+        $allBlogs = Post::orderBy('created_at','desc')->get();
+        $statusOptions = Post::getStatusOptions();
         
-        return view('admin.allBlogs',['allBlogs'=> $allBlogs] );
+        return view('admin.allBlogs',compact('allBlogs','statusOptions'));
 
     }
     public function create(){
@@ -136,6 +137,22 @@ class PostController extends Controller
             Log::info('Post updated successfully');
             return redirect()->route('admin.blogs')->with('success','The post has been successfully created!');
         }
+    }
+
+    public function updateStatus(Request $request,Post $post){
+        $validator = Validator::make($request->all(),[
+            'status' =>'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $post->status = $request->status;
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'The status of the post has been successfully updated.');
     }
 
     public function destroy(Post $post){

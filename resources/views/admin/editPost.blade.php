@@ -42,10 +42,10 @@
                 @enderror
             </div>
             <div class="form-group mb-3">
-                <label for="category" class="form-label">Category</label>
-                <select class="form-control @error('category') is-invalid @enderror" value="{{old('category')}}" type="text" id="category" name="category"  >
+                <label for="category" class="form-label">Category  </label>
+                <select class="form-control @error('category') is-invalid @enderror" value="{{old('category',$post->category_id)}}" type="text" id="category" name="category"  >
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category->id') == $category->id ? 'selected' : '' }}>{{ ucfirst($category->name) }}</option>
+                        <option value="{{ $category->id }}" {{ (old('category->id') == $category->id || $post->category_id==$category->id) ? 'selected' : '' }}>{{ ucfirst($category->name) }}</option>
                     @endforeach
 
                 </select>
@@ -58,7 +58,7 @@
                 <label for="status" class="form-label">Status</label>
                 <select class="form-control @error('status') is-invalid @enderror" value="" type="text" id="status" name="status"  >
                     @foreach($statusOptions as $status)
-                        <option value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                        <option value="{{ $status }}" {{ (old('status') == $status || $post->status== $status) ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
                     @endforeach
 
                 </select>
