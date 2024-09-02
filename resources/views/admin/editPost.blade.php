@@ -54,6 +54,19 @@
                 @enderror
             </div>
 
+            <div class="form-group mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control @error('status') is-invalid @enderror" value="" type="text" id="status" name="status"  >
+                    @foreach($statusOptions as $status)
+                        <option value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                    @endforeach
+
+                </select>
+                @error('status')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
+            </div>
+
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image">

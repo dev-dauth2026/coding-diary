@@ -94,7 +94,7 @@ class PostController extends Controller
         $validator = Validator::make($request->all(),[
             'title' =>'required|min:3',
             'content' =>'required',
-            'tags' =>'required',
+            'slug' =>'required',
             'status'=>'required',
             'category'=>'required',
             'author' => 'required',
@@ -119,7 +119,7 @@ class PostController extends Controller
             $post->content = $request->content;
             $post->author_id = $request->author;
             $post->category_id = $request->category;
-            $post->tags = $request->tags;
+            $post->slug = $request->slug;
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
