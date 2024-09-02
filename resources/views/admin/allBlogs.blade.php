@@ -42,7 +42,7 @@
                         <td>{{$post->title}} </td>
                         <td>
                             @if($post->author)
-                            {{$post->author}} 
+                            {{$post->author->name}} 
                             @else   
                             N/A
                             @endif
