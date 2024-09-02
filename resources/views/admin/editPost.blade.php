@@ -16,7 +16,7 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}" oninput="generateSlug()">
             </div>
 
             <div class="mb-3">
@@ -25,15 +25,15 @@
             </div>
 
             <div class="mb-3">
-                <label for="tags" class="form-label">Tags</label>
-                <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', $post->tags) }}">
+                <label for="slug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
             </div>
             <div class="form-group mb-3">
                 <label for="author" class="form-label">Author</label>
                 <select class="form-control @error('author') is-invalid @enderror" value="{{old('author',$auth->name)}}"  id="author" name="author"  >
                     @if($adminUsers)
                     @foreach($adminUsers as $user)
-                        <option value="{{ $user->id }}" {{ old('user->id') == $auth->id ? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
+                        <option value="{{ $user->id }}" {{ (old('user->id') == $auth->id || $user->id == $auth->id )? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
                     @endforeach
                     @endif
                 </select>
@@ -65,7 +65,13 @@
             <button type="submit" class="btn btn-primary">Update Post</button>
         </form>
     </div>
+
+    <script>
+        function generateSlug() {
+            const title = document.getElementById('title').value;
+            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            document.getElementById('slug').value = slug;
+        }
+    </script>
 </x-admin.admin-layout>
 
-</body>
-</html>
