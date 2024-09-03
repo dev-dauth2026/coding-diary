@@ -48,12 +48,21 @@
                         </select>
                     </div>
                     <div class="form-group d-flex align-items-center gap-2">
-                        <label for="order_by_created_at" class="text-nowrap">Order By Date: </label>
+                        <label for="order_by" class="text-nowrap">Order By Date: </label>
                         <select name="order_by" id="" class="form-select" onchange="this.form.submit()">
                             <option value="new" {{request('order_by')== 'new'?'selected':''}}>New</option>
                             <option value="old" {{request('order_by')== 'old'?'selected':''}}>Old</option>
                             <option value="title_asc" {{request('order_by')== 'title_asc'?'selected':''}}>Title(A-Z)</option>
                             <option value="title_desc" {{request('order_by')== 'title_desc'?'selected':''}}>Title(Z-A)</option>
+                        </select>
+                    </div>
+                    <div class="form-group d-flex align-items-center gap-2">
+                        <label for="pagination_by" class="text-nowrap">Number of Post: </label>
+                        <select name="pagination_by" id="" class="form-select" onchange="this.form.submit()">
+                            <option value="10" {{request('pagination_by')== '10'?'selected':''}}>10</option>
+                            <option value="20" {{request('pagination_by')== '20'?'selected':''}}>20</option>
+                            <option value="50" {{request('pagination_by')== '50'?'selected':''}}>50</option>
+                            <option value="100" {{request('pagination_by')== '100'?'selected':''}}>100</option>
                         </select>
                     </div>
                   
@@ -176,5 +185,10 @@
             </table>
         </div>
          {{-- blog post list table ends --}}
+          <!-- Pagination -->
+          <div class="d-flex justify-content-center mt-4">
+            {{ $posts->links('pagination::bootstrap-5') }}
+        </div>
+
     </div>
 </x-admin.admin-layout>

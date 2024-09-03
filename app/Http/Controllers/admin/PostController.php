@@ -22,6 +22,7 @@ class PostController extends Controller
         $status = $request->input('status', 'all');
         $category = $request->input('category', 'all');
         $order_by = $request->input('order_by', 'new');
+        $pagination_by = $request->input('pagination_by', '10');
 
 
         //Fetching all categories from category table
@@ -102,7 +103,7 @@ class PostController extends Controller
 
 
 
-        $posts = $query->get();
+        $posts = $query->paginate($pagination_by);
         
         return view('admin.allBlogs',compact('posts','statusOptions','status','categories','category'));
 
