@@ -15,13 +15,99 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
-    public function blogs(){
-        $allBlogs = Post::orderBy('created_at','desc')->get();
+    public function blogs(Request $request){
+
+        // Get the search query
+        $search = $request->input('search');
+        $status = $request->input('status', 'all');
+        $category = $request->input('category', 'all');
+        $order_by = $request->input('order_by', 'new');
+
+
+        //Fetching all categories from category table
+        $categories = Category::orderBy('name','asc')->get();
+
+        //Base query for fetching post
+        $query = Post::query()->with('author');
+
+        //
         $statusOptions = Post::getStatusOptions();
+
+        //If search query is provided filter by post title
+        if($search && $status !== 'all' && $category !=='all'){
+            $query->where('title', 'like', '%' . $search . '%')
+                ->where('status', $status)
+                ->where('category_id',$category)
+              ->orWhereHas('author', function($q) use ($search) {
+                  $q->where('name', 'like', '%' . $search . '%');
+              })
+              ->where('status', $status)
+              ->where('category_id',$category)
+              ;
+        }
+
+        if($search && $status !== 'all' ){
+            $query->where('title', 'like', '%' . $search . '%')
+                ->where('status', $status)
+              ->orWhereHas('author', function($q) use ($search) {
+                  $q->where('name', 'like', '%' . $search . '%');
+              })
+              ->where('status', $status)
+              ;
+        }
+
+        if($search && $category !=='all'){
+            $query->where('title', 'like', '%' . $search . '%')
+                ->where('category_id',$category)
+              ->orWhereHas('author', function($q) use ($search) {
+                  $q->where('name', 'like', '%' . $search . '%');
+              })
+              ->where('category_id',$category)
+              ;
+        }
+        if($search ){
+            $query->where('title', 'like', '%' . $search . '%')
+              ->orWhereHas('author', function($q) use ($search) {
+                  $q->where('name', 'like', '%' . $search . '%');
+              })
+              ;
+        }
+
+        if($status !== 'all'){
+            $query->where('status', $status);
+        }
+
+        if($category !=='all'){
+            $query->where('category_id',$category);
+        }
+
+      
+        switch ($order_by) {
+            case 'new':
+                $query->orderBy('created_at','desc');
+              break;
+            case 'old':
+                $query->orderBy('created_at','asc');
+              break;
+            case 'title_asc':
+                $query->orderBy('title','asc');
+              break;
+            case 'title_desc':
+                $query->orderBy('title','desc');
+            break;
+            default:
+                $query->orderBy('created_at','desc');
+          }
+
+
+
+
+        $posts = $query->get();
         
-        return view('admin.allBlogs',compact('allBlogs','statusOptions'));
+        return view('admin.allBlogs',compact('posts','statusOptions','status','categories','category'));
 
     }
+    // blog method ends 
     public function create(){
         $adminUsers = User::where('role_id','1')->get();
         $auth =Auth::guard('admin')->user();
@@ -30,6 +116,7 @@ class PostController extends Controller
 
         return view('admin.createBlog', compact('auth','statusOptions', 'categories','adminUsers'));
     }
+    //create method ends
 
     public function store(Request $request){
 
@@ -80,6 +167,7 @@ class PostController extends Controller
 
 
     }
+    //store method ends
 
     public function editPost(Post $post){
         $adminUsers = User::where('role_id','1')->get();
@@ -88,6 +176,7 @@ class PostController extends Controller
         $categories = Category::all();
         return view('admin.editPost', compact('post','auth','statusOptions', 'categories','adminUsers'));
     }
+    // editPost method ends
 
     public function update(Request $request, Post $post){
         
@@ -138,6 +227,7 @@ class PostController extends Controller
             return redirect()->route('admin.blogs')->with('success','The post has been successfully created!');
         }
     }
+    //update method ends
 
     public function updateStatus(Request $request,Post $post){
         $validator = Validator::make($request->all(),[
@@ -154,12 +244,31 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'The status of the post has been successfully updated.');
     }
+    //updateStatus method ends
+
+    public function updateCategory(Request $request,Post $post){
+        $validator = Validator::make($request->all(),[
+            'category' =>'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $post->category_id = $request->category;
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'The category of the post has been successfully updated.');
+    }
+    // updateCategory ends
 
     public function destroy(Post $post){
         $post->delete();
 
         return redirect()->back()->with('success','The post has been successfully deleted');
     }
+    // destroy method ends
 
   
 

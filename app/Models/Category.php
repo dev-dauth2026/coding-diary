@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $fillable =[
+        'name'
+    ];
+
+    public function post()
+    {
+        return $this->hasMany(Post::class,'category_id');
+    }
 }

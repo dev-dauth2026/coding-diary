@@ -180,6 +180,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('blogs/{post}/edit',[AdminPostController::class,'editPost'])->name('admin.post.edit');
         Route::put('blogs/{post}',[AdminPostController::class,'update'])->name('admin.post.update');
         Route::put('blogs/status/{post}',[AdminPostController::class,'updateStatus'])->name('admin.post.status.update');
+        Route::put('blogs/category/{post}',[AdminPostController::class,'updateCategory'])->name('admin.post.category.update');
         Route::delete('blogs/{post}',[AdminPostController::class,'destroy'])->name('admin.post.delete');
 
         Route::get('users',[AdminUsersListController::class,'users'])->name('admin.users');
