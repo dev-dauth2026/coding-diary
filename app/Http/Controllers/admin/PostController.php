@@ -264,6 +264,22 @@ class PostController extends Controller
     }
     // updateCategory ends
 
+    public function updateFeatured(Request $request,Post $post){
+        $validator = Validator::make($request->all(),[
+            'featured' =>'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $post->featured = $request->featured;
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'The category of the post has been successfully updated.');
+    }
+
     public function destroy(Post $post){
         $post->delete();
 

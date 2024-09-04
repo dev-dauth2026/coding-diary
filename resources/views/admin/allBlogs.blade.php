@@ -86,6 +86,7 @@
                         <th class="text-wrap" style="max-width: 600px">Title</th>
                         <th class="text-nowrap" style="min-width: 250px">Category</th>
                         <th class="text-nowrap " style="min-width: 190px">Status</th>
+                        <th class="text-nowrap" style="min-width: 190px">Featured</th>
                         <th class="text-nowrap">Created</th>
                         <th class="text-nowrap">Updated</th>
                         <th class="text-nowrap">Action</th>
@@ -142,6 +143,22 @@
                                             @endforeach
                                         </select>
                                         @error('status')
+                                            <p class="invalid-feedback">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </form>
+                            </td>
+                            <td class="text-nowrap w-48">
+                                <form method="POST" action="{{ route('admin.post.featured.update', $post->id) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group mb-0">
+                                        <select class="form-select w-48 form-control form-control-sm @error('featured') is-invalid @enderror" id="featured" name="featured" onchange="this.form.submit()">
+                                                <option class="text-nowrap" value="1" {{ (old('featured') == $post->featured|| $post->featured == 1) ? 'selected' : '' }}>Featured</option>
+                                                <option class="text-nowrap" value="0" {{ (old('featured') == $post->featured|| $post->featured == 0) ? 'selected' : '' }}>Unfeatured</option>
+
+                                        </select>
+                                        @error('featured')
                                             <p class="invalid-feedback">{{ $message }}</p>
                                         @enderror
                                     </div>
