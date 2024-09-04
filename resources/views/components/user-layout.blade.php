@@ -11,10 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <x-head.prism-highlighter></x-head.prism-highlighter>
+
     <title>Coding Diary | Home</title>
 </head>
 
 <body>
+   
+    
     <div class="container-fluid m-0 p-0">
         <nav class="sticky-top navbar navbar-expand-lg navbar-light bg-dark px-3 d-flex flex-lg-row flex-row-reverse" style="z-index: 100">
             <div class="d-flex justify-content-center d-lg-none">
@@ -175,6 +179,13 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+         // Prism text hightlight function call
+         document.addEventListener('DOMContentLoaded', (event) => {
+        Prism.highlightAll();
+        });
+    </script>
 </body>
 
 </html>

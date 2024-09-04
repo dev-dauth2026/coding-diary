@@ -1,12 +1,15 @@
-<script src="https://cdn.tiny.cloud/1/w8mpofb4fsu0da2x3j136ktemojtn4e8crol4882w3rpw0qo/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.api_key') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Prism CSS for Syntax Highlighting -->
+
 <script>
     const useDarkMode = window.matchMedia('(prefers-color-scheme: light)').matches;
     const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
     tinymce.init({
         selector: 'textarea#content', 
-        plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
+        plugins: 'preview importcss searchreplace autolink autosave save directionality code codesample visualblocks visualchars fullscreen image link media  table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
         menubar: 'file edit view insert format tools table help',
-        toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl",
+        toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code codesample fullscreen preview | save print | pagebreak anchor  | ltr rtl",
         autosave_ask_before_unload: true,
         autosave_interval: '30s',
         autosave_prefix: '{path}{query}-{id}-',
@@ -50,7 +53,23 @@
         contextmenu: 'link image table',
         skin: useDarkMode ? 'oxide-dark' : 'oxide',
         content_css: useDarkMode ? 'default' : 'light',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+        codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'Python', value: 'python'},
+            {text: 'Ruby', value: 'ruby'},
+            {text: 'Java', value: 'java'},
+            {text: 'C', value: 'c'},
+            {text: 'C#', value: 'csharp'},
+            {text: 'C++', value: 'cpp'}
+        ],
+        codesample_global_prismjs: true,
+       
+
 
     });
+
   </script>
