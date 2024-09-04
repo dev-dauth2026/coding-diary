@@ -30,11 +30,13 @@ class PostController extends Controller
         return view('blog',compact('post','posts','totalBlogs','comments'));
     }
     public function allBlogs(){
+
+        $featured_posts = Post::where('status','published')->where('featured',true)->latest()->limit(3)->get();
         $posts = Post::where('status','published')->latest()->paginate(3);
         $totalBlogs = Post::where('status','published')->count();
         $latestPost = Post::where('status','published')->latest()->first();
 
-        return view('allBlogs',compact('posts','totalBlogs','latestPost'));
+        return view('allBlogs',compact('posts','totalBlogs','latestPost','featured_posts'));
     }
     public function blogSearch(Request $request){
 

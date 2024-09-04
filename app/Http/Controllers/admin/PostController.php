@@ -277,7 +277,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->back()->with('success', 'The category of the post has been successfully updated.');
+        return redirect()->back()->with('success', 'The featured status of the post has been successfully updated.');
     }
 
     public function destroy(Post $post){

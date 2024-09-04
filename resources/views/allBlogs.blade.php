@@ -61,7 +61,7 @@
                                 <h4 class="text-white fw-bold"><i class="fas fa-star me-2"></i>Featured Blogs</h4>
                                 <hr class="col-3 mb-4">
                                 <div class=" d-flex flex-row flex-wrap gap-4 justify-content-around">
-                                    @foreach($posts as $featured)
+                                    @foreach($featured_posts as $featured)
                                         <div class=" ">
                                             <div class="card bg-glass border-0 shadow-lg" style="width:300px;">
                                                 <img src="{{ asset('storage/' . $featured->image) }}" class="card-img-top  rounded-top" alt="{{ $featured->title }}">
