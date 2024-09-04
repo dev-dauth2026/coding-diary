@@ -117,8 +117,8 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item px-3 {{ request()->routeIs('account.messages.index') ? 'bg-secondary' : '' }}">
-                                <a class="nav-link {{ request()->routeIs('account.messages.index') ? 'active text-white' : 'text-secondary' }}" href="{{route('account.messages.index')}}">
+                            <li class="nav-item px-3 {{ request()->is('account/user/messages*') ? 'bg-secondary' : '' }}">
+                                <a class="nav-link {{ request()->is('account/user/messages*') ? 'active text-white' : 'text-secondary' }}" href="{{route('account.messages.index')}}">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-envelope sidebar-icon fs-4 me-3" style="width:25px;"></i><span class="sidebar-text text-nowrap">Messages</span>
                                     </div>
