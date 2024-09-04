@@ -1,14 +1,26 @@
 <x-user-layout>
     <style>
+
+        .hero-section, .hero-card{
+            height: 60vh;
+            width: 100vw;
+        }
+        .hero-card{
+            z-index: 2;
+        }
+
+        .hero-card{
+            height: 
+        }
         /* Styles for wavy bottom overlay */
         .wavy-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 25vw;
+            height: 100%;
             z-index: 1;
-            overflow: hidden;
+
         }
 
         .wavy-overlay::before {
@@ -17,7 +29,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 25vw;
+            height: 100%;
             background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); 
             /* border-radius: 0% 0% 40% 90% / 20% 10% 90% 90%; */
             animation: wave-animation 8s infinite  linear;
@@ -60,16 +72,52 @@
                 border-radius: 0% 0% 20% 90% / 0% 0% 90% 90%;
             }
         }
-      
 
-  
+        @media only screen and (max-width: 650px){
+            
+            .hero-section, .hero-card{
+            height: 40vh;
+             }
+
+             .wavy-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); 
+            /* border-radius: 0% 0% 40% 90% / 20% 10% 90% 90%; */
+            animation: wave-animation-sm 8s infinite  linear;
+        }
+
+        
+        @keyframes wave-animation-sm {
+            0% {
+                border-radius: 0% 0% 60% 60% / 0% 0% 40% 40%;
+                
+            }
+            50% {
+                border-radius: 0% 0% 90% 90% / 0% 0% 30% 80%;
+            }
+
+            100% {
+                border-radius: 0% 0% 60% 60% / 0% 0% 40% 40%;
+            }
+          
+        }
+
+    
+         
+        }
+      
     </style>
 
     <!-- Hero Section -->
-    <div class="position-relative bg-body-tertiary " style="max-height: 25vw;width:100vw;">
-        <div class="wavy-overlay  position-absolute top-0 start-0 " ></div>
-        <div class=" position-relative text-white d-flex align-items-center  w-100 " style="z-index: 2;height:20vw;" >
-            <div class="row w-100  " >
+    <div class="hero-section position-relative  bg-body-tertiary" >
+        <div class="wavy-overlay  position-absolute top-0 start-0" ></div>
+        <div class="hero-card position-relative text-white d-flex align-items-center " >
+            <div class="row justify-content-center   m-0" style="width: 100vw;">
                 @if (session('status'))
                     <div class="position-absolute top-0 w-100 alert alert-success p-2 mt-2" role="alert">
                         {{ session('status') }}
@@ -81,9 +129,11 @@
                 </div>
                   @endif
                 <div class="col-12 col-md-6 col-lg-6 d-flex justify-content-center align-items-center  py-lg-2 py-1 ">
-                    <div class="">
+                    <div class="d-flex flex-column gap-3">
                         <h1>Welcome to Coding Diary</h1>
-                        <a href="{{route('account.blog')}}" class="btn btn-outline-secondary  mt-3">Get Started</a>
+                        <div>
+                            <a href="{{route('account.blog')}}" class="btn btn-outline-secondary  mt-3">Get Started</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6  d-flex justify-content-center align-items-center text-white-50  py-lg-2 py-1 ">
@@ -92,11 +142,11 @@
             </div>
         </div>
     </div>
+    <!-- Hero Section ends-->
 
-
-
-    <section class="about-section  py-5 bg-light">
-        <div class="container my-5">
+    {{-- About section  --}}
+    <section class="about-section   bg-light">
+        <div class="container py-5">
             <div class="text-center mb-5">
                 <h1 class="fw-bold text-info text-opacity-7">About Coding Diary</h1>
                 <hr class="col-4 mx-auto mb-4">
@@ -133,6 +183,7 @@
             </div>
         </div>
     </section>
+    {{-- About section ends --}}
 
     <!-- Testimonial Section -->
 <section class="testimonial-section py-5 ">
