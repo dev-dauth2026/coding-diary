@@ -6,7 +6,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 50vw;
+            height: 25vw;
             z-index: 1;
             overflow: hidden;
         }
@@ -14,10 +14,10 @@
         .wavy-overlay::before {
             content: '';
             position: absolute;
-
+            top: 0;
             left: 0;
             width: 100%;
-            height: 40vw;
+            height: 25vw;
             background: linear-gradient(135deg, rgba(58, 201, 209, 0.6), rgba(128, 0, 128, 0.6)); 
             /* border-radius: 0% 0% 40% 90% / 20% 10% 90% 90%; */
             animation: wave-animation 8s infinite  linear;
@@ -66,9 +66,9 @@
     </style>
 
     <!-- Hero Section -->
-    <div class="position-relative bg-body-tertiary " style="max-height: 30vw;width:100vw;">
+    <div class="position-relative bg-body-tertiary " style="max-height: 25vw;width:100vw;">
         <div class="wavy-overlay  position-absolute top-0 start-0 " ></div>
-        <div class=" position-relative  text-white d-flex align-items-center  w-100 " style="z-index: 2;height:30vw;margin-top:40px" >
+        <div class=" position-relative text-white d-flex align-items-center  w-100 " style="z-index: 2;height:20vw;" >
             <div class="row w-100  " >
                 @if (session('status'))
                     <div class="position-absolute top-0 w-100 alert alert-success p-2 mt-2" role="alert">
@@ -95,7 +95,7 @@
 
 
 
-    <section class="about-section my-5 py-5 bg-light">
+    <section class="about-section  py-5 bg-light">
         <div class="container my-5">
             <div class="text-center mb-5">
                 <h1 class="fw-bold text-info text-opacity-7">About Coding Diary</h1>
