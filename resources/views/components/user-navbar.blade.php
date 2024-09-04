@@ -15,7 +15,7 @@
                     <a href="{{route('account.favourites')}}" class="dropdown-item text-decoration-none text-black">My Favorite</a>
                 </li>  
                 <li class="nav-item">
-                    <a href="" class="dropdown-item text-decoration-none text-black">Settings</a>
+                    <a href="{{route('account.settings.index')}}" class="dropdown-item text-decoration-none text-black">Settings</a>
                 </li>  
                 <li>
                     <form action="{{route('account.logout')}}" method="POST">
@@ -66,7 +66,7 @@
                         <a href="{{route('account.favourites')}}" class="dropdown-item text-decoration-none text-black">My Favorite</a>
                     </li>  
                     <li class="nav-item">
-                        <a href="" class="dropdown-item text-decoration-none text-black">Settings</a>
+                        <a href="{{route('account.settings.index')}}" class="dropdown-item text-decoration-none text-black">Settings</a>
                     </li>  
                     <li>
                         <form action="{{route('account.logout')}}" method="POST">
