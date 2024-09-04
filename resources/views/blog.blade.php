@@ -20,8 +20,8 @@
         {{-- Main Content Area --}}
         @if ($post && empty($query))
             <!-- Banner Image Section -->
-            <div class=" d-flex justify-content-center align-items-center py-2 py-lg-1 w-100" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
-                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid w-lg-75 w-75 p-lg-5 p-2" style=""> <!-- w-100 makes the image width 100% -->
+            <div class=" d-flex justify-content-center align-items-center py-2 py-lg-1 w-100 h-50vh" style="background: linear-gradient(135deg, rgba(149, 209, 58, 0.6), rgba(128, 0, 128, 0.6)); z-index: 1;">
+                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid w-50   p-lg-5 p-2" style=""> <!-- w-100 makes the image width 100% -->
             </div>
              <!-- Banner Image Section ends-->
 
