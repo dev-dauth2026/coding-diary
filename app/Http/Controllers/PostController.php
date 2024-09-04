@@ -15,9 +15,9 @@ class PostController extends Controller
 {
     public function blog(){
         $user = Auth::user();
-        $post = Post::latest()->first();
-        $posts = Post::latest()->paginate(3);
-        $totalBlogs = Post::count();
+        $post = Post::where('status','published')->latest()->first();
+        $posts = Post::where('status','published')->latest()->paginate(3);
+        $totalBlogs = Post::where('status','published')->count();
         $comments = Comment::where('blog_post_id',$post->id)
                             ->whereNull('parent_id')
                             ->with('replies')
@@ -30,9 +30,9 @@ class PostController extends Controller
         return view('blog',compact('post','posts','totalBlogs','comments'));
     }
     public function allBlogs(){
-        $posts = Post::latest()->paginate(3);
-        $totalBlogs = Post::count();
-        $latestPost = Post::latest()->first();
+        $posts = Post::where('status','published')->latest()->paginate(3);
+        $totalBlogs = Post::where('status','published')->count();
+        $latestPost = Post::where('status','published')->latest()->first();
 
         return view('allBlogs',compact('posts','totalBlogs','latestPost'));
     }
@@ -48,14 +48,14 @@ class PostController extends Controller
         
         $query = $request->input('blogSearch');
 
-        $totalBlogs = Post::count();
+        $totalBlogs = Post::where('status','published')->count();
        
         if(!empty($query)){
-            $totalSearchPosts = Post::where('title', 'like', "%{$query}%")
-            ->orWhere('content', 'like', "%{$query}%");
+            $totalSearchPosts = Post::where('status','published')->where('title', 'like', "%{$query}%")
+                                     ->orWhere('status','published')->where('content', 'like', "%{$query}%");
             $posts =$totalSearchPosts->paginate(3);
         }else{
-            $posts = Post::latest()->paginate(3);
+            $posts = Post::where('status','published')->latest()->paginate(3);
         }
        
         return view('allBlogs',compact('posts','query', 'totalBlogs'));
@@ -64,7 +64,7 @@ class PostController extends Controller
 
 
     public function blogDetail($id){
-        $post = Post::findOrFail($id);
+        $post = Post::where('status','published')->findOrFail($id);
         $comments = Comment::where('blog_post_id',$post->id)
                     ->whereNull('parent_id')
                     ->with('replies')
@@ -73,7 +73,7 @@ class PostController extends Controller
                     ->paginate(15);
 
         // Retrieve all posts except the one with the given ID
-        $posts = Post::where('id', '!=', $id)->get();
+        $posts = Post::where('status','published')->where('id', '!=', $id)->get();
         $totalBlogs =$posts->count();
 
 
