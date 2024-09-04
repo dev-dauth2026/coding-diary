@@ -20,7 +20,7 @@ class FavouritePostController extends Controller
     $sort = $request->input('sort');
 
     // Query user's favourite blogs with optional search and sort functionality
-    $query = $user->favouriteBlogs(); 
+    $query = $user->favouriteBlogs()->where('status','published'); 
     // Apply search filtering
     if ($search) {
         $query->where('title', 'like', "%{$search}%");
@@ -47,7 +47,7 @@ class FavouritePostController extends Controller
     $favourites = $query->paginate(9);
 
      // Fetch recently updated blogs that are not already favorited by the user
-     $recentlyWatched = Post::whereIn('id', $user->watchedBlog()->pluck('blog_post_id'))
+     $recentlyWatched = Post::where('status','published')->whereIn('id', $user->watchedBlog()->pluck('blog_post_id'))
      ->orderBy('updated_at', 'desc')
      ->take(5)
      ->get();
@@ -62,7 +62,7 @@ class FavouritePostController extends Controller
 }
     public function addFavourite($id){
 
-        $post= Post::findOrFail($id);
+        $post= Post::where('status','published')->findOrFail($id);
 
         $favourite_blog = new FavouriteBlog();
         $favourite_blog->user_id = Auth::id();
