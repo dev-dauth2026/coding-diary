@@ -83,7 +83,7 @@
                     <tr>
                         <th class="text-nowrap">ID</th>
                         <th class="text-nowrap">Image</th>
-                        <th class="text-nowrap" style="min-width: 300px">Title</th>
+                        <th class="text-wrap" style="max-width: 600px">Title</th>
                         <th class="text-nowrap" style="min-width: 250px">Category</th>
                         <th class="text-nowrap " style="min-width: 190px">Status</th>
                         <th class="text-nowrap">Created</th>
@@ -103,7 +103,7 @@
                                     N/A
                                 @endif
                             </td>
-                            <td class="text-truncate" style="min-width: 200px;">
+                            <td class="text-truncate text-nowrap" style="max-width: 600px;">
                                 <div class="d-flex flex-column">
                                     <span>
                                         {{ $post->title }}
