@@ -22,7 +22,7 @@
 @endforeach
 @if($totalBlogs > 3)
 <div>
-    <a href="{{route('account.allBlogs')}}" class="">More >></a>
+    <a href="{{route('account.blog.all')}}" class="">More >></a>
 </div>
 @endif
    

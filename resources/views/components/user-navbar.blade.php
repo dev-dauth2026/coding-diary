@@ -44,7 +44,7 @@
                 <a class="nav-link  {{ request()->is('/') ? 'active text-white  ' : 'text-white-50' }}" href="/">Home</a>
             </li>
             <li class="nav-item d-sm-flex justify-content-sm-center">
-                <a class="nav-link  {{request()->routeIs('account.blog')?'active text-white':'text-white-50'}} " href="{{route('account.blog')}}">Blogs</a>
+                <a class="nav-link  {{request()->is('account/blog*')?'active text-white':'text-white-50'}} " href="{{route('account.blog')}}">Blogs</a>
             </li>
             <li class="nav-item d-sm-flex justify-content-sm-center">
                 <a class="nav-link  {{request()->routeIs('account.about')?'active text-white':'text-white-50'}} " href="{{route('account.about')}}">About</a>

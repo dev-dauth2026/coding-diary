@@ -48,7 +48,7 @@ Route::group(['prefix'=>'account'],function(){
     Route::post('contact', [ContactController::class, 'processContact'])->name('account.processContact');
     Route::get('blog', [PostController::class, 'blog'])->name('account.blog');
     Route::get('blog/{id}', [PostController::class, 'blogDetail'])->name('blog.detail');
-    Route::get('all-blogs', [PostController::class, 'allBlogs'])->name('account.allBlogs');
+    Route::get('blogs', [PostController::class, 'allBlogs'])->name('account.blog.all');
     Route::get('blog-search', [PostController::class, 'blogSearch'])->name('blog.search');
 
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscriptions.subscribe');

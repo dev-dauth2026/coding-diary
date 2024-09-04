@@ -14,6 +14,24 @@
     <x-head.prism-highlighter></x-head.prism-highlighter>
 
     <title>Coding Diary | Home</title>
+
+    <style>
+         .bg-primary-gradient {
+            background: linear-gradient(45deg, #0460c2, #729cca);
+        }
+        .bg-success-gradient {
+            background: linear-gradient(45deg, #0ad038, #91dba2);
+        }
+        .bg-danger-gradient {
+            background: linear-gradient(45deg, #a90415, #d5838b);
+        }
+        .bg-secondary-gradient {
+            background: linear-gradient(45deg, #536779, #b9c6d2);
+        }
+        .bg-info-gradient {
+            background: linear-gradient(45deg, #1dc7e1, #e6e9e9);
+        }
+    </style>
 </head>
 
 <body>

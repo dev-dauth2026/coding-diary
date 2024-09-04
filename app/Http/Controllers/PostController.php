@@ -33,6 +33,7 @@ class PostController extends Controller
         $posts = Post::latest()->paginate(3);
         $totalBlogs = Post::count();
         $latestPost = Post::latest()->first();
+
         return view('allBlogs',compact('posts','totalBlogs','latestPost'));
     }
     public function blogSearch(Request $request){
@@ -42,7 +43,7 @@ class PostController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('account.allBlogs')->withInput()->withErrors($validator);
+            return redirect()->route('account.blog.all')->withInput()->withErrors($validator);
         }
         
         $query = $request->input('blogSearch');
