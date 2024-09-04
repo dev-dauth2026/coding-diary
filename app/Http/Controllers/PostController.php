@@ -81,9 +81,6 @@ class PostController extends Controller
             abort(404, 'Post not found');
         }
 
-        // Use helper function to track watched blogs
-        ActivityHelper::trackWatchedBlog($post);
-
         return view('blog', compact('post','posts','totalBlogs','comments'));
     }
 

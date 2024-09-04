@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Newslettersubscription;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Newslettersubscription;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller

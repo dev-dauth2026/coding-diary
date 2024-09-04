@@ -1,5 +1,5 @@
 <x-user-layout>
-    <div class=" d-flex justify-content-center p-5 " style="min-height: 80vh">
+    <div class=" d-flex justify-content-center" style="min-height: 80vh">
             
         <div class="mb-5 d-block d-md-none">
             <form action="{{ route('blog.search') }}" class=" d-block d-md-none" method="get">
