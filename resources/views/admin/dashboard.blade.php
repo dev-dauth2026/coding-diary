@@ -5,12 +5,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     @endsection
 
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    <x-message.message></x-message.message>
     
     <div class="container p-3 bg-body-tertiary" style="min-height: 90vh;">
         <h4 class="text-capitalize "><i class="fa-solid fa-gauge me-2"></i> Admin Dashboard</h4>
