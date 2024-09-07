@@ -47,26 +47,27 @@
             </div>
 
             <!-- Filters and Search Bar -->
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Search comments..." aria-label="Search">
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option selected>Filter by Post</option>
-                        <option value="1">Post A</option>
-                        <option value="2">Post B</option>
-                        <option value="3">Post C</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option selected>Filter by Date</option>
-                        <option value="1">Last 7 Days</option>
-                        <option value="2">Last 30 Days</option>
-                        <option value="3">This Year</option>
-                    </select>
-                </div>
+            <div class=" mb-4">
+                <form action="{{route('account.comments')}}" method="GET" class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="comment_search" value="{{old('comment_search',$comment_search)}}" class="form-control" placeholder="Search comments or blog post title..." aria-label="Search">
+                    </div>
+                   
+                    <div class="col-md-3">
+                        <select name="date_filter" class="form-select" onchange="this.form.submit()">
+                            <option value="">Filter by Date</option>
+                            <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Today</option>
+                            <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Yesterday</option>
+                            <option value="7" {{ request('date_filter') == '7' ? 'selected' : '' }}>Last 7 Days</option>
+                            <option value="30" {{ request('date_filter') == '30' ? 'selected' : '' }}>Last 30 Days</option>
+                            <option value="365" {{ request('date_filter') == '365' ? 'selected' : '' }}>This Year</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{route('account.comments')}}" class="btn btn-outline-secondary">Reset</a>
+                    </div>
+
+                </form>
             </div>
 
             <!-- Comments List -->
@@ -195,9 +196,9 @@
             <div class="mt-5">
                 <h5>Recent Notifications</h5>
                 <hr class="col-2">
-                @if($comment->replies->isNotEmpty())
+                @if($recent_comments_replies->isNotEmpty())
                 <ul class="list-group">
-                    @foreach($comment->replies->take(3) as $reply)
+                    @foreach($recent_comments_replies->take(3) as $reply)
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
                             <strong>{{$reply->user->name}}</strong> replied to your comment on <strong>"{{$reply->blogPost->title}}"</strong>.

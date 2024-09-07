@@ -110,6 +110,7 @@ Route::group(['prefix'=>'account'],function(){
         Route::put('/dashboard/comments/edit/{comment}', [UserCommentController::class, 'update'])->name('account.comments.update');
         Route::delete('/dashboard/comments/{comment}', [UserCommentController::class, 'destroy'])->name('account.comments.destroy');
         Route::post('/dashboard/comments/reply/{comment}', [UserCommentController::class, 'store'])->name('account.comments.reply');
+        Route::post('/dashboard/comments/search', [UserCommentController::class, 'search'])->name('account.comments.search');
 
         // User Dashboard Message page
         Route::get('/user/messages', [UserMessageController::class, 'index'])->name('account.messages.index');
