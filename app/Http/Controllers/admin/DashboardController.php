@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function dashboard(){
         $totalPosts = Post::count();
-        $posts = Post::latest()->take(4)->get();
+        $posts = Post::where('status','published')->latest()->take(4)->get();
     // Retrieve users count with the specified role
         $totalUsers = User::whereHas('role', function($query){
             $query->where('name','customer');

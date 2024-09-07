@@ -106,15 +106,6 @@
                 @enderror
             </div>
 
-            <!-- Code Snippet (Optional) -->
-            <div class="form-group mb-3">
-                <label for="code_snippet" class="form-label">Code Snippet (Optional)</label>
-                <textarea class="form-control @error('code_snippet') is-invalid @enderror" id="code_snippet" name="code_snippet" rows="5" placeholder="Add your code snippet here...">{{ old('code_snippet') }}</textarea>
-                @error('code_snippet')
-                    <p class="invalid-feedback">{{ $message }}</p>
-                @enderror
-            </div>
-
             <button type="submit" class="btn btn-primary">Create Blog Post</button>
         </form>
     </div>

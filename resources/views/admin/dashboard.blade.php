@@ -77,12 +77,12 @@
         </div>
         <section>
             <div class="mb-5">
-                <h5 class="text-secondary">Recent Blog Posts</h5>
+                <h5 class="text-secondary">Recent Published Blog Posts</h5>
                 <hr class="col-3 mb-5">
                 <div class="d-flex  gap-4 flex-wrap">
                     @foreach($posts as $post)
                     <div class="card flex-fill" style="width:15rem">
-                            <a href="#" class="text-decoration-none text-secondary">
+                         <a href="{{route('blog.detail',$post->id)}}" class="text-decoration-none text-secondary">
                             <img src="{{asset('storage/'. $post->image)}}" class="card-img-top " alt="{{$post->title}}" style="height: 100px; object-fit:cover;">
                             <div class="card-body">
                             <h5 class="card-title">{{ Str::limit(strip_tags($post->title), 30) }} </h5>
@@ -106,7 +106,10 @@
                     @foreach($posts as $post)
                     <div class="border-bottom p-2">
                         <a href="" class="text-decoration-none text-secondary">
-                            <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} 3 hrs ago</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} </p>
+                                <small>{{$post->created_at->diffForHumans()}} </small>
+                            </div>
                         </a>
                     </div>
                        
@@ -125,7 +128,11 @@
                     @foreach($posts as $post)
                     <div class="border-bottom p-2">
                         <a href="" class="text-decoration-none text-secondary">
-                            <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} 3 hrs ago</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-title">{{ Str::limit(strip_tags($post->content), 90) }} </p>
+                                <small>{{$post->created_at->diffForHumans()}} </small>
+
+                            </div>
                         </a>
                     </div>
                        

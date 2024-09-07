@@ -105,7 +105,7 @@ class PostController extends Controller
 
         $posts = $query->paginate($pagination_by);
         
-        return view('admin.allBlogs',compact('posts','statusOptions','status','categories','category'));
+        return view('admin.blogs',compact('posts','statusOptions','status','categories','category'));
 
     }
     // blog method ends 
@@ -115,7 +115,7 @@ class PostController extends Controller
         $statusOptions = Post::getStatusOptions();
         $categories = Category::all();
 
-        return view('admin.createBlog', compact('auth','statusOptions', 'categories','adminUsers'));
+        return view('admin.create-blog', compact('auth','statusOptions', 'categories','adminUsers'));
     }
     //create method ends
 
