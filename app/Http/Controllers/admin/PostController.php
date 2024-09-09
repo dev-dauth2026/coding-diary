@@ -122,13 +122,17 @@ class PostController extends Controller
     public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
-            'title' =>'required|min:3',
-            'content' =>'required',
-            'slug' =>'required',
-            'status'=>'required',
-            'category'=>'required',
-            'author' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'title' => 'required|string|max:255',
+            'summary' => 'nullable|string',
+            'content' => 'required|string',
+            'slug' => 'required|string|unique:posts,slug|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'category' => 'required|exists:categories,id',
+            'status' => 'required|in:published,unpublished,draft',
+            'author' => 'required|exists:users,id',
+            'featured' => 'nullable|boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -143,12 +147,18 @@ class PostController extends Controller
         }
 
         if($validator->passes()){
+             // Create a new post instance
             $post = new Post();
             $post->title = $request->title;
+            $post->summary = $request->summary;
             $post->content = $request->content;
             $post->slug = $request->slug;
-            $post->author_id = $request->author;
+            $post->meta_title = $request->meta_title;
+            $post->meta_description = $request->meta_description;
             $post->category_id = $request->category;
+            $post->status = $request->status;
+            $post->author_id = $request->author;
+            $post->featured = $request->has('featured') ? true : false;
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');

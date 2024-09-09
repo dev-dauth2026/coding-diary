@@ -15,6 +15,15 @@
                 @enderror
             </div>
 
+            <!-- Summary -->
+            <div class="form-group mb-3">
+                <label for="summary" class="form-label">Summary</label>
+                <textarea class="form-control @error('summary') is-invalid @enderror" id="summary" name="summary" rows="3" placeholder="Enter a brief summary of the blog">{{ old('summary') }}</textarea>
+                @error('summary')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Blog Content with Rich Text Editor -->
             <div class="form-group mb-3">
                 <label for="content" class="form-label">Content</label>
@@ -33,18 +42,25 @@
                 @enderror
             </div>
 
-            <!-- Author Selection -->
-            <div class="form-group mb-3">
-                <label for="author" class="form-label">Author</label>
-                <select class="form-control @error('author') is-invalid @enderror" id="author" name="author">
-                    @foreach($adminUsers as $user)
-                        <option value="{{ $user->id }}" {{ (old('author') == $user->id || $user->id == $auth->id) ? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
-                    @endforeach
-                </select>
-                @error('author')
+             <!-- Meta Title -->
+             <div class="form-group mb-3">
+                <label for="meta_title" class="form-label">Meta Title</label>
+                <input class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title') }}" type="text" id="meta_title" name="meta_title" placeholder="Enter meta title for SEO">
+                @error('meta_title')
                     <p class="invalid-feedback">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- Meta Description -->
+            <div class="form-group mb-3">
+                <label for="meta_description" class="form-label">Meta Description</label>
+                <textarea class="form-control @error('meta_description') is-invalid @enderror" id="meta_description" name="meta_description" rows="3" placeholder="Enter meta description for SEO">{{ old('meta_description') }}</textarea>
+                @error('meta_description')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+
+           
 
             <!-- Category Selection -->
             <div class="form-group mb-3">
@@ -72,6 +88,28 @@
                 @enderror
             </div>
 
+             <!-- Feature Selection -->
+             <div class="form-check mb-3 gap-3">
+                <label for="featured" class="form-label">Featured</label>
+                <input type="checkbox" class="form-check-input" name="featured">
+                @error('featured')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+
+             <!-- Author Selection -->
+             <div class="form-group mb-3">
+                <label for="author" class="form-label">Author</label>
+                <select class="form-control @error('author') is-invalid @enderror" id="author" name="author">
+                    @foreach($adminUsers as $user)
+                        <option value="{{ $user->id }}" {{ (old('author') == $user->id || $user->id == $auth->id) ? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
+                    @endforeach
+                </select>
+                @error('author')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Image Upload -->
             <div class="form-group mb-3">
                 <label for="image" class="form-label">Image</label>
@@ -84,24 +122,6 @@
                 @endif
                 <img id="image-preview" src="#" alt="Image Preview" class="img-thumbnail mt-2" style="display:none; max-width: 200px;">
                 @error('image')
-                    <p class="invalid-feedback">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Meta Title -->
-            <div class="form-group mb-3">
-                <label for="meta_title" class="form-label">Meta Title</label>
-                <input class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title') }}" type="text" id="meta_title" name="meta_title" placeholder="Enter meta title for SEO">
-                @error('meta_title')
-                    <p class="invalid-feedback">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Meta Description -->
-            <div class="form-group mb-3">
-                <label for="meta_description" class="form-label">Meta Description</label>
-                <textarea class="form-control @error('meta_description') is-invalid @enderror" id="meta_description" name="meta_description" rows="3" placeholder="Enter meta description for SEO">{{ old('meta_description') }}</textarea>
-                @error('meta_description')
                     <p class="invalid-feedback">{{ $message }}</p>
                 @enderror
             </div>

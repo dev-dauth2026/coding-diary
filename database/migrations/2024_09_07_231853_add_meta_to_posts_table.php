@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->foreignId('author_id')->nullable()->constrained('users')->onDelete('cascade')->after('status');
+            $table->string('meta_title', 255)->nullable()->after('slug');
+            $table->text('meta_description')->nullable()->after('meta_title');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('author_id');
+            $table->dropColumn('meta_title');
+            $table->dropColumn('meta_description');
         });
     }
 };
