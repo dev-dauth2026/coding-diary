@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Validator;
 class AdminCommentsController extends Controller
 {
     public function comments(){
-        $comments = Comment::whereNull('parent_id')
-                            ->with('replies')
-                            ->orderBy('created_at','DESC')->get();
+        $comments = Comment::with('replies')
+                            ->orderBy('created_at','DESC')->paginate(10);
+                            
         $totalComments = $comments->count();
         return view('admin.comments',compact('comments','totalComments'));
     }

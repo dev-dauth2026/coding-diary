@@ -46,8 +46,9 @@
                               <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Blog Post</th>
+                                <th class="text-wrap" scope="col" style="width: 400px;">Blog Post</th>
                                 <th scope="col">Comments</th>
+                                <th scope="col">Parent Comments</th>
                                 <th scope="col ">Verified</th>
                                 <th scope="col ">Action</th>
                               </tr>
@@ -59,6 +60,7 @@
                                 <td>{{$comment->user->name}} </td>
                                 <td>{{$comment->blogPost->title}} </td>
                                 <td>{{$comment->content}} </td>
+                                <td>{{$comment->parent->content??'N/A'}} </td>
                                 <td>
                                     <div class="d-flex  align-items-center ">
                                         <i class="fa-solid fa-circle-xmark text-danger"></i>
@@ -81,6 +83,10 @@
                             </tbody>
                         </table>
 
+                </div>
+                 <!-- Pagination Links -->
+                 <div class="d-flex justify-content-center mt-4">
+                    {{ $comments->links('vendor.pagination.bootstrap-5') }}
                 </div>
                
                    
