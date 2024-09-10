@@ -39,13 +39,33 @@
             </div>
             {{-- total new comments ends --}}
             <main class="mt-5 d-flex flex-column gap-5">
+                <div>
+                    <form action="{{route('admin.comments')}}" method="GET" class="row d-flex flex-row gap-3">
+                        <div class="form-group flex-grow-1 col-md-4 col-12">
+                            <input type="text" name="search_comment" class="form-control" value="{{old('search_comment',$search_comment)}}" placeholder="Search comment...">
+                        </div>
+                        <div class="form-group col-md-4 col-12 d-flex align-items-center gap-2">
+                            <label for="post_title" class="text-nowrap ">Post Title : </label>
+                            <select name="post_title" class="form-select" onchange="this.form.submit()">
+                                <option value="">All</option>
+                                @foreach($posts as $post)
+                                <option value="{{$post->id}}" {{(old('post_title')==$post->id || $post_title_id==$post->id) ?'selected':''}}>{{$post->title}} </option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{route('admin.comments')}}" class="btn btn-outline-secondary">Reset</a>
+                        </div>
+                    </form>
+                </div>
                 @if($comments->count()>0)
                 <div class="table-responsive bg-body px-3 py-5 rounded">
                     <table class="table table-striped table-hover">
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">User</th>
                                 <th class="text-wrap" scope="col" style="width: 400px;">Blog Post</th>
                                 <th scope="col">Comments</th>
                                 <th scope="col">Parent Comments</th>
@@ -89,8 +109,6 @@
                     {{ $comments->links('vendor.pagination.bootstrap-5') }}
                 </div>
                
-                   
-
                 @else
 
                 <div class="d-flex justify-content-center align-items-center">
