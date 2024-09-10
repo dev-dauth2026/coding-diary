@@ -91,7 +91,7 @@
              <!-- Feature Selection -->
              <div class="form-check mb-3 gap-3">
                 <label for="featured" class="form-label">Featured</label>
-                <input type="checkbox" class="form-check-input" name="featured">
+                <input type="checkbox" class="form-check-input" name="featured" value="1" {{old('featured')?'checked':''}}>
                 @error('featured')
                     <p class="invalid-feedback">{{ $message }}</p>
                 @enderror

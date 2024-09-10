@@ -28,19 +28,26 @@
                 <label for="slug" class="form-label">Slug</label>
                 <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
             </div>
-            <div class="form-group mb-3">
-                <label for="author" class="form-label">Author</label>
-                <select class="form-control @error('author') is-invalid @enderror" value="{{old('author',$auth->name)}}"  id="author" name="author"  >
-                    @if($adminUsers)
-                    @foreach($adminUsers as $user)
-                        <option value="{{ $user->id }}" {{ (old('user->id') == $auth->id || $user->id == $auth->id )? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
-                    @endforeach
-                    @endif
-                </select>
-                @error('author')
-                    <p class="invalid-feedback">{{$message}} </p>
+
+
+             <!-- Meta Title -->
+             <div class="form-group mb-3">
+                <label for="meta_title" class="form-label">Meta Title</label>
+                <input class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title',$post->meta_title) }}" type="text" id="meta_title" name="meta_title" placeholder="Enter meta title for SEO">
+                @error('meta_title')
+                    <p class="invalid-feedback">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- Meta Description -->
+            <div class="form-group mb-3">
+                <label for="meta_description" class="form-label">Meta Description</label>
+                <textarea class="form-control @error('meta_description') is-invalid @enderror" id="meta_description" name="meta_description" rows="3" placeholder="Enter meta description for SEO">{{ old('meta_description',$post->meta_description) }}</textarea>
+                @error('meta_description')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+            
             <div class="form-group mb-3">
                 <label for="category" class="form-label">Category  </label>
                 <select class="form-control @error('category') is-invalid @enderror" value="{{old('category',$post->category_id)}}" type="text" id="category" name="category"  >
@@ -56,13 +63,37 @@
 
             <div class="form-group mb-3">
                 <label for="status" class="form-label">Status</label>
-                <select class="form-control @error('status') is-invalid @enderror" value="" type="text" id="status" name="status"  >
+                <select class="form-control @error('status') is-invalid @enderror" value="{{$post->featured}}" type="text" id="status" name="status"  >
                     @foreach($statusOptions as $status)
                         <option value="{{ $status }}" {{ (old('status') == $status || $post->status== $status) ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
                     @endforeach
 
                 </select>
                 @error('status')
+                    <p class="invalid-feedback">{{$message}} </p>
+                @enderror
+            </div>
+
+             <!-- Feature Selection -->
+             <div class="form-check mb-3 gap-3">
+                <label for="featured" class="form-label">Featured</label>
+                <input type="checkbox" class="form-check-input" name="featured" value="1" {{(old('featured') ||$post->featured) ?'checked':''}}>
+                @error('featured')
+                    <p class="invalid-feedback">{{ $message }}</p>
+                @enderror
+            </div>
+
+             <!-- Author Selection -->
+             <div class="form-group mb-3">
+                <label for="author" class="form-label">Author</label>
+                <select class="form-control @error('author') is-invalid @enderror" value="{{old('author',$auth->name)}}"  id="author" name="author"  >
+                    @if($adminUsers)
+                    @foreach($adminUsers as $user)
+                        <option value="{{ $user->id }}" {{ (old('user->id') == $auth->id || $user->id == $auth->id )? 'selected' : '' }}>{{ ucfirst($user->name) }}</option>
+                    @endforeach
+                    @endif
+                </select>
+                @error('author')
                     <p class="invalid-feedback">{{$message}} </p>
                 @enderror
             </div>

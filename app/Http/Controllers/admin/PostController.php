@@ -193,12 +193,16 @@ class PostController extends Controller
         
 
         $validator = Validator::make($request->all(),[
-            'title' =>'required|min:3',
-            'content' =>'required',
-            'slug' =>'required',
-            'status'=>'required',
-            'category'=>'required',
-            'author' => 'required',
+            'title' => 'required|string|max:255',
+            'summary' => 'nullable|string',
+            'content' => 'required|string',
+            'slug' => 'required|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'category' => 'required|exists:categories,id',
+            'status' => 'required|in:published,unpublished,draft',
+            'author' => 'required|exists:users,id',
+            'featured' => 'nullable|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -213,14 +217,17 @@ class PostController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Log::info('Validation passed');
-
         if($validator->passes()){
             $post->title = $request->title;
+            $post->summary = $request->summary;
             $post->content = $request->content;
-            $post->author_id = $request->author;
-            $post->category_id = $request->category;
             $post->slug = $request->slug;
+            $post->meta_title = $request->meta_title;
+            $post->meta_description = $request->meta_description;
+            $post->category_id = $request->category;
+            $post->status = $request->status;
+            $post->author_id = $request->author;
+            $post->featured = $request->has('featured') ? true : false;
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -234,8 +241,7 @@ class PostController extends Controller
 
             $post->save();
 
-            Log::info('Post updated successfully');
-            return redirect()->route('admin.blogs')->with('success','The post has been successfully created!');
+            return redirect()->route('admin.blogs')->with('success','The post has been successfully updated!');
         }
     }
     //update method ends
