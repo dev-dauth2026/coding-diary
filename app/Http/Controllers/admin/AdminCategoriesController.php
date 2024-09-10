@@ -9,9 +9,19 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminCategoriesController extends Controller
 {
-    public function blogCategory(){
-        $categories = Category::orderBy('created_at','desc')->get();
-        return view('admin.blog_category', compact('categories'));
+    public function blogCategory(Request $request){
+
+        $search_category = $request->input('search_category');
+
+        $query = Category::orderby('created_at','desc');
+
+        if($search_category){
+            $query->where('name', 'like','%' . $search_category .'%')
+                ->orwhere('description', 'like', '%' .$search_category . '%');
+        }
+        
+        $categories = $query->get();
+        return view('admin.blog_category', compact('categories','search_category'));
     }
 
     public function createCategoryFormShow(){

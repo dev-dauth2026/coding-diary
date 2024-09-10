@@ -4,9 +4,12 @@
             <p class="bg-success-subtle text-success p-2 rounded">{{Session::get('success')}} </p>
         @endif
         <h4>Blog categories</h4>
-        <hr class="col-2 mb-3">
+        <hr class="col-2 mb-5">
         <div class="row">
-            <div class="d-flex col-12  justify-content-end mb-5">
+            <div class="d-flex col-12  justify-content-between mb-4">
+                <form class="form-group col-md-8 col-12" method="GET">
+                    <input class="form-control " name="search_category" value="{{old('search_category',$search_category)}}" type="text" placeholder="Search category title or description...">
+                </form>
                 <a href="{{route('admin.category.create')}}" class="btn btn-outline-info ">Add Category</a>
             </div>
             <div class="table-responsive">
