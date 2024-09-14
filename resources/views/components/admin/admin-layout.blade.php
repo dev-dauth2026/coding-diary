@@ -136,8 +136,8 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item px-3 {{ request()->routeIs('3') ? 'bg-secondary' : '' }}">
-                                <a class="nav-link {{ request()->routeIs('#') ? 'active text-white' : 'text-secondary' }}" href="#">
+                            <li class="nav-item px-3 {{ request()->routeIs('admin.messages*') ? 'bg-secondary' : '' }}">
+                                <a class="nav-link {{ request()->routeIs('admin.messages*') ? 'active text-white' : 'text-secondary' }}" href="{{route('admin.messages')}}">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-envelope sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Messages</span>
                                     </div>

@@ -85,4 +85,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(WatchedBlog::class,'user_id');
     }
 
+     // Relationship to get all messages sent by the user
+     public function sentMessages()
+     {
+         return $this->hasMany(Message::class, 'sender_id');
+     }
+ 
+     // Relationship to get all messages received by the user
+     public function receivedMessages()
+     {
+         return $this->hasMany(Message::class, 'receiver_id');
+     }
+
 }

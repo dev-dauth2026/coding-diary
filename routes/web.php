@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminMessagesController;
 use App\Http\Controllers\user\UserActivitiesController;
 use App\Http\Controllers\user\UserNotificationsController;
 use App\Http\Controllers\user\UserSettingsController;
@@ -203,6 +204,14 @@ Route::group(['prefix'=>'admin'],function(){
         Route::put('comments/{comment}',[AdminCommentsController::class,'updateComments'])->name('admin.comments.update');
         Route::delete('comments/{comment}',[AdminCommentsController::class,'destroy'])->name('admin.comments.delete');
         Route::post('blogs/comments/reply/{comment_id}',[AdminCommentsController::class,'reply'])->name('admin.comments.reply');
+    
+
+        Route::get('messages', [AdminMessagesController::class, 'index'])->name('admin.messages');
+        Route::get('messages/{message}', [AdminMessagesController::class, 'show'])->name('admin.messages.show');
+        Route::delete('messages/{id}', [AdminMessagesController::class, 'destroy'])->name('admin.messages.destroy');
+
+
+
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
 
