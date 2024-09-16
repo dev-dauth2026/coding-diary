@@ -17,7 +17,7 @@
                     <div class="card-body d-flex flex-row justify-content-center align-items-center gap-3 text-center">
                         <i class="fas fa-blog fa-3x text-white-50"></i>
                         <div>
-                            <h5 class="card-title mt-3 text-secondary">Total Blogs</h5>
+                            <h5 class="card-title mt-3 ">Total Blogs</h5>
                             <p class="card-text display-4">{{$totalPosts}}</p>
                         </div>
                        
