@@ -126,7 +126,7 @@
                                     <div class="text-end">
                                         <small class="text-muted">{{ $msg->created_at->diffForHumans() }}</small>
                                         <div>
-                                            @if(!$msg->is_read)
+                                            @if(!$msg->is_read && $message_status=='received')
                                             <span class="badge bg-primary">Unread</span>
                                             @endif
                                         </div>
@@ -134,7 +134,10 @@
                                 </div>
                             </a>
                             @empty
-                            <p colspan="5" class="text-center">No messages found.</p>
+                            <div class="p-5 d-flex justify-content-center align-items-center">
+                                <p colspan="5" class="text-center">No messages found.</p>
+
+                            </div>
                             @endforelse
                     </div>
 
@@ -175,12 +178,7 @@
                         <div class="card-footer d-flex justify-content-between">
                             <div>
                                 <button class="btn bg-trasparent text-secondary" onclick="toggleReplyForm({{$message->id}})">Reply <i class="fa-solid fa-reply"></i></button>
-                                @if(!$message->is_read)
-                                <form action="{{ route('admin.messages.markRead', $message->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-secondary btn-sm">Mark as Read</button>
-                                </form>
-                                @endif
+                                
                             </div>
                             <form action="{{ route('account.messages.destroy', $message->id) }}" method="POST" class="d-inline">
                                 @csrf
