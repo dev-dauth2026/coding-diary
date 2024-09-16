@@ -207,7 +207,9 @@ Route::group(['prefix'=>'admin'],function(){
     
 
         Route::get('messages', [AdminMessagesController::class, 'index'])->name('admin.messages');
+        Route::post('messages', [AdminMessagesController::class, 'store'])->name('admin.messages.store');
         Route::get('messages/{message}', [AdminMessagesController::class, 'show'])->name('admin.messages.show');
+        Route::post('messages/{messageId}', [AdminMessagesController::class, 'reply'])->name('admin.messages.reply');
         Route::delete('messages/{id}', [AdminMessagesController::class, 'destroy'])->name('admin.messages.destroy');
 
 
