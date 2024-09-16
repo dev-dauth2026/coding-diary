@@ -232,10 +232,7 @@
                             <p>{{ $selectedMessage->body }}</p>
                         </div>
                     </div>
-                @else
-                    <div class="text-center">
-                        <p class="text-muted">Select a message to view the details.</p>
-                    </div>
+         
                 @endif
             </div>
         </div>
