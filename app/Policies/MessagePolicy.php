@@ -20,6 +20,15 @@ class MessagePolicy
     }
 
     /**
+     * Determine whether the user can store  the message.
+     */
+    public function store(User $user)
+    {
+        // Only allow the receiver to reply to the message
+        return true;
+    }
+
+    /**
      * Determine whether the user can reply to the message.
      */
     public function reply(User $user, Message $message)
