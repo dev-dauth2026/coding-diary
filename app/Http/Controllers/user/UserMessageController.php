@@ -20,6 +20,7 @@ class UserMessageController extends Controller
         $message_status = $request->input('message_status', 'received');
         $page = $request->input('page', 1);
         $recipients = User::whereNot('id',Auth::user()->id)->get();
+
         // Initialize the query variable
         $messagesQuery = Message::query();
 
@@ -64,7 +65,7 @@ class UserMessageController extends Controller
         ]);
         $message = $messagesQuery->first();
 
-        return view('user_dashboard.messages', compact('message','messages','message_search','message_status','recipients'));
+        return view('user_dashboard.messages', compact('message','messages','message_search','message_status','recipients',));
     }
 
     public function show(Message $message, Request $request)

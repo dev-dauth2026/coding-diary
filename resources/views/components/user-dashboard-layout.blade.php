@@ -73,7 +73,7 @@
 </head>
 <body>
     <div class="container-fluid mx-0 px-0 d-flex">
-           <x-user-dashboard-navbar></x-user-dashboard-navbar>
+           <x-user-dashboard-navbar />
             <main id="main" class="col-md-10 col-lg-10 h-100 vh-100 overflow-x-scroll py-0 my-0">
                 <div class="d-flex justify-content-between align-items-center bg-white px-3 py-2 border-bottom">
                     <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
