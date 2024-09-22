@@ -15,10 +15,12 @@ class UserMessageController extends Controller
     public function index(Request $request)
     {
         // Fetch all messages for the authenticated user
-        $message_status = $request->input('message_status', 'received');
         $message_search = $request->input('message_search');
+        $status = $request->input('status');
+        $message_status = $request->input('message_status', 'received');
         $page = $request->input('page', 1);
         $recipients = User::whereNot('id',Auth::user()->id)->get();
+        // Initialize the query variable
         $messagesQuery = Message::query();
 
         if ($message_status == 'received') {
@@ -29,14 +31,14 @@ class UserMessageController extends Controller
 
         // Search functionality
         if ($message_search) {
-            $messagesQuery->where(function ($query) use ($request) {
-                $query->where('subject', 'like', '%' . $request->search . '%')
-                      ->orWhere('content', 'like', '%' . $request->search . '%');
+            $messagesQuery->where(function ($query) use ($message_search) {
+                $query->where('subject', 'like', '%' . $message_search . '%')
+                      ->orWhere('content', 'like', '%' . $message_search . '%');
             });
         }
 
         // Filter functionality
-        if ($message_status) {
+        if ($status) {
             if ($request->status == 'unread') {
                 $messagesQuery->where('is_read', false);
             } elseif ($request->status == 'read') {
@@ -55,7 +57,11 @@ class UserMessageController extends Controller
         }
 
         // Paginate results
-        $messages = $messagesQuery->latest()->paginate(8);
+        $messages = $messagesQuery->latest()->paginate(8)->appends([
+            'message_status' => $message_status,
+            'message_search' => $message_search,
+            'status' => $status
+        ]);
         $message = $messagesQuery->first();
 
         return view('user_dashboard.messages', compact('message','messages','message_search','message_status','recipients'));
