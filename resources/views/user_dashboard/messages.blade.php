@@ -12,7 +12,7 @@
             <!-- Search and Filter Row -->
             <form method="GET" action="{{ route('account.messages.index') }}" class="d-flex gap-3 mb-3">
                 <div class="flex-grow-1">
-                    <input type="text" name="message_search" value="{{ request('search') }}" class="form-control" placeholder="Search messages..." aria-label="Search">
+                    <input type="text" name="message_search" value="{{ request('message_search') }}" class="form-control" placeholder="Search messages..." aria-label="Search">
                 </div>
                 <div class="">
                     <select name="message_status" class="form-select">
@@ -31,6 +31,7 @@
                 </div>
                 <div class="">
                     <button class="btn btn-info" type="submit">Search</button>
+                    <a href="{{route('account.messages.index')}}" class="btn btn-outline-secondary" >Reset</a>
                 </div>
             </form>
 
