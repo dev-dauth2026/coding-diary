@@ -2,10 +2,10 @@
     <nav  class="">
         <div class="position-sticky">
             <div class="d-flex justify-content-center">
-                <a id="" class="navbar-brand sidebar-logo1 " href="dashboard">
+                <a id="" class="navbar-brand sidebar-logo1 " href="{{route('account.home')}}">
                     <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
                 </a>
-                <a class="navbar-brand sidebar-logo2" href="dashboard">
+                <a class="navbar-brand sidebar-logo2" href="{{route('account.home')}}">
                     <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 50px; object-fit: cover">
                 </a>
             </div>
