@@ -101,13 +101,13 @@
                                                     <span class="badge bg-secondary">{{ $favourite->created_at->format('d M Y') }}</span>
                                                 </div>
                                             </div>
-                                            <div class="card-footer bg-light border-0 d-flex justify-content-between">
-                                                <form id="remove-favourite-form-{{$favourite->id}}" action="{{ route('favourite.remove', $favourite->id) }}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $favourite->id }});">
+                                            <div class="card-footer bg-light border-0  ">
+                                                <form class="w-100 " id="remove-favourite-form-{{$favourite->id}}" action="{{ route('favourite.remove', $favourite->id) }}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $favourite->id }});">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm" type="submit" style="border-radius: 20px;">Remove</button>
+                                                    <button class="btn btn-danger btn-sm w-100" type="submit" style="border-radius: 20px;">Remove</button>
                                                 </form>
-                                                <button class="btn btn-outline-success btn-sm" style="border-radius: 20px;">Share</button>
+
                                             </div>
                                         </div>
                                     </div>
