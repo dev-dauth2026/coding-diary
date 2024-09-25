@@ -72,7 +72,7 @@
 
             <!-- Comments List -->
             <div class="row">
-                @if($comments)
+                @if($comments->count()>0)
                     @foreach($comments as $comment)
                     <!-- Comment Card -->
                     <div class="col-md-6 mb-4">
@@ -147,13 +147,19 @@
                         </div>
                     </div>
                     @endforeach
+                @else
+                    <div class="d-flex justify-content-center align-items-center">
+                        <p>No comments available!</p>
+                    </div>
                 @endif
             </div>
 
             <!-- Pagination -->
+            @if($comments->count()>0)
             <div class="d-flex justify-content-center mt-4">
                 {{ $comments->links('pagination::bootstrap-5') }} <!-- Use Bootstrap 5 pagination links -->
             </div>
+            @endif
 
             <!-- Top Commented Posts Section -->
             <div class="mt-5">
