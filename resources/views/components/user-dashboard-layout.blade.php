@@ -13,45 +13,7 @@
     <x-head.tinymce-config/>
 
     <style>
-        #sidebarMenu {
-            transition: width 0.5s, display 0.3s;
-        }
-        /* #main {
-            transition: margin-left 0.3s;
-        } */
-        .collapsed-sidebar {
-            width: 80px !important;
-        }
-        .expanded-main {
-            width: calc(100% - 80px) !important;
-        }
-        
-        .sidebar-text {
-            display: inline;
-        }
-        .collapsed .sidebar-icon {
-            display: inline;
-        }
-        .collapsed .sidebar-text {
-            display: none;
-        }
-
-        .sidebar-logo2{
-            display: none;
-        }
-        .collapsed .sidebar-logo2 {
-            display: inline;
-        }
-
-        .collapsed .sidebar-logo1 {
-            display: none;
-        }
-
-        .nav-item{
-            transition: 0.5s ease
-        }
-
-
+       
         .bg-primary-gradient {
             background: linear-gradient(45deg, #0460c2, #729cca);
         }
@@ -72,11 +34,11 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid mx-0 px-0 d-flex">
+    <div class="container-fluid mx-0 px-0 d-flex position-relative">
            <x-user-dashboard-navbar />
             <main id="main" class="col-md-10 col-lg-10 h-100 vh-100 overflow-x-scroll py-0 my-0">
                 <div class="d-flex justify-content-between align-items-center bg-white px-3 py-2 border-bottom">
-                    <div>
+                    <div class="d-none d-sm-block">
                         <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
                     </div>
                     <div class="d-flex align-items-center">
@@ -106,43 +68,43 @@
         
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sidebarMenu = document.getElementById('sidebarMenu');
-            const main = document.getElementById('main');
-
-            // Check the localStorage value and apply the appropriate class
-            if (localStorage.getItem('sidebarState') === 'collapsed') {
-                sidebarMenu.classList.add('collapsed-sidebar');
-                main.classList.add('expanded-main');
-                document.body.classList.add('collapsed');
-            }
-        });
-
-        function toggleSidebar() {
-            const sidebarMenu = document.getElementById('sidebarMenu');
-            const main = document.getElementById('main');
-
-            sidebarMenu.classList.toggle('collapsed-sidebar');
-            main.classList.toggle('expanded-main');
-            document.body.classList.toggle('collapsed');
-
-            // Save the sidebar state in localStorage
-            if (sidebarMenu.classList.contains('collapsed-sidebar')) {
-                localStorage.setItem('sidebarState', 'collapsed');
-            } else {
-                localStorage.removeItem('sidebarState');
-            }
-        }
-
-        // Prism text hightlight function call
-        document.addEventListener('DOMContentLoaded', (event) => {
-        Prism.highlightAll();
-        });
-    </script>
+    
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const main = document.getElementById('main');
 
+        // Check the localStorage value and apply the appropriate class
+        if (localStorage.getItem('sidebarState') === 'collapsed') {
+            sidebarMenu.classList.add('collapsed-sidebar');
+            main.classList.add('expanded-main');
+            document.body.classList.add('collapsed');
+        }
+    });
+
+    function toggleSidebar() {
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const main = document.getElementById('main');
+
+        sidebarMenu.classList.toggle('collapsed-sidebar');
+        main.classList.toggle('expanded-main');
+        document.body.classList.toggle('collapsed');
+
+        // Save the sidebar state in localStorage
+        if (sidebarMenu.classList.contains('collapsed-sidebar')) {
+            localStorage.setItem('sidebarState', 'collapsed');
+        } else {
+            localStorage.removeItem('sidebarState');
+        }
+    }
+
+    // Prism text hightlight function call
+    document.addEventListener('DOMContentLoaded', (event) => {
+    Prism.highlightAll();
+    });
+</script>
 </body>
 </html>

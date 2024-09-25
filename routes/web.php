@@ -133,11 +133,11 @@ Route::group(['prefix'=>'account'],function(){
 
 
         // User Dashboard notification page
-        Route::get('/account/notifications', [UserNotificationsController::class, 'index'])->name('account.notifications');
-        Route::post('/account/notifications/{id}/mark-as-read', [UserNotificationsController::class, 'markAsRead'])->name('account.notifications.markAsRead');
+        Route::get('notifications', [UserNotificationsController::class, 'index'])->name('account.notifications');
+        Route::post('notifications/{id}/mark-as-read', [UserNotificationsController::class, 'markAsRead'])->name('account.notifications.markAsRead');
 
          // User Dashboard notification page
-         Route::get('/user/activities', [UserActivitiesController::class, 'index'])->name('account.activities.index');
+         Route::get('/activities', [UserActivitiesController::class, 'index'])->name('account.activities.index');
 
         Route::put('blog/comments/comment/{id}/edit',[CommentController::class, 'commentEdit'])->name('comment.edit');
         Route::put('blog/comments/{comment}',[CommentController::class, 'commentUpdate'])->name('comment.update');
