@@ -79,33 +79,18 @@
                     <div>
                         <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
                     </div>
-                    <div class="d-flex">
-                        <ul class=" navbar-nav d-flex flex-row gap-3 flex-nowrap mx-3 ">
-                            <li class="nav-item  d-sm-flex justify-content-sm-center ">
-                                <a class="nav-link  {{ request()->is('/') ? 'active text-dark  ' : 'text-secondary-50' }}" href="/">Home</a>
-                            </li>
-                            <li class="nav-item d-sm-flex justify-content-sm-center">
-                                <a class="nav-link  {{request()->routeIs('account.blog')?'active text-dark':'text-secondary-50'}} " href="{{route('account.blog')}}">Blogs</a>
-                            </li>
-                            <li class="nav-item d-sm-flex justify-content-sm-center">
-                                <a class="nav-link  {{request()->routeIs('account.about')?'active text-dark':'text-secondary-50'}} " href="{{route('account.about')}}">About</a>
-                            </li>
-                            <li class="nav-item d-sm-flex justify-content-sm-center">
-                                <a class="nav-link {{request()->routeIs('account.contact')?'active text-dark':'text-secondary-50'}} " href="{{route('account.contact')}}">Contact</a>
-                            </li>
-                        </ul>
-                        <div class="d-flex align-items-center">
-                            @if (Auth::check())
-                            @if (Auth::user()->profile_picture)
-                            <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">
-                            @else
-                            <i class="fa fa-user-circle fs-4"></i>
-                            @endif
-                            <a class="text-decoration-none text-secondary me-3 text-nowrap " href="#"> ({{ Auth::user()->name }})</a>
-                            
-                            @endif
-                        </div>
+                    <div class="d-flex align-items-center">
+                        @if (Auth::check())
+                        @if (Auth::user()->profile_picture)
+                        <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">
+                        @else
+                        <i class="fa fa-user-circle fs-4"></i>
+                        @endif
+                        <a class="text-decoration-none text-secondary me-3 text-nowrap " href="#"> ({{ Auth::user()->name }})</a>
+                        
+                        @endif
                     </div>
+
 
                    
                 </div>
