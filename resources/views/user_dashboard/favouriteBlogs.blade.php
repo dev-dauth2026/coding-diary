@@ -139,9 +139,14 @@
                         @else
                             <ul class="list-group list-group-flush">
                                 @foreach($recentlyWatched as $post)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ $post->title }}</span>
-                                        <a href="{{ route('blog.detail', $post->id) }}" class="btn btn-link text-primary p-0">Read More</a>
+                                    <li class="list-group-item d-flex flex-column ">
+                                        <div>{{ $post->title }}</div>
+                                        <div>
+                                            <a href="{{ route('blog.detail', $post->id) }}" class="btn  text-secondary p-1 bg-body-tertiary">
+                                                Read More
+                                            </a>
+                                        </div>
+                                        
                                     </li>
                                 @endforeach
                             </ul>
