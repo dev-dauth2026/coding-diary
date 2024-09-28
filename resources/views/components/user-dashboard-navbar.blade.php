@@ -55,26 +55,22 @@
 
 
 </style>
-<aside id="sidebarMenu" class="col-2  d-md-block navbar-dark bg-dark vh-100 py-4 overflow-scroll">
-    <nav  class="">
-        <div class="position-sticky">
-            <div class="d-flex justify-content-center">
-                {{-- <a id="" class="navbar-brand sidebar-logo1 d-none d-sm-block " href="{{route('account.home')}}">
-                    <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
-                </a> --}}
-                <a class="navbar-brand  " href="{{route('account.home')}}">
-                    <div class="d-flex gap-2 align-items-center " style="height: 60px;">
-                        <div class=" h-100">
-                            <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" class="" style="height: 50px; width: 50px; object-fit: cover">
+<aside id="sidebarMenu" class="col-2 col-md-3 col-lg-2  d-md-block navbar-dark bg-dark  overflow-x-hidden overflow-y-scroll">
+    <nav  class="position-sticky">
+
+            <ul class="navbar-nav  d-flex flex-column  gap-2 my-3" style="min-height: 95vh;">
+                <div class="d-flex justify-content-center">
+                    <a id="" class="navbar-brand sidebar-logo1 d-none d-sm-block " href="{{route('account.home')}}">
+                        <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
+                    </a>
+                    <a class="navbar-brand  d-block d-sm-none" href="{{route('account.home')}}">
+                        <div class="d-flex gap-2 align-items-center " style="height: 60px;">
+                            <div class=" h-100">
+                                <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" class="" style="height: 50px; width: 50px; object-fit: cover">
+                            </div>
                         </div>
-                        <div class=" d-flex align-items-center h-100 d-none d-sm-flex sidebar-text">
-                            <h5 class=" text-info text-opacity-75">CODING DIARY</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-           
-            <ul class="navbar-nav ms-auto d-flex flex-column mt-4 gap-2 " style="min-height: 85vh;">
+                    </a>
+                </div>
                 <x-dashboard-nav-link 
                     conditionUrl="account/dashboard"
                     url="account.dashboard"
@@ -132,7 +128,7 @@
                />
 
                
-                <li class="nav-item px-3 logout-item mt-auto">
+                <li class="nav-item px-3  logout-item mt-auto">
                     <form id="logout-form" action="{{ route('account.logout') }}" method="POST" class="">
                         @csrf
                         <button class="nav-link text-secondary bg-transparent" type="submit" >
@@ -144,6 +140,6 @@
                        
                     </li>
             </ul>
-        </div>
+      
     </nav>
 </aside>
