@@ -29,6 +29,17 @@
         .bg-info-gradient {
             background: linear-gradient(45deg, #066a79, #6cd0e0);
         }
+
+        .custom-scroll {
+            max-height: 300px; /* Set a height to allow scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+        }
    
 
     </style>
@@ -36,12 +47,12 @@
 <body>
     <div class="container-fluid mx-0 px-0 d-flex position-relative">
            <x-user-dashboard-navbar />
-            <main id="main" class="col-sm-9 col-md-9 col-lg-10 h-100 vh-100 overflow-x-scroll py-0 my-0">
-                <div class="d-flex justify-content-between align-items-center bg-white px-3 py-2 border-bottom">
+            <main id="main" class="col-sm-9 col-md-9 col-lg-10  overflow-y-auto custom-scroll py-0 my-0" style="min-height: 100vh;">
+                <div class="d-flex  align-items-center bg-white px-3 py-2 border-bottom">
                     <div class="d-none d-sm-block">
                         <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center ms-auto">
                         @if (Auth::check())
                         @if (Auth::user()->profile_picture)
                         <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">

@@ -5,8 +5,8 @@
                 <i class="fas fa-{{$icon}} display-4 text-{{$iconColor}}"></i>
             </div>
             <div class="d-flex flex-column">
-                <h5 class="card-title text-secondary">{{ $title }}</h5>
-                <p class="card-text display-4">{{ $text }}</p>
+                <h5 class="card-title text-secondary fs-sm-3 fs-6">{{ $title }}</h5>
+                <p class="card-text display-4 display-sm-5">{{ $text }}</p>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <x-user-dashboard-layout>
-    <main class="p-md-3 py-3">
+    <main class="p-md-3 p-2 py-3">
         <!-- Message Component -->
         <x-message.message></x-message.message>
         
@@ -19,7 +19,7 @@
         <!-- Dashboard Overview Cards -->
         <div class="row g-3">
             <!-- Total Favorites -->
-            <div class="col-6 col-md-4 col-lg-3">
+            <div class="col-6  col-md-4  col-lg-3">
                 <x-dashboard-card 
                 icon="heart"
                 iconColor="danger"
@@ -87,7 +87,7 @@
                     <div class="card-header">
                         <h5 class="mb-0">Recent Activity</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body px-sm-1 px-0">
                         <ul class="list-group list-group-flush">
                             @if($activities)
                                 @foreach($activities as $activity)
