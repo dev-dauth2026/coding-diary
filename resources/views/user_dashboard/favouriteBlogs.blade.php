@@ -42,11 +42,11 @@
 
         <!-- Dashboard Header -->
         <div class="row  d-flex justify-content-between align-items-center mb-4">
-            <div class="col-4 d-flex flex-column">
+            <div class="col-12 col-md-4 col-lg-4 d-flex flex-column">
                 <h4>My Favorite Blogs</h4>
                 <hr class="col-6 mb-3">
             </div>
-            <div class="col-8 d-flex align-items-center gap-3">
+            <div class="col-12 col-md-8 col-lg-8 d-flex flex-sm-row flex-column align-items-sm-center  gap-3">
                 <!-- Search Bar -->
                 <form method="GET" action="{{ route('account.favourites') }}" class="d-flex align-items-center flex-grow-1">
                     <input type="text" name="search" value="{{ request('search') }}" class="form-control " placeholder="Search favourites..." style="border-radius: 50px;">
@@ -63,7 +63,7 @@
                 </form>
 
                 <!-- Reset Filter Button -->
-                <a href="{{ route('account.favourites') }}" class="btn btn-outline-secondary " style="border-radius: 50px;">Reset Filter</a>
+                <a href="{{ route('account.favourites') }}" class="btn btn-outline-secondary  " style="border-radius: 50px;">Reset  </a>
             </div>
         </div>
 
@@ -71,9 +71,9 @@
         <div class="row">
             <!-- Favourites Section -->
             <div class="col-lg-8">
-                <div class="card shadow-sm border-0 mb-4">
+                <div class="card shadow-sm border-0 mb-4 px-0 px-sm-1 mx-0 ">
                     
-                    <div class="card-body">
+                    <div class="card-body  mb-4 px-0 px-sm-1 mx-0">
                         @if($favourites->isEmpty())
                             <div class="text-center my-5">
                                 <i class="bi bi-heartbreak display-1 text-muted"></i>
