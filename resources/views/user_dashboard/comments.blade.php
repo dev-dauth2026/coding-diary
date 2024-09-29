@@ -7,12 +7,12 @@
             <!-- Page Header -->
             <div class="mb-3">
                 <h4>My Comments</h4>
-                <hr class="col-2">
+                <hr class="col-6 col-md-3 col-lg-2">
             </div>
 
             <!-- Comment Statistics Section -->
             <div class="row mb-4">
-                <div class="col-md-4">
+                <div class="col-6 col-md-4 col-lg-4 mb-2">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <h5 class="card-title text-secondary">Total Comments</h5>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-6 col-md-4 col-lg-4 mb-2">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <h5 class="card-title text-secondary">Comments This Month</h5>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-12 col-md-4 col-lg-4">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <h5 class="card-title text-secondary">Most Liked Comment</h5>
@@ -48,7 +48,7 @@
 
             <!-- Filters and Search Bar -->
             <div class=" mb-4">
-                <form action="{{route('account.comments')}}" method="GET" class="row">
+                <form action="{{route('account.comments')}}" method="GET" class="row gap-2">
                     <div class="col-md-6">
                         <input type="text" name="comment_search" value="{{old('comment_search',$comment_search)}}" class="form-control" placeholder="Search comments or blog post title..." aria-label="Search">
                     </div>
