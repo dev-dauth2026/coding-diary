@@ -39,7 +39,7 @@
                                 <option value="0" {{ !$user->activity_status ? 'selected' : '' }}>No</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Privacy Settings</button>
+                        <button type="submit" class="btn bg-transparent text-info">Update Privacy Settings</button>
                     </form>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Language</button>
+                        <button type="submit" class="btn bg-transparent text-info">Update Language</button>
                     </form>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                                 Receive update notifications
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Update Email Preferences</button>
+                        <button type="submit" class="btn bg-transparent text-info mt-3">Update Email Preferences</button>
                     </form>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                             <input class="form-check-input" type="checkbox" id="enable_2fa" name="enable_2fa" {{ $user->two_factor_enabled ? 'checked' : '' }}>
                             <label class="form-check-label" for="enable_2fa">Enable Two-Factor Authentication</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update 2FA Settings</button>
+                        <button type="submit" class="btn bg-transparent text-info">Update 2FA Settings</button>
                     </form>
                 </div>
             </div>
