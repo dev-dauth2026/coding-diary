@@ -10,7 +10,7 @@
             </div>
 
             <!-- Search and Filter Row -->
-            <form method="GET" action="{{ route('account.messages.index') }}" class="d-flex gap-3 mb-3">
+            <form method="GET" action="{{ route('account.messages.index') }}" class="d-flex flex-sm-row flex-column gap-3 mb-3">
                 <input type="hidden" value="{{$message_status}}" name="message_status" hidden>
                 <div class="flex-grow-1">
                     <input type="text" name="message_search" value="{{ request('message_search') }}" class="form-control" placeholder="Search messages..." aria-label="Search">
@@ -99,8 +99,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="{{route('account.messages.index')}}" class="btn btn-secondary btn-sm" >Close</a>
-                                                    <button type="submit" class="btn btn-primary btn-sm">Send message</button>
+                                                    <a href="{{route('account.messages.index')}}" class="btn bg-transparent btn-sm text-danger" >Close</a>
+                                                    <button type="submit" class="btn btn-info btn-sm">Send message</button>
                                                 </div>
                                             </form>
                                         </div>
