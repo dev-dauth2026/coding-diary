@@ -34,7 +34,7 @@
 
                 <!-- Filter and Reset Buttons -->
                 <div class="col-md-1 mt-2 mt-md-0 d-flex justify-content-start">
-                    <button type="submit" class="btn btn-primary me-2">Filter</button>
+                    <button type="submit" class="btn btn-info me-2">Filter</button>
                     <a href="{{ route('account.notifications') }}" class="btn btn-secondary">Reset</a>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="card">
                     <ul class="list-group list-group-flush">
                         @forelse($notifications as $notification)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <li class="list-group-item d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between align-items-start align-items-sm-center ">
                                 <div>
                                     <!-- Display notification icon and message -->
                                     <i class="{{ $notification->type == 'comment' ? 'fas fa-comment' : 'fas fa-heart' }} me-2 text-primary"></i>
