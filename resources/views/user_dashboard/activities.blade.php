@@ -35,7 +35,7 @@
 
                 <!-- Filter and Reset Buttons -->
                 <div class="col-md-2 mt-2 mt-md-0 d-flex justify-content-start">
-                    <button type="submit" class="btn btn-primary me-2">Filter</button>
+                    <button type="submit" class="btn btn-info me-2">Filter</button>
                     <a href="{{ route('account.activities.index') }}" class="btn btn-secondary">Reset</a>
                 </div>
             </div>
@@ -44,14 +44,16 @@
         <!-- Activity List -->
         <div class="row">
             @if($activities->isNotEmpty())
-                <div class="col-12" style="min-height: 70vh;">
+                <div class="col-12 mx-0 px-0" style="min-height: 70vh;">
                     <div class="card">
                         <ul class="list-group list-group-flush">
                             @foreach($activities as $activity)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between align-items-start align-items-sm-center">
                                     <div>
-                                        <i class="{{ $activity->icon }} me-2 text-primary"></i>
+                                        <div>
+                                         <i class="{{ $activity->icon }} me-2 text-primary"></i>
                                         You {{ $activity->description }} 
+                                        </div> 
                                         <a href="{{ route('blog.detail', $activity->subject_id) }}" class="text-decoration-none text-info">
                                             <strong>{{ ucfirst($activity->subject_type) }}</strong>
                                         </a>
