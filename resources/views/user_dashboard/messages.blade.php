@@ -151,8 +151,10 @@
                     @isset($message)
                     <!-- Message Content -->
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <strong>Subject: </strong>{{ $message->subject }}
+                        <div class="card-header d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between align-items-sm-center align-item-start">
+                            <div>
+                                <strong>Subject: </strong>{{ $message->subject }}
+                            </div>
                             <div>
                                 <small class="text-muted">{{ $message->created_at->format('d M Y, h:i A') }}</small>
                             </div>
