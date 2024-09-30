@@ -43,13 +43,20 @@
             }
             .collapsed .sidebar-text {
             display: none !important;
-        }
-        .collapsed-sidebar {
-            width: 90px !important;
-        }
-        .expanded-main {
-            width: calc(100% - 90px) !important;
-        }
+            }
+            .collapsed-sidebar {
+                width: 90px !important;
+            }
+            .expanded-main {
+                width: calc(100% - 90px) !important;
+            }
+            .sidebar-logo1{
+                display: none;
+            }
+
+            .sidebar-logo2{
+                display: block;
+            }
 
         }
 
@@ -60,10 +67,10 @@
 
             <ul class="navbar-nav  d-flex flex-column  gap-2 my-3" style="min-height: 95vh;">
                 <div class="d-flex justify-content-center">
-                    <a id="" class="navbar-brand sidebar-logo1 d-none d-sm-block " href="{{route('account.home')}}">
+                    <a id="" class="navbar-brand sidebar-logo1  " href="{{route('account.home')}}">
                         <img src="{{ asset('storage/logo/CodingDiarylogo.png') }}" alt="Coding Diary Logo" style="height: 50px; width: 150px; object-fit: cover">
                     </a>
-                    <a class="navbar-brand  d-block d-sm-none" href="{{route('account.home')}}">
+                    <a class="navbar-brand sidebar-logo2 " href="{{route('account.home')}}">
                         <div class="d-flex gap-2 align-items-center " style="height: 60px;">
                             <div class=" h-100">
                                 <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" class="" style="height: 50px; width: 50px; object-fit: cover">
