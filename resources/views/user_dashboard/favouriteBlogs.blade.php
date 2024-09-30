@@ -95,7 +95,9 @@
                                                 </div>
                                             @endif
                                             <div class="card-body d-flex flex-column">
-                                                <h5 class="card-title fw-bold">{{ $favourite->title }}</h5>
+                                                <a href="{{ route('blog.detail', $favourite->id) }}">
+                                                <p class="card-title fw-bold  fs-6 ">{{ $favourite->title }}</p>
+                                                </a>
                                                 <div class="mt-2">
                                                     <span class="badge bg-info text-dark">{{ $favourite->category->name ?? 'Uncategorized' }}</span>
                                                     <span class="badge bg-secondary">{{ $favourite->created_at->format('d M Y') }}</span>
