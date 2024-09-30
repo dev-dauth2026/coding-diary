@@ -46,9 +46,9 @@ class LoginController extends Controller
 
                     Auth::logout();
         
-                    return to_route('account.login')->with('message', 'You had already registered but please check your email to verify.');
+                    return to_route('account.login')->with('error', 'You had already registered but please check your email to verify.');
                 } else {
-                    return redirect()->route('account.login')->withErrors($validator)->withInput();
+                    return redirect()->route('account.login')->with('error','Your credential does not match.');
                 }
             }else{
                 return redirect()->route('account.login')->with('error','There is no account associated with this email.');
@@ -89,7 +89,7 @@ class LoginController extends Controller
 
             session(['verify_email' => $request->email]);
 
-            return redirect()->route('account.login')->with('message', 'Congratulation, You have been successfully registerd. Please check your email to verify!');
+            return redirect()->route('account.login')->with('success', 'Congratulation, You have been successfully registerd. Please check your email to verify!');
 
 
         }

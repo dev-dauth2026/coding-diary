@@ -5,6 +5,7 @@ use App\Http\Controllers\user\UserActivitiesController;
 use App\Http\Controllers\user\UserNotificationsController;
 use App\Http\Controllers\user\UserSettingsController;
 use App\Http\Controllers\user\WatchedBlogController;
+use App\Http\Controllers\user_auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -74,10 +75,15 @@ Route::group(['prefix'=>'account'],function(){
         // Route::post('passwordReset', [LoginController::class, 'passwordResetPost'])->name('account.passwordResetPost');
 
         // Password Reset Routes
-        Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+        // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        // Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        // Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+        // Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+        Route::view('/forgot-password', 'auth.forgot-password')->name('password.reset.form');
+        Route::post('/forgot-password',[PasswordResetController::class,'passwordEmail'] )->name('password.email');
+        Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetPassword'])->name('password.reset');
+        Route::post('/reset-password', [PasswordResetController::class,'passwordUpdate'])->name('password-update');
 
     });
 
@@ -89,7 +95,7 @@ Route::group(['prefix'=>'account'],function(){
         // Password Reset Routes
         Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
         Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+        // Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::put('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
         Route::put('password/change',[ChangePasswordController::class,'changePassword'])->name('password.change');
         Route::put('username/change',[ChangeUserNameController::class,'changeUserName'])->name('username.change');
