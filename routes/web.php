@@ -122,6 +122,7 @@ Route::group(['prefix'=>'account'],function(){
         // User Dashboard Message page
         Route::get('/user/messages', [UserMessageController::class, 'index'])->name('account.messages.index');
         Route::get('/user/messages/{message}', [UserMessageController::class, 'show'])->name('account.messages.show');
+        Route::get('/user/messages/{message}/detail', [UserMessageController::class, 'detail'])->name('account.messages.detail');
         Route::post('/user/messages', [UserMessageController::class, 'store'])->name('account.messages.store');
         Route::post('/user/messages/{message}/reply', [UserMessageController::class, 'reply'])->name('account.messages.reply');
         Route::delete('/user/messages/{message}', [UserMessageController::class, 'destroy'])->name('account.messages.destroy');

@@ -97,6 +97,35 @@ class UserMessageController extends Controller
         return view('user_dashboard.messages', compact('message','messages','message_status','message_search','recipients'));
     }
 
+    public function detail(Message $message, Request $request)
+    {
+          // Fetch all messages for the authenticated user
+        $message_search = $request->input('message_search');
+        $message_status = $request->input('message_status', 'received');
+        $page = $request->input('page', 1);
+        $recipients = User::whereNot('id',Auth::user()->id)->get();
+        $messagesQuery = Message::query();
+
+        if ($message_status == 'received') {
+            $messagesQuery = Auth::user()->receivedMessages(); // Only received messages
+        } elseif ($message_status == 'sent') {
+            $messagesQuery = Auth::user()->sentMessages(); // Only sent messages
+        }
+
+        // Ensure the message belongs to the authenticated user
+        Gate::authorize('view', $message);
+
+        // Mark message as read if not already
+        if (!$message->is_read) {
+            $message->update(['is_read' => true]);
+        }
+
+        // Paginate results
+        $messages = $messagesQuery->paginate(8);
+
+        return view('user_dashboard.message-detail', compact('message','messages','message_status','message_search','recipients'));
+    }
+
     public function store(Request $request){        
         $validator= Validator::make($request->all(),[
             'recipient_id'=>'required',

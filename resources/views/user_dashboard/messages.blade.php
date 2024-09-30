@@ -39,9 +39,9 @@
 
             <div class="row">
                 <!-- Left Sidebar: Messages List -->
-                <div class="col-md-4">
-                    <div class="d-flex">
-                        <ul class="nav nav-tabs ">
+                <div class="col-12 col-md-4">
+                    <div class="d-flex flex-column flex-sm-row gap-2">
+                        <ul class="nav nav-tabs order-sm-1 order-2">
                             <li class="nav-item">
                                 <form action="{{route('account.messages.index')}}" method="GET">
                                     <input type="hidden" value="received" name="message_status" hidden>
@@ -58,7 +58,7 @@
                         </ul>
                         {{-- Compose section --}}
                         {{-- Compose section --}}
-                        <div class="ms-auto">
+                        <div class="ms-auto order-1 order-sm-2">
                             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#compose">Compose</button>
     
                             {{-- Check if there are any validation errors and adjust modal attributes accordingly --}}
@@ -116,7 +116,7 @@
     
                     </div>
                     <!-- Messages List -->
-                    <div class="list-group">
+                    <div class="list-group d-none d-sm-block">
                         @forelse($messages as $msg)
                         <a href="{{ route('account.messages.show',['message'=>$msg,'message_status'=>$message_status]) }}" class="list-group-item list-group-item-action {{ $msg->is_read ? '' : 'bg-light' }}">
                             <div class="d-flex justify-content-between align-items-center">
@@ -129,7 +129,30 @@
                                     <small class="text-muted">{{ $msg->created_at->diffForHumans() }}</small>
                                     <div>
                                         @if(!$msg->is_read && $message_status=='received')
-                                        <span class="badge bg-primary">Unread</span>
+                                        <span class="badge bg-info">Unread</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @empty
+                        <p class="text-center text-muted">No messages found.</p>
+                        @endforelse
+                    </div>
+                    <div class="list-group d-block d-sm-none">
+                        @forelse($messages as $msg)
+                        <a href="{{ route('account.messages.detail',['message'=>$msg,'message_status'=>$message_status]) }}" class="list-group-item list-group-item-action {{ $msg->is_read ? '' : 'bg-light' }}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">{{ $msg->subject }}</h6>
+                                    <p class="mb-1 text-muted">{{ Str::limit($msg->content, 50) }}</p>
+                                    <small class="text-secondary">From: {{ $msg->sender->name }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted">{{ $msg->created_at->diffForHumans() }}</small>
+                                    <div>
+                                        @if(!$msg->is_read && $message_status=='received')
+                                        <span class="badge bg-info">Unread</span>
                                         @endif
                                     </div>
                                 </div>
@@ -147,7 +170,7 @@
                 </div>
 
                 <!-- Right Content: Message Details and Reply Form -->
-                <div class="col-md-8">
+                <div class="col-md-8 d-none d-sm-block">
                     @isset($message)
                     <!-- Message Content -->
                     <div class="card mb-4">
@@ -212,7 +235,7 @@
                                 <div class="d-flex justify-content-between">
 
                                     <button type="button" class="btn btn-danger btn-sm" onclick="hideReplyForm({{$message->id}})">Cancel</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Send Reply</button>
+                                    <button type="submit" class="btn btn-info btn-sm">Send Reply</button>
                                 </div>
                             </form>
                         </div>
