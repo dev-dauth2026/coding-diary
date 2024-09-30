@@ -9,11 +9,11 @@
                 <h4>User Dashboard</h4>
                 <hr class="col-12 mb-3">
             </div>
-            <div>
-                <a href="{{ route('account.settings.index') }}" class="btn btn-outline-secondary">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
-            </div>
+            <a href="{{ route('account.settings.index') }}" class="btn btn-outline-secondary d-none d-sm-block">
+                 <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-cog"></i> <span class="d-none d-sm-block">Settings</span> 
+                </div>
+            </a>
         </div>
 
         <!-- Dashboard Overview Cards -->

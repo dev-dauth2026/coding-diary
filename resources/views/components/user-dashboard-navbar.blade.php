@@ -45,10 +45,10 @@
             display: none !important;
             }
             .collapsed-sidebar {
-                width: 90px !important;
+                width: 80px !important;
             }
             .expanded-main {
-                width: calc(100% - 90px) !important;
+                width: calc(100% - 80px) !important;
             }
             .sidebar-logo1{
                 display: none;
@@ -62,7 +62,7 @@
 
 
 </style>
-<aside id="sidebarMenu" class="col-2 col-md-3 col-lg-2  d-md-block navbar-dark bg-dark  overflow-x-hidden overflow-y-scroll">
+<aside id="sidebarMenu" class="col-2 col-sm-2 col-md-3 col-lg-2  d-md-block navbar-dark bg-dark  overflow-x-hidden overflow-y-scroll">
     <nav  class="position-sticky">
 
             <ul class="navbar-nav  d-flex flex-column  gap-2 my-3" style="min-height: 95vh;">

@@ -47,7 +47,7 @@
 <body>
     <div class="container-fluid mx-0 px-0 d-flex position-relative">
            <x-user-dashboard-navbar />
-            <main id="main" class="col-sm-9 col-md-9 col-lg-10  overflow-y-auto custom-scroll py-0 my-0" style="min-height: 100vh;">
+            <main id="main" class="col-10 col-sm-10 col-md-9 col-lg-10  overflow-y-auto custom-scroll py-0 my-0" style="min-height: 100vh;">
                 <div class="d-flex  align-items-center bg-white px-3 py-2 border-bottom">
                     <div class="d-none d-sm-block">
                         <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
