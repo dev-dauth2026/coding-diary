@@ -10,7 +10,8 @@
                 </div>
                 <div>
                     @auth
-                    @if(Auth::user()->favouriteBlogs->contains('blog_post_id',$post->id))
+
+                    @if($favourite==true)
                         <form id="remove-favourite-form-{{ $post->id }}" action="{{route('favourite.remove',$post->id)}}" method="POST" onsubmit="return confirmRemoveFavourite(event, {{ $post->id }});">
                             @csrf
                             @method('DELETE')

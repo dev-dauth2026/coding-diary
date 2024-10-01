@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\Blog_Like;
 use App\Models\WatchedBlog;
 use Illuminate\Http\Request;
+use App\Models\FavouriteBlog;
 use App\Helpers\ActivityHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +29,9 @@ class PostController extends Controller
         // Use helper function to track watched blogs
         ActivityHelper::trackWatchedBlog($post);
 
-        return view('blog',compact('post','posts','totalBlogs','comments'));
+        $favourite = Auth::user()->favouriteBlogs->contains('blog_post_id',$post->id);
+
+        return view('blog',compact('post','posts','totalBlogs','comments','favourite'));
     }
     public function allBlogs(){
 
@@ -74,6 +78,8 @@ class PostController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
 
+        $favourite = Auth::check()?Auth::user()->favouriteBlogs->contains('id',$post->id):false;
+
         // Retrieve all posts except the one with the given ID
         $posts = Post::where('status','published')->where('id', '!=', $id)->get();
         $totalBlogs =$posts->count();
@@ -84,8 +90,38 @@ class PostController extends Controller
             abort(404, 'Post not found');
         }
 
-        return view('blog', compact('post','posts','totalBlogs','comments'));
+        return view('blog', compact('post','posts','totalBlogs','comments','favourite'));
     }
+
+    public function addFavourite($id){
+
+        $post= Post::where('status','published')->findOrFail($id);
+
+        $favourite_blog = new FavouriteBlog();
+        $favourite_blog->user_id = Auth::id();
+        $favourite_blog->blog_post_id = $post->id;
+
+        $favourite_blog->save();
+
+        // Log activity
+        ActivityHelper::log('saved_favorite', 'liked a post', $favourite_blog->post);
+
+        return redirect()->route('blog.detail',$id)->with('success', 'Blog has been added to  favourites.');
+
+    }
+
+    public function removeFavourite($postId)
+{
+    $user = Auth::user();
+    $user->favouriteBlogs()->detach($postId);
+
+    // Log activity
+    $post = Post::findOrFail($postId);
+    ActivityHelper::log('removed_favorite', 'removed a post from a favorite list', $post);
+
+    return redirect()->back()->with('success', 'Blog has been removed from favourites.');
+}
+
 
 
     
