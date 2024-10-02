@@ -29,7 +29,8 @@ class PostController extends Controller
         // Use helper function to track watched blogs
         ActivityHelper::trackWatchedBlog($post);
 
-        $favourite = Auth::user()->favouriteBlogs->contains('blog_post_id',$post->id);
+        // Check whether the post is in favourite list or not
+        $favourite = Auth::check()?Auth::user()->favouriteBlogs->contains('id',$post->id):false;
 
         return view('blog',compact('post','posts','totalBlogs','comments','favourite'));
     }
