@@ -12,7 +12,7 @@
                 <div class="card shadow-sm border-0 border-start border-info-subtle">
                     <div class="card-body ">
                         <h5 class="card-title">Personal Information</h5>
-                        <form method="POST" action="{{route('username.change')}}">
+                        <form method="POST" action="{{route('username.change', Auth::user()->id)}}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
