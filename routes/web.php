@@ -1,11 +1,5 @@
 <?php
 
-use App\Http\Controllers\admin\AdminMessagesController;
-use App\Http\Controllers\user\UserActivitiesController;
-use App\Http\Controllers\user\UserNotificationsController;
-use App\Http\Controllers\user\UserSettingsController;
-use App\Http\Controllers\user\WatchedBlogController;
-use App\Http\Controllers\user_auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -17,18 +11,25 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\user\UserMessageController;
+use App\Http\Controllers\user\WatchedBlogController;
+use App\Http\Controllers\user\UserSettingsController;
 use App\Http\Controllers\admin\AdminProfileController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\user\FavouritePostController;
 use App\Http\Controllers\admin\AdminCommentsController;
+use App\Http\Controllers\admin\AdminMessagesController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\user\ChangePasswordController;
 use App\Http\Controllers\user\ChangeUserNameController;
+use App\Http\Controllers\user\UserActivitiesController;
 use App\Http\Controllers\admin\AdminUsersListController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\admin\AdminCategoriesController;
 use App\Http\Controllers\NewsLetterSubscriptionController;
+use App\Http\Controllers\user\UserNotificationsController;
+use App\Http\Controllers\user_auth\PasswordResetController;
 use App\Http\Controllers\admin\AdminPasswordChangeController;
+use App\Http\Controllers\admin\BusinessInformationController;
 use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\admin\LoginController as AdminLoginController;
@@ -98,7 +99,7 @@ Route::group(['prefix'=>'account'],function(){
         // Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::put('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
         Route::put('password/change',[ChangePasswordController::class,'changePassword'])->name('password.change');
-        Route::put('username/change',[ChangeUserNameController::class,'changeUserName'])->name('username.change');
+        Route::put('username/change/{user}',[ChangeUserNameController::class,'changeUserName'])->name('username.change');
         Route::put('profile_picture/change',[ChangeUserNameController::class,'changeProfilePicture'])->name('profile_picture.change');
 
 
@@ -220,6 +221,13 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('messages/{message}', [AdminMessagesController::class, 'show'])->name('admin.messages.show');
         Route::post('messages/{messageId}', [AdminMessagesController::class, 'reply'])->name('admin.messages.reply');
         Route::delete('messages/{id}', [AdminMessagesController::class, 'destroy'])->name('admin.messages.destroy');
+
+        //Business Information 
+        Route::get('business-information', [BusinessInformationController::class, 'show'])->name('admin.business-information.show');
+        Route::get('business-information/create', [BusinessInformationController::class, 'create'])->name('admin.business-information.create');
+        Route::post('business-information/store', [BusinessInformationController::class, 'store'])->name('admin.business-information.store');
+        Route::get('business-information/{businessInformation}/edit', [BusinessInformationController::class, 'edit'])->name('admin.business-information.edit');
+        Route::put('business-information/{businessInformation}', [BusinessInformationController::class, 'update'])->name('admin.business-information.update');
 
 
 

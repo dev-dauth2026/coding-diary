@@ -82,6 +82,13 @@
                         </div>
                     </a>
                 </li>
+                <li class="nav-item px-3 {{ request()->routeIs('admin.business-information.show') ? 'bg-secondary' : '' }}">
+                    <a class="nav-link {{ request()->routeIs('admin.business-information.show') ? 'active text-white' : 'text-secondary' }}" href="{{route('admin.business-information.show')}}">
+                        <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-circle-info sidebar-icon fs-4 me-3" style="width:25px;"></i> <span class="sidebar-text text-nowrap">Business Information</span>
+                        </div>
+                    </a>
+                </li>
                
              
                 <li class="nav-item px-3 logout-item mt-auto">
