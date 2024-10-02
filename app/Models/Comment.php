@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Observers\CommentObserver;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -37,5 +38,11 @@ class Comment extends Model
     public function scopeFeatured($query)
     {
         return $query->where('featured',1);
+    }
+
+    protected static function booted(): void
+    {
+        // Register the observer
+        static::observe(CommentObserver::class);
     }
 }

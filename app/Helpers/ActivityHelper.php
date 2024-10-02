@@ -23,8 +23,9 @@ class ActivityHelper
             'user_id' => Auth::id(),
             'activity_type' => $activityType,
             'description' => $description,
-            'subject_type' => $subject ? $subject->title : null,
-            'subject_id' => $subject ? $subject->id : null,
+            'subject_type' => is_object($subject) ? get_class($subject) : null,
+            'subject_id' => is_object($subject) ? $subject->id : null,
+
         ]);
     }
 

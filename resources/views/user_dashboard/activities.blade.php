@@ -52,11 +52,9 @@
                                     <div>
                                         <div>
                                          <i class="{{ $activity->icon }} me-2 text-primary"></i>
-                                        You {{ $activity->description }} 
+                                         {{ $activity->description }} 
                                         </div> 
-                                        <a href="{{ route('blog.detail', $activity->subject_id) }}" class="text-decoration-none text-info">
-                                            <strong>{{ ucfirst($activity->subject_type) }}</strong>
-                                        </a>
+                                       
                                     </div>
                                     <div>
                                         <small class="text-secondary">{{ $activity->created_at->diffForHumans() }}</small>

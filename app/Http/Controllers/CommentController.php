@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Blog_Like;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,9 @@ class CommentController extends Controller
         $comment->blog_post_id = $blogPostId;
         $comment->content = $request->content;
         $comment->save();
+
+         // Log the activity using ActivityHelper
+   
 
         return redirect()->route('blog.detail', $blogPostId)->with('success', 'Comment added successfully.');
     }
@@ -47,10 +51,12 @@ class CommentController extends Controller
         if($validator->fails()){
             return redirect()->back()->withInput()->withErrors($validator);
         }
+        
 
         // Update the comment content
         $comment->content = $request->updateContent;
         $comment->save();
+
 
          // Redirect back to the blog post with a success message
          return redirect()->back()->with('success', 'Comment updated successfully.');
@@ -65,6 +71,7 @@ class CommentController extends Controller
 
         // Delete the comment
         $comment->delete();
+
 
         // Redirect back to the blog post with a success message
         return redirect()->back()->with('success', 'Comment deleted successfully.');
@@ -93,6 +100,8 @@ class CommentController extends Controller
 
         $comment->save();
 
+        ActivityHelper::log('reply','You have replied to ' . '"' .$parent_comment->content . '"', $comment->blogPost);
+
         return redirect()->back()->with('success','You have replied to the comment successfully.');
 
     }
@@ -112,6 +121,7 @@ class CommentController extends Controller
         $comment->content = $request->replies_content;
 
         $comment->save();
+        
 
         return redirect()->back()->with('success','The comment has been successfully updated.');
     }
