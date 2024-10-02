@@ -17,21 +17,21 @@
                 </div>
                 <div class="col-md-4">
                     <h4>Contact Us</h4>
-                    <p class="text-white text-opacity-50">Email: codingdiary2020@gmail.com</p>
-                    <p class="text-white text-opacity-50">Address: 54 Brisbane City QLD 4000</p>
-                    <p class="text-white text-opacity-50">Phone: 0404243454</p>
+                    <p class="text-white text-opacity-50">Email: {{$businessInformation->email}} </p>
+                    <p class="text-white text-opacity-50">Address: {{$businessInformation->address}} </p>
+
                     <div class="mt-3">
                         <h4>Follow Us</h4>
-                        <a href="https://www.facebook.com" class="text-white text-opacity-50 mx-2">
+                        <a href="{{$businessInformation->facebook_link}}" class="text-white text-opacity-50 mx-2">
                             <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="https://www.youtube.com" class="text-white text-opacity-50 mx-2">
+                        <a href="{{$businessInformation->youtube_link}}" class="text-white text-opacity-50 mx-2">
                             <i class="bi bi-youtube" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="https://www.twitter.com" class="text-white text-opacity-50 mx-2">
+                        <a href="{{$businessInformation->twitter_link}}" class="text-white text-opacity-50 mx-2">
                             <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="https://www.instagram.com" class="text-white text-opacity-50 mx-2">
+                        <a href="{{$businessInformation->instagram_link}}" class="text-white text-opacity-50 mx-2">
                             <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
                         </a>
                     </div>
