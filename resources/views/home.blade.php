@@ -195,47 +195,19 @@
         <!-- Carousel for testimonials -->
         <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner  ">
-                <div class="carousel-item active" >
+                @foreach($featuredComments as $key => $featured)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }} " >
                     <div class="d-flex justify-content-center w-100">
                         <div class="testimonial d-flex flex-column align-items-center text-center bg-secondary bg-opacity-10 p-5 rounded-5" style="height: auto; width:400px">
-                            <img src="{{asset('storage/profile_picture/menprofile1.jpg')}}" alt="User Image" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
+                            <img src="{{$featured->user->profile_picture? asset('storage/' . $featured->user->profile_picture): asset('storage/profile_picture/profile_logo.jpg')}}" alt="User Image" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
                             <blockquote class="blockquote">
-                                <p class="mb-0">"Coding Diary has been instrumental in refining my coding skills with its clear, concise tutorials and examples."</p>
+                                <p class="mb-0">{{$featured->content}}</p>
                             </blockquote>
-                            <footer class="blockquote-footer">Jane Doe, <cite title="Company Name">Developer at Tech Co.</cite></footer>
+                            <footer class="blockquote-footer">{{$featured->user->name}}</footer>
                         </div>
-                    </div>
-                  
-                   
+                    </div>   
                 </div>
-                <div class="carousel-item" >
-                    <div class="d-flex justify-content-center w-100">
-                        <div class="testimonial d-flex flex-column align-items-center text-center bg-secondary bg-opacity-10 p-5 rounded-5" style="height: auto; width:400px">
-                            <img src="{{asset('storage/profile_picture/profile2.jpg')}}" alt="User Image" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
-                            <blockquote class="blockquote">
-                                <p class="mb-0">"Coding Diary has been instrumental in refining my coding skills with its clear, concise tutorials and examples."</p>
-                            </blockquote>
-                            <footer class="blockquote-footer">Jane Doe, <cite title="Company Name">Developer at Tech Co.</cite></footer>
-                        </div>
-                    </div>
-                  
-                   
-                </div>
-                <div class="carousel-item  " >
-                    <div class="d-flex justify-content-center w-100">
-                        <div class="testimonial d-flex flex-column align-items-center text-center  bg-secondary bg-opacity-10 p-5 rounded-5" style="height: auto; width:400px">
-                            <img src="{{asset('storage/profile_picture/profile3.jpg')}}" alt="User Image" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
-                            <blockquote class="blockquote">
-                                <p class="mb-0">"Coding Diary has been instrumental in refining my coding skills with its clear, concise tutorials and examples."</p>
-                            </blockquote>
-                            <footer class="blockquote-footer">Jane Doe, <cite title="Company Name">Developer at Tech Co.</cite></footer>
-                        </div>
-                    </div>
-                 
-                   
-                </div>
-             
-                <!-- Additional testimonial items -->
+                @endforeach
             </div>
             <a class="carousel-control-prev text-secondary" href="#testimonialCarousel" role="button" data-bs-slide="prev">
                 <i class="bi bi-chevron-left" style="font-size: 2rem; color: gray;"></i>

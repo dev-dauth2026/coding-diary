@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Newslettersubscription;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $featuredComments = Comment::featured()->latest()->limit(10)->get();
+        return view('home',compact('featuredComments'));
     }
+
+
 
 }

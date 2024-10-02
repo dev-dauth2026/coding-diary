@@ -33,4 +33,9 @@ class Comment extends Model
     {
         return $this->hasMany(Blog_Like::class,'comment_id');
     }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured',1);
+    }
 }
