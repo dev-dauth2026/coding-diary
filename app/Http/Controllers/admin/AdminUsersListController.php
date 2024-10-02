@@ -119,6 +119,15 @@ class AdminUsersListController extends Controller
     }
 
     public function userUpdate(Request $request,User $user){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id, // Ensure email is unique, excluding the current user's email
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
         $user->name= $request->name;
         $user->email= $request->email;
         $user->role_id= $request->role_id;
