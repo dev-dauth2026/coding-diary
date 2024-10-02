@@ -70,6 +70,7 @@
                                 <th scope="col">Comments</th>
                                 <th scope="col">Parent Comments</th>
                                 <th scope="col ">Verified</th>
+                                <th scope="col " style="width: 100px;">Featured</th>
                                 <th scope="col ">Action</th>
                               </tr>
                             </thead>
@@ -85,6 +86,17 @@
                                     <div class="d-flex  align-items-center ">
                                         <i class="fa-solid fa-circle-xmark text-danger"></i>
                                     </div>
+                                </td>
+                                <td style="width: 60px;">
+                                    <form action="{{route('admin.comment.featured',$comment->id)}}" method="POST" class="form-group w-100">
+                                        @csrf
+                                        @method('PUT')
+                                        <select name="featured" class="form-select form-select-sm w-100" onchange="this.form.submit()">
+                                            <option value="1" {{( $comment->featured==1)?'selected':''}}>True</option>
+                                            <option value="0"  {{( $comment->featured==0)?'selected':''}}>False</option>
+                                        </select>
+                                    </form>
+                                    
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">

@@ -100,4 +100,17 @@ class AdminCommentsController extends Controller
         return redirect()->back()->with('success','You have replied to the comment successfully.');
     }
     // reply method ends
+
+    public function featured(Request $request,Comment $comment){
+        $validatedData = $request->validate([
+            'featured' => 'required|boolean', // Assuming 'featured' is a boolean value (true/false)
+        ]);
+
+        $comment->featured = $validatedData['featured'];
+
+        $comment->save();
+
+        return redirect()->back()->with('success','Featured status has been successfully updated .');
+
+    }
 }

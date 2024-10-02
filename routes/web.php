@@ -212,6 +212,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::put('comments/{comment}',[AdminCommentsController::class,'updateComments'])->name('admin.comments.update');
         Route::delete('comments/{comment}',[AdminCommentsController::class,'destroy'])->name('admin.comments.delete');
         Route::post('blogs/comments/reply/{comment_id}',[AdminCommentsController::class,'reply'])->name('admin.comments.reply');
+        Route::put('blogs/comments/{comment}/featured',[AdminCommentsController::class,'featured'])->name('admin.comment.featured');
     
 
         Route::get('messages', [AdminMessagesController::class, 'index'])->name('admin.messages');
