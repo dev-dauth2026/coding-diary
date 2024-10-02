@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\FavouriteBlogObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +22,10 @@ class FavouriteBlog extends Model
 
     public function post(){
         return $this->belongsTo(Post::class,'blog_post_id');
+    }
+    protected static function booted(): void
+    {
+        // Register the observer
+        static::observe(FavouriteBlogObserver::class);
     }
 }

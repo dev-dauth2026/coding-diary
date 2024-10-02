@@ -104,8 +104,6 @@ class PostController extends Controller
 
         $favourite_blog->save();
 
-        // Log activity
-        ActivityHelper::log('saved_favorite', 'liked a post' . $favourite_blog->post->title, $favourite_blog);
 
         return redirect()->route('blog.detail',$id)->with('success', 'Blog has been added to  favourites.');
 
@@ -118,7 +116,7 @@ class PostController extends Controller
 
     // Log activity
     $post = Post::findOrFail($postId);
-    ActivityHelper::log('removed_favorite', 'removed a post ' . $post->title .  'from a favorite list', $post);
+    ActivityHelper::log('removed_favorite', 'removed a post "' . $post->title .  '" from a favorite list', $post);
 
     return redirect()->back()->with('success', 'Blog has been removed from favourites.');
 }
