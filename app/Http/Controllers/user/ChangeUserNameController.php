@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\user;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ChangeUserNameController extends Controller
 {
-    public function changeUserName(Request $request){
+    public function changeUserName(Request $request,User $user){
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:3',
-            'email' => 'required|email|exists:users,email|unique:users,email'
+            'email' => 'required|email|exists:users,email|unique:users,email,' . $user->id,
         ]);
 
         if($validator->fails()){
@@ -25,7 +26,7 @@ class ChangeUserNameController extends Controller
             'email' => $request->email
         ]);
     
-        return redirect()->route('account.account')->with('status', 'Name and Email has been updated sucessfully.');
+        return redirect()->route('account.account')->with('success', 'Name and Email has been updated sucessfully.');
     }
 
     public function changeProfilePicture(Request $request){
