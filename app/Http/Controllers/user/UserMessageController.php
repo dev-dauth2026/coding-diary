@@ -87,7 +87,7 @@ class UserMessageController extends Controller
         Gate::authorize('view', $message);
 
         // Mark message as read if not already
-        if (!$message->is_read) {
+        if (Auth::id() !== $message->sender_id &&!$message->is_read) {
             $message->update(['is_read' => true]);
         }
 
@@ -116,7 +116,7 @@ class UserMessageController extends Controller
         Gate::authorize('view', $message);
 
         // Mark message as read if not already
-        if (!$message->is_read) {
+        if (Auth::id() !== $message->sender_id &&!$message->is_read) {
             $message->update(['is_read' => true]);
         }
 

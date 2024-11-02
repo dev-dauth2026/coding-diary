@@ -99,6 +99,7 @@
                 />
 
                 <x-dashboard-nav-link 
+                id="unread-count"
                 conditionUrl="account/dashboard/comments"
                 url="account.comments"
                 icon="comment-dots"

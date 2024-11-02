@@ -42,6 +42,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 // Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 
 Route::get('/', [HomeController::class, 'index'])->name('account.home');
@@ -233,6 +234,9 @@ Route::group(['prefix'=>'admin'],function(){
 
 
         Route::post('logout',[AdminLoginController::class,'logout'])->name('admin.logout');
+
+       
+        
 
 
     });

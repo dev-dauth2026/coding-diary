@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    @if (auth('admin')->check())
+    <meta name="user-id" content="{{ auth('admin')->user()->id }}">
+    <meta name="user-role" content="admin">
+    @elseif (auth()->check())
+        <meta name="user-id" content="{{ auth()->user()->id }}">
+        <meta name="user-role" content="user">
+    @endif
+
+    <!-- Vite CSS and JavaScript -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <x-head.prism-highlighter></x-head.prism-highlighter>
 
     <x-head.tinymce-config/>
@@ -75,7 +86,11 @@
                         <p class="text-center">&copy; 2024 Coding Diary. All rights reserved. | <a href="privacy.html">Privacy Policy</a></p>
                     </div>
                 </footer>
+                
+                
             </main>
+            <x-message.notification-message/>
+
         
     </div>
 

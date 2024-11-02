@@ -42,7 +42,7 @@
 
         <div class="row">
             <!-- Left Column: Notifications List -->
-            <div class="col-md-6">
+            <div class="col-md-11">
                 <div class="card">
                     <ul class="list-group list-group-flush">
                         @forelse($notifications as $notification)
@@ -76,26 +76,7 @@
                 </div>
             </div>
 
-            <!-- Right Column: Notification Detail -->
-            <div class="col-md-6">
-                @if($selectedNotification)
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ ucfirst(str_replace('_', ' ', $selectedNotification->type)) }}</h5>
-                            <p class="card-text">{{ $selectedNotification->data['message'] }}</p>
-                            <p class="card-text"><small class="text-muted">{{ $selectedNotification->created_at->format('d M Y, h:i A') }}</small></p>
-                            <!-- Include more detailed information here based on your notification structure -->
-                            @if($selectedNotification->subject)
-                                <a href="{{ route('blog.detail', $selectedNotification->subject_id) }}" class="btn btn-primary">View Related Post</a>
-                            @endif
-                        </div>
-                    </div>
-                @else
-                    <div class="text-center">
-                        <p class="text-muted">Select a notification to view its details.</p>
-                    </div>
-                @endif
-            </div>
+        
         </div>
     </div>
 </x-user-dashboard-layout>

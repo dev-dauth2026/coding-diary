@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Observers\MessageObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use SebastianBergmann\Type\VoidType;
 
 class Message extends Model
 {
@@ -30,4 +32,5 @@ class Message extends Model
     {
         return $this->belongsTo(Message::class,'parent_id');
     }
+
 }

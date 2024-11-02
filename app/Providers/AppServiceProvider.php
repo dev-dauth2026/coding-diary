@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
+use App\Observers\MessageObserver;
 use App\Models\BusinessInformation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -29,9 +31,18 @@ class AppServiceProvider extends ServiceProvider
             $view->with('unreadMessageCount', $unreadMessageCount);
         });
 
+        View::composer('components.admin.admin-dashboard-navbar', function ($view) {
+            // Fetch unread messages for the authenticated user
+            $unreadMessageCount = Auth::guard('admin')->check() ? Auth::guard('admin')->user()->unreadMesssagesCount(): 0;
+            // Pass the count to the view
+            $view->with('unreadMessageCount', $unreadMessageCount);
+        });
+
         View::composer('*', function ($view) {
             $businessInformation = BusinessInformation::first();
             $view->with('businessInformation', $businessInformation);
         });
+
+        Message::observe(MessageObserver::class);
     }
 }

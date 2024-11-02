@@ -51,6 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail,CanResetPassword
         ];
     }
 
+    public function isAdmin()
+    {
+        return $this->role && $this->role->name === 'admin'; 
+    }
+
     public function author()
     {
         return $this->hasMany(Post::class,'author_id');

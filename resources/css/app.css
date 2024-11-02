@@ -12,3 +12,13 @@ li{
 a{
     text-decoration: none;
 }
+
+#notification-alert.show {
+    right: 20px; /* Slide in to visible position */
+    transition:  0.5s ease-in-out; /* Smooth slide-in animation */
+}
+
+#notification-alert.hide {
+    right: -100%; /* Slide back out of view */
+    transition:  0.5s ease-in-out;
+}
