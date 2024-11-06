@@ -19,11 +19,6 @@ class UserActivitiesController extends Controller
             ->orWhere('subject_type', 'LIKE', '%' . $request->search . '%');
         }
 
-        // Filter by activity type
-        if ($request->filled('activity_type')) {
-            $query->where('activity_type', $request->activity_type);
-        }
-
         // Filter by date range
         if ($request->filled('start_date') && $request->filled('end_date')) {
             $query->whereBetween('created_at', [$request->start_date, $request->end_date]);

@@ -10,18 +10,6 @@
                 <div class="col-md-4">
                     <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search activities...">
                 </div>
-                
-                <!-- Activity Type Filter -->
-                <div class="col-md-2">
-                    <select name="activity_type" class="form-select">
-                        <option value="">All Activities</option>
-                        <option value="liked" {{ request('activity_type') == 'liked' ? 'selected' : '' }}>Liked</option>
-                        <option value="disliked" {{ request('activity_type') == 'disliked' ? 'selected' : '' }}>Disliked</option>
-                        <option value="comment_added" {{ request('activity_type') == 'comment_added' ? 'selected' : '' }}>Commented</option>
-                        <option value="post_created" {{ request('activity_type') == 'post_created' ? 'selected' : '' }}>Post Created</option>
-                        <!-- Add more activity types as needed -->
-                    </select>
-                </div>
 
                 <!-- Start Date Filter -->
                 <div class="col-md-2">
