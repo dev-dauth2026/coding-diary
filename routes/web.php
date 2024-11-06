@@ -143,7 +143,7 @@ Route::group(['prefix'=>'account'],function(){
 
         // User Dashboard notification page
         Route::get('notifications', [UserNotificationsController::class, 'index'])->name('account.notifications');
-        Route::post('notifications/{id}/mark-as-read', [UserNotificationsController::class, 'markAsRead'])->name('account.notifications.markAsRead');
+        Route::post('notifications/{notification}/mark-as-read', [UserNotificationsController::class, 'markAsRead'])->name('account.notifications.markAsRead');
 
          // User Dashboard notification page
          Route::get('/activities', [UserActivitiesController::class, 'index'])->name('account.activities.index');

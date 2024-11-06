@@ -13,14 +13,6 @@
                     <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search notifications...">
                 </div>
                 
-                <!-- Read Status Filter -->
-                <div class="col-md-2">
-                    <select name="is_read" class="form-select">
-                        <option value="">All Statuses</option>
-                        <option value="0" {{ request('is_read') === '0' ? 'selected' : '' }}>Unread</option>
-                        <option value="1" {{ request('is_read') === '1' ? 'selected' : '' }}>Read</option>
-                    </select>
-                </div>
 
                 <!-- Start Date Filter -->
                 <div class="col-md-2">
@@ -51,17 +43,11 @@
                                     <!-- Display notification icon and message -->
                                     <i class="{{ $notification->type == 'comment' ? 'fas fa-comment' : 'fas fa-heart' }} me-2 text-primary"></i>
                                     <a href="{{ route('account.notifications', ['id' => $notification->id]) }}" class="text-decoration-none {{$notification->is_read ? 'text-secondary' : 'text-dark'}}">
-                                     {{$notification->user->name}}   {{ $notification->data['message'] }}
+                                     {{$notification->user->name}}   {{ $notification->data['content'] }}
                                     </a>
                                 </div>
                                 <div>
                                     <small class="text-secondary">{{ $notification->created_at->diffForHumans() }}</small>
-                                    @if(!$notification->is_read)
-                                        <form action="{{ route('account.notifications.markAsRead', $notification->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-primary">Mark as Read</button>
-                                        </form>
-                                    @endif
                                 </div>
                             </li>
                         @empty
