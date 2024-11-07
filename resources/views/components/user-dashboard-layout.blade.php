@@ -58,26 +58,35 @@
 <body>
     <div class="container-fluid mx-0 px-0 d-flex position-relative">
            <x-user-dashboard-navbar />
-            <main id="main" class="col-10 col-sm-10 col-md-9 col-lg-10  overflow-y-auto custom-scroll py-0 my-0" style="min-height: 100vh;">
-                <div class="d-flex  align-items-center bg-white px-3 py-2 border-bottom">
-                    <div class="d-none d-sm-block">
-                        <button class="btn btn-transparent p-0 m-0" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
+            <main id="main" class="col-12 col-sm-12 col-md-9 col-lg-10  overflow-y-auto custom-scroll py-0 my-0 " style="min-height: 100vh;">
+                <div class="d-flex justify-content-between  align-items-center bg-white px-3 py-2 border-bottom">
+                    <div class="">
+                        <button class="btn btn-transparent p-0 m-0 d-none d-sm-block" type="button" onclick="toggleSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
+                        <button class="btn btn-transparent p-0 m-0 d-block d-sm-none" type="button" onclick="toggleSmallDeviceSidebar()"><i class="fa-solid fa-bars fs-4 text-secondary"></i></button>
                     </div>
-                    <div class="d-flex align-items-center ms-auto">
+                    <div>
+                        <a class="navbar-brand sidebar-logo2 " href="{{route('account.home')}}">
+                            <div class="d-flex gap-2 align-items-center " style="height: 60px;">
+                                <div class=" h-100">
+                                    <img src="{{ asset('storage/logo/logo2.png') }}" alt="Coding Diary Logo" class="" style="height: 50px; width: 50px; object-fit: cover">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                
+                    <div class="d-flex align-items-center ">
                         @if (Auth::check())
-                        @if (Auth::user()->profile_picture)
-                        <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">
-                        @else
-                        <i class="fa fa-user-circle fs-4"></i>
-                        @endif
-                        <a class="text-decoration-none text-secondary me-3 text-nowrap " href="#"> ({{ Auth::user()->name }})</a>
+                            @if (Auth::user()->profile_picture)
+                                 <img src="{{asset('storage/' . Auth::user()->profile_picture)}}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%">
+                            @else
+                                 <i class="fa fa-user-circle fs-4"></i>
+                            @endif
+                            <a class="text-decoration-none text-secondary me-3 text-nowrap d-sm-block d-none" href="#"> ({{ Auth::user()->name }})</a>
                         
                         @endif
                     </div>
-
-
-                   
                 </div>
+
                 <div id="main-content">
                     {{$slot}}
                 </div>
@@ -131,6 +140,17 @@
     document.addEventListener('DOMContentLoaded', (event) => {
     Prism.highlightAll();
     });
+
+    function toggleSmallDeviceSidebar(){
+        let sidebarMenu = document.getElementById('sidebarMenu');
+        sidebarMenu.style.transform = 'translateX(0)';
+    }
+
+    // function sideBarMenuClose() {
+
+    // let sidebarMenu = document.getElementById('sideBarMenu');
+    // sideBarMenu.style.transform = 'translateX(-100%)';
+    // }
 </script>
 </body>
 </html>
