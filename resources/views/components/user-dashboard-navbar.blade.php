@@ -172,8 +172,18 @@
 <script>
     function sideBarMenuClose() {
 
-        var sideBarMenu = document.getElementById('sidebarMenu');
-        sideBarMenu.style.transform = 'translateX(-100%)';
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        sidebarMenu.style.transform = 'translateX(-100%)';
+
+        // Remove event listener after closing
+        document.removeEventListener('click', closeSidebarOnClickOutside);
+    }
+
+    function closeSidebarOnClickOutside(event) {
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        if (!sidebarMenu.contains(event.target)) { // Check if click was outside sidebar
+            sideBarMenuClose();
+        }
     }
 </script>
 

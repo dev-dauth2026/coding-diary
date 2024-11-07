@@ -142,8 +142,13 @@
     });
 
     function toggleSmallDeviceSidebar(){
-        let sidebarMenu = document.getElementById('sidebarMenu');
+        const sidebarMenu = document.getElementById('sidebarMenu');
         sidebarMenu.style.transform = 'translateX(0)';
+
+        // Add event listener with a slight delay to allow the open button click to finish
+        setTimeout(() => {
+            document.addEventListener('click', closeSidebarOnClickOutside);
+        }, 100);
     }
 
     // function sideBarMenuClose() {
